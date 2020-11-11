@@ -1,0 +1,16 @@
+
+*************************
+*     Controller(s)     *
+*************************
+
+
+                                      |   Up Time   |                   |Encl|                |Inter-Ctlr Comm |         Firmware Version       |
+Idx|Name          |Mastership|Locality|   D: H: M: S|RP|       ID       |Idx |       ULA      |State|ServicesUp|     Release    |Version|  Type |
+-------------------------------------------------------------------------------------------------------------------------------------------------
+  0 A              PRIMARY     LOCAL   0079:23:29:15  1 0001ff0a188e0000   0  00000001ff0a188e Up    DG+Msg+MAD 3.1.2.0            35872 Product
+  1 B              SECONDARY   REMOTE  0079:23:28:56  1 0001ff0a18ae0000   2  00000001ff0a188e Up    DG+Msg+MAD 3.1.2.0            35872 Product
+
+Total Controllers: 2
+
+
+Thu Sep  3 16:55:27 2020

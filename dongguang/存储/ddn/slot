@@ -1,0 +1,74 @@
+
+************************
+*     Disk Slot(s)     *
+************************
+
+
+   |Enclosure|   |     Physical Disk     |Power|       |      Indicators        |
+Idx|Idx |Pos |Pos| Idx|ID                |State|Present|OK |Fault|Failure|Locate|SES Status
+-------------------------------------------------------------------------------------------
+  1    1    1   1   75 0x5000cca260994580   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  2    1    1   2   97 0x5000cca260bfee3c   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  3    1    1   3   98 0x5000cca260beb47c   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  4    1    1   4   67 0x5000cca2609f2d50   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  5    1    1   5  113 0x5000cca260bfe3a8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  6    1    1   6   72 0x5000cca260be6824   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  7    1    1   7   83 0x5000cca2609939b0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  8    1    1   8   81 0x5000cca2609a1ac8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+  9    1    1   9   73 0x5000cca2609a1e98   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 10    1    1  10   70 0x5000cca260994a60   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 11    1    1  11  120 0x5000cca260bfdfe8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 12    1    1  12   68 0x5000cca2609f1e60   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 13    1    1  13  101 0x5000cca26099b8a8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 14    1    1  14   69 0x5000cca260991290   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 15    1    1  15   65 0x5000cca260993230   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 16    1    1  16  117 0x5000cca260bfe5d0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 17    1    1  17  103 0x5000cca260beb4a8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 18    1    1  18   64 0x5000cca2607b1964   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 19    1    1  19   92 0x5000cca260bfe510   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 20    1    1  20  109 0x5000cca260c2c7a4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 21    1    1  21   93 0x5000cca260bfe218   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 22    1    1  22  100 0x5000cca260bccc70   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 23    1    1  23  110 0x5000cca260bab6c0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 24    1    1  24   66 0x5000cca260ba4c0c   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 25    1    1  25  108 0x5000cca260bfed80   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 26    1    1  26   90 0x5000cca260bfe00c   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 27    1    1  27  119 0x5000cca260bfe1e4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 28    1    1  28   84 0x5000cca260beb518   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 29    1    1  29  114 0x5000cca260bfe7a4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 30    1    1  30   88 0x5000cca260c2c818   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 31    1    1  31   94 0x5000cca260c2ca30   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 32    1    1  32  118 0x5000cca260bfefc8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 33    1    1  33   85 0x5000cca2609a1ed4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 34    1    1  34   99 0x5000cca2608ff370   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 35    1    1  35   74 0x5000cca260be6730   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 36    1    1  36   71 0x5000cca2609e3e68   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 37    1    1  37  106 0x5000cca260bfe778   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 38    1    1  38  102 0x5000cca260c2cc84   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 39    1    1  39   77 0x5000cca2609fc108   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 40    1    1  40   89 0x5000cca2606993ac   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 41    1    1  41   82 0x5000cca2609a499c   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 42    1    1  42   80 0x5000cca2609908d8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 43    1    1  43   86 0x5000cca260993bc8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 44    1    1  44   61 0x5000cca2607b1620   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 45    1    1  45   91 0x5000cca260714df0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 46    1    1  46  116 0x5000cca260bfdfb8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 47    1    1  47  115 0x5000cca260baefac   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 48    1    1  48  105 0x5000cca260bfed70   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 49    1    1  49   79 0x5000cca260be6950   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 50    1    1  50   87 0x5000cca260bc8b58   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 51    1    1  51   95 0x5000cca260be66b0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 52    1    1  52  107 0x5000cca260bc87e4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 53    1    1  53  104 0x5000cca260c2c990   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 54    1    1  54   96 0x5000cca260bfee30   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 55    1    1  55  112 0x5000cca260c2cdb4   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 56    1    1  56   76 0x5000cca2609d8938   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 57    1    1  57   62 0x5000cca2609f1e00   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 58    1    1  58   78 0x5000cca260be09a8   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 59    1    1  59   63 0x5000cca2609e4800   ON    TRUE  OFF  OFF    OFF    OFF   OK
+ 60    1    1  60  111 0x5000cca2609bf5b0   ON    TRUE  OFF  OFF    OFF    OFF   OK
+
+Total Disk Slots: 60
+
+
+Thu Sep  3 16:57:45 2020

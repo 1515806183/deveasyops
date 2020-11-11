@@ -1,0 +1,84 @@
+
+****************************
+*     Physical Disk(s)     *
+****************************
+
+
+Enclosure|                                                                                       |Health|                             |Block|
+Idx |Pos |Slot| Vendor |     Product ID     |Type|Cap GB | RPM|Revision|    Serial Number   |Pool|State | Idx|State |       WWN       |Size |
+---------------------------------------------------------------------------------------------------------------------------------------------
+   1    1    1 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR93GV                6  SPARE   75 NORM    5000cca260994580   4K
+   1    1    2 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDK6EV                3  GOOD    97 NORM    5000cca260bfee3c   4K
+   1    1    3 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBW9PV                3  GOOD    98 NORM    5000cca260beb47c   4K
+   1    1    4 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJUJTMV                0  GOOD    67 NORM  + 5000cca2609f2d50   4K
+   1    1    5 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJHLV                5  GOOD   113 NORM    5000cca260bfe3a8   4K
+   1    1    6 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBR72V                0  GOOD    72 NORM  + 5000cca260be6824   4K
+   1    1    7 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR8A2V                2  GOOD    83 NORM    5000cca2609939b0   4K
+   1    1    8 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJRS9TV                2  GOOD    81 NORM    5000cca2609a1ac8   4K
+   1    1    9 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJRSKNV                1  GOOD    73 NORM  + 5000cca2609a1e98   4K
+   1    1   10 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR9EJV                1  GOOD    70 NORM  + 5000cca260994a60   4K
+   1    1   11 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJ7VV                6  SPARE  120 NORM    5000cca260bfdfe8   4K
+   1    1   12 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJUHTTV                0  GOOD    68 NORM  + 5000cca2609f1e60   4K
+   1    1   13 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJRJT6V                3  GOOD   101 NORM    5000cca26099b8a8   4K
+   1    1   14 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR5R9V                0  GOOD    69 NORM  + 5000cca260991290   4K
+   1    1   15 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR7ULV                0  GOOD    65 NORM  + 5000cca260993230   4K
+   1    1   16 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJN1V                1  GOOD   117 NORM    5000cca260bfe5d0   4K
+   1    1   17 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBWA1V                4  GOOD   103 NORM    5000cca260beb4a8   4K
+   1    1   18 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJ5PPXV                0  GOOD    64 NORM  + 5000cca2607b1964   4K
+   1    1   19 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJLHV                3  GOOD    92 NORM    5000cca260bfe510   4K
+   1    1   20 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG3T9V                4  GOOD   109 NORM    5000cca260c2c7a4   4K
+   1    1   21 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJDBV                3  GOOD    93 NORM    5000cca260bfe218   4K
+   1    1   22 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKAUU3V                4  GOOD   100 NORM    5000cca260bccc70   4K
+   1    1   23 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLK9P89V                5  GOOD   110 NORM    5000cca260bab6c0   4K
+   1    1   24 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLK9G50V                0  GOOD    66 NORM  + 5000cca260ba4c0c   4K
+   1    1   25 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDK4XV                5  GOOD   108 NORM    5000cca260bfed80   4K
+   1    1   26 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJ84V                2  GOOD    90 NORM    5000cca260bfe00c   4K
+   1    1   27 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJBYV                6  SPARE  119 NORM    5000cca260bfe1e4   4K
+   1    1   28 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBWAYV                2  GOOD    84 NORM    5000cca260beb518   4K
+   1    1   29 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJSUV                5  GOOD   114 NORM    5000cca260bfe7a4   4K
+   1    1   30 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG3U7V                2  GOOD    88 NORM    5000cca260c2c818   4K
+   1    1   31 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG3YKV                3  GOOD    94 NORM    5000cca260c2ca30   4K
+   1    1   32 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDK9MV                6  SPARE  118 NORM    5000cca260bfefc8   4K
+   1    1   33 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJRSL4V                2  GOOD    85 NORM    5000cca2609a1ed4   4K
+   1    1   34 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJK56DV                3  GOOD    99 NORM    5000cca2608ff370   4K
+   1    1   35 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBR53V                1  GOOD    74 NORM  + 5000cca260be6730   4K
+   1    1   36 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJU0WDV                1  GOOD    71 NORM  + 5000cca2609e3e68   4K
+   1    1   37 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJSGV                5  GOOD   106 NORM    5000cca260bfe778   4K
+   1    1   38 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG43BV                4  GOOD   102 NORM    5000cca260c2cc84   4K
+   1    1   39 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJUVMLV                1  GOOD    77 NORM  + 5000cca2609fc108   4K
+   1    1   40 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLHW1Z2V                2  GOOD    89 NORM    5000cca2606993ac   4K
+   1    1   41 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJRVEGV                1  GOOD    82 NORM    5000cca2609a499c   4K
+   1    1   42 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR527V                1  GOOD    80 NORM    5000cca2609908d8   4K
+   1    1   43 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJR8GDV                2  GOOD    86 NORM    5000cca260993bc8   4K
+   1    1   44 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJ5PH5V                0  GOOD    61 NORM  + 5000cca2607b1620   4K
+   1    1   45 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJ09R7V                3  GOOD    91 NORM    5000cca260714df0   4K
+   1    1   46 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDJ7GV                5  GOOD   116 NORM    5000cca260bfdfb8   4K
+   1    1   47 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLK9U1UV                5  GOOD   115 NORM    5000cca260baefac   4K
+   1    1   48 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDK4TV                4  GOOD   105 NORM    5000cca260bfed70   4K
+   1    1   49 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBR9HV                1  GOOD    79 NORM  + 5000cca260be6950   4K
+   1    1   50 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKAPGRV                2  GOOD    87 NORM    5000cca260bc8b58   4K
+   1    1   51 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBR42V                3  GOOD    95 NORM    5000cca260be66b0   4K
+   1    1   52 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKAP7LV                5  GOOD   107 NORM    5000cca260bc87e4   4K
+   1    1   53 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG3X8V                4  GOOD   104 NORM    5000cca260c2c990   4K
+   1    1   54 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKDK6AV                3  GOOD    96 NORM    5000cca260bfee30   4K
+   1    1   55 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKG45UV                5  GOOD   112 NORM    5000cca260c2cdb4   4K
+   1    1   56 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJTMUAV                1  GOOD    76 NORM  + 5000cca2609d8938   4K
+   1    1   57 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJUHT0V                0  GOOD    62 NORM  + 5000cca2609f1e00   4K
+   1    1   58 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLKBHY0V                2  GOOD    78 NORM  + 5000cca260be09a8   4K
+   1    1   59 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJU1J6V                0  GOOD    63 NORM  + 5000cca2609e4800   4K
+   1    1   60 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     VLJSSY7V                5  GOOD   111 NORM    5000cca2609bf5b0   4K
+---------------------------------------------------------------------------------------------------------------------------------------------
+    | NUM| Vendor |     Product ID     |Type|Cap GB | RPM|Revision|Block Size|
+---------------------------------------------------------------------------------------------------------------------------------------------
+Found: 60 HGST     HUH728080AL4200       SAS    7452 7.2K A7JD     4K
+
+Number of distinguished models:  1
+
+Total Physical Disks:      60
+Total Assigned Disks:      60
+Total Unassigned Disks:    0
+  Total SAS Disks:         60
+  Total Member State Normal:   60
+
+
+Thu Sep  3 16:58:04 2020

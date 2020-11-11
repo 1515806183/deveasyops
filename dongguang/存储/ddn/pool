@@ -1,0 +1,20 @@
+
+*******************
+*     Pool(s)     *
+*******************
+
+
+                                                     |Total |Free  |Max   |                   |Disk|  Global  |Spare |Block
+Idx |Name            |State      |Chunk|Raid| Faults |cap GB|cap GB|VD GB | Settings  | Jobs  |T/O |spare pool|Policy|Size
+---------------------------------------------------------------------------------------------------------------------------
+   0 pool-0           NORMAL       256K  6             74400      0      0 TWM ReIV       V     10        6     AUTO   4K
+   1 pool-1           NORMAL       256K  6             74400      0      0 TWM ReIV       V     10        6     AUTO   4K
+   2 pool-2           NORMAL       256K  6             74400      0      0 TWM ReIV       V     10        6     AUTO   4K
+   3 pool-3           NORMAL       256K  6             74400      0      0 TWM ReIV       V     10        6     AUTO   4K
+   4 pool-4           NORMAL       256K  6             44640      0      0 TWM ReIV       V     10        6     AUTO   4K
+   5 pool-5           NORMAL       256K  6             74400      0      0 TWM ReIV       V     10        6     AUTO   4K
+
+Total Storage Pools: 6
+
+
+Thu Sep  3 16:58:24 2020

@@ -1,0 +1,461 @@
+ id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+0  lbbopdb_crsdg_01 4       0       lbbopdb1  600507640081830E5800000000000000 0           io_grp0       shared       0               lbbopdb           scsi
+0  lbbopdb_crsdg_01 4       1       lbbopdb2  600507640081830E5800000000000000 0           io_grp0       shared       0               lbbopdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+1  lbbopdb_crsdg_02 5       0       lbbopdb1  600507640081830E5800000000000001 0           io_grp0       shared       0               lbbopdb           scsi
+1  lbbopdb_crsdg_02 5       1       lbbopdb2  600507640081830E5800000000000001 0           io_grp0       shared       0               lbbopdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+2  lbbopdb_crsdg_03 6       0       lbbopdb1  600507640081830E5800000000000002 0           io_grp0       shared       0               lbbopdb           scsi
+2  lbbopdb_crsdg_03 6       1       lbbopdb2  600507640081830E5800000000000002 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+3  lbbopdb_datadg_01 7       0       lbbopdb1  600507640081830E5800000000000003 0           io_grp0       shared       0               lbbopdb           scsi
+3  lbbopdb_datadg_01 7       1       lbbopdb2  600507640081830E5800000000000003 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+4  lbbopdb_datadg_02 8       0       lbbopdb1  600507640081830E5800000000000004 0           io_grp0       shared       0               lbbopdb           scsi
+4  lbbopdb_datadg_02 8       1       lbbopdb2  600507640081830E5800000000000004 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+5  lbbopdb_datadg_03 9       0       lbbopdb1  600507640081830E5800000000000005 0           io_grp0       shared       0               lbbopdb           scsi
+5  lbbopdb_datadg_03 9       1       lbbopdb2  600507640081830E5800000000000005 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+6  lbbopdb_datadg_04 10      0       lbbopdb1  600507640081830E5800000000000006 0           io_grp0       shared       0               lbbopdb           scsi
+6  lbbopdb_datadg_04 10      1       lbbopdb2  600507640081830E5800000000000006 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+7  lbbopdb_datadg_05 11      0       lbbopdb1  600507640081830E5800000000000007 0           io_grp0       shared       0               lbbopdb           scsi
+7  lbbopdb_datadg_05 11      1       lbbopdb2  600507640081830E5800000000000007 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+8  lbbopdb_datadg_06 12      0       lbbopdb1  600507640081830E5800000000000008 0           io_grp0       shared       0               lbbopdb           scsi
+8  lbbopdb_datadg_06 12      1       lbbopdb2  600507640081830E5800000000000008 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+9  lbbopdb_datadg_07 13      0       lbbopdb1  600507640081830E5800000000000009 0           io_grp0       shared       0               lbbopdb           scsi
+9  lbbopdb_datadg_07 13      1       lbbopdb2  600507640081830E5800000000000009 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+10 lbbopdb_datadg_08 14      0       lbbopdb1  600507640081830E580000000000000A 0           io_grp0       shared       0               lbbopdb           scsi
+10 lbbopdb_datadg_08 14      1       lbbopdb2  600507640081830E580000000000000A 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+11 lbbopdb_archdg_01 0       0       lbbopdb1  600507640081830E580000000000000B 0           io_grp0       shared       0               lbbopdb           scsi
+11 lbbopdb_archdg_01 0       1       lbbopdb2  600507640081830E580000000000000B 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+12 lbbopdb_archdg_02 1       0       lbbopdb1  600507640081830E580000000000000C 0           io_grp0       shared       0               lbbopdb           scsi
+12 lbbopdb_archdg_02 1       1       lbbopdb2  600507640081830E580000000000000C 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+13 lbbopdb_archdg_03 2       0       lbbopdb1  600507640081830E580000000000000D 0           io_grp0       shared       0               lbbopdb           scsi
+13 lbbopdb_archdg_03 2       1       lbbopdb2  600507640081830E580000000000000D 0           io_grp0       shared       0               lbbopdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+14 lbbopdb_archdg_04 3       0       lbbopdb1  600507640081830E580000000000000E 0           io_grp0       shared       0               lbbopdb           scsi
+14 lbbopdb_archdg_04 3       1       lbbopdb2  600507640081830E580000000000000E 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+15 lbbopdb_redovg1_01 16      0       lbbopdb1  600507640081830E580000000000000F 0           io_grp0       shared       0               lbbopdb           scsi
+15 lbbopdb_redovg1_01 16      1       lbbopdb2  600507640081830E580000000000000F 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+16 lbbopdb_redovg1_02 17      0       lbbopdb1  600507640081830E5800000000000010 0           io_grp0       shared       0               lbbopdb           scsi
+16 lbbopdb_redovg1_02 17      1       lbbopdb2  600507640081830E5800000000000010 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+17 lbbopdb_redovg1_03 18      0       lbbopdb1  600507640081830E5800000000000011 0           io_grp0       shared       0               lbbopdb           scsi
+17 lbbopdb_redovg1_03 18      1       lbbopdb2  600507640081830E5800000000000011 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+18 lbbopdb_redovg1_04 19      0       lbbopdb1  600507640081830E5800000000000012 0           io_grp0       shared       0               lbbopdb           scsi
+18 lbbopdb_redovg1_04 19      1       lbbopdb2  600507640081830E5800000000000012 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+19 lbbopdb_redovg2_01 20      0       lbbopdb1  600507640081830E5800000000000013 0           io_grp0       shared       0               lbbopdb           scsi
+19 lbbopdb_redovg2_01 20      1       lbbopdb2  600507640081830E5800000000000013 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+20 lbbopdb_redovg2_02 21      0       lbbopdb1  600507640081830E5800000000000014 0           io_grp0       shared       0               lbbopdb           scsi
+20 lbbopdb_redovg2_02 21      1       lbbopdb2  600507640081830E5800000000000014 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+21 lbbopdb_redovg2_03 22      0       lbbopdb1  600507640081830E5800000000000015 0           io_grp0       shared       0               lbbopdb           scsi
+21 lbbopdb_redovg2_03 22      1       lbbopdb2  600507640081830E5800000000000015 0           io_grp0       shared       0               lbbopdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+22 lbbopdb_redovg2_04 23      0       lbbopdb1  600507640081830E5800000000000016 0           io_grp0       shared       0               lbbopdb           scsi
+22 lbbopdb_redovg2_04 23      1       lbbopdb2  600507640081830E5800000000000016 0           io_grp0       shared       0               lbbopdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+23 lbbopdb_ddsvg_01 15      0       lbbopdb1  600507640081830E5800000000000017 0           io_grp0       shared       0               lbbopdb           scsi
+23 lbbopdb_ddsvg_01 15      1       lbbopdb2  600507640081830E5800000000000017 0           io_grp0       shared       0               lbbopdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+24 lbcrmdb_crsdg_01 4       6       lbcrmdb1  600507640081830E5800000000000018 0           io_grp0       shared       2               lbcrmdb           scsi
+24 lbcrmdb_crsdg_01 4       7       lbcrmdb2  600507640081830E5800000000000018 0           io_grp0       shared       2               lbcrmdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+25 lbcrmdb_crsdg_02 5       6       lbcrmdb1  600507640081830E5800000000000019 0           io_grp0       shared       2               lbcrmdb           scsi
+25 lbcrmdb_crsdg_02 5       7       lbcrmdb2  600507640081830E5800000000000019 0           io_grp0       shared       2               lbcrmdb           scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+26 lbcrmdb_crsdg_03 6       6       lbcrmdb1  600507640081830E580000000000001A 0           io_grp0       shared       2               lbcrmdb           scsi
+26 lbcrmdb_crsdg_03 6       7       lbcrmdb2  600507640081830E580000000000001A 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+27 lbcrmdb_datadg_01 7       6       lbcrmdb1  600507640081830E580000000000001B 0           io_grp0       shared       2               lbcrmdb           scsi
+27 lbcrmdb_datadg_01 7       7       lbcrmdb2  600507640081830E580000000000001B 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+28 lbcrmdb_datadg_02 8       6       lbcrmdb1  600507640081830E580000000000001C 0           io_grp0       shared       2               lbcrmdb           scsi
+28 lbcrmdb_datadg_02 8       7       lbcrmdb2  600507640081830E580000000000001C 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+29 lbcrmdb_datadg_03 9       6       lbcrmdb1  600507640081830E580000000000001D 0           io_grp0       shared       2               lbcrmdb           scsi
+29 lbcrmdb_datadg_03 9       7       lbcrmdb2  600507640081830E580000000000001D 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+30 lbcrmdb_datadg_04 10      6       lbcrmdb1  600507640081830E580000000000001E 0           io_grp0       shared       2               lbcrmdb           scsi
+30 lbcrmdb_datadg_04 10      7       lbcrmdb2  600507640081830E580000000000001E 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+31 lbcrmdb_datadg_05 11      6       lbcrmdb1  600507640081830E580000000000001F 0           io_grp0       shared       2               lbcrmdb           scsi
+31 lbcrmdb_datadg_05 11      7       lbcrmdb2  600507640081830E580000000000001F 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+32 lbcrmdb_datadg_06 12      6       lbcrmdb1  600507640081830E5800000000000020 0           io_grp0       shared       2               lbcrmdb           scsi
+32 lbcrmdb_datadg_06 12      7       lbcrmdb2  600507640081830E5800000000000020 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+33 lbcrmdb_datadg_07 13      6       lbcrmdb1  600507640081830E5800000000000021 0           io_grp0       shared       2               lbcrmdb           scsi
+33 lbcrmdb_datadg_07 13      7       lbcrmdb2  600507640081830E5800000000000021 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+34 lbcrmdb_datadg_08 14      6       lbcrmdb1  600507640081830E5800000000000022 0           io_grp0       shared       2               lbcrmdb           scsi
+34 lbcrmdb_datadg_08 14      7       lbcrmdb2  600507640081830E5800000000000022 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+35 lbcrmdb_datadg_09 15      6       lbcrmdb1  600507640081830E5800000000000023 0           io_grp0       shared       2               lbcrmdb           scsi
+35 lbcrmdb_datadg_09 15      7       lbcrmdb2  600507640081830E5800000000000023 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+36 lbcrmdb_datadg_10 16      6       lbcrmdb1  600507640081830E5800000000000024 0           io_grp0       shared       2               lbcrmdb           scsi
+36 lbcrmdb_datadg_10 16      7       lbcrmdb2  600507640081830E5800000000000024 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+37 lbcrmdb_datadg_11 17      6       lbcrmdb1  600507640081830E5800000000000025 0           io_grp0       shared       2               lbcrmdb           scsi
+37 lbcrmdb_datadg_11 17      7       lbcrmdb2  600507640081830E5800000000000025 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+38 lbcrmdb_datadg_12 18      6       lbcrmdb1  600507640081830E5800000000000026 0           io_grp0       shared       2               lbcrmdb           scsi
+38 lbcrmdb_datadg_12 18      7       lbcrmdb2  600507640081830E5800000000000026 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+39 lbcrmdb_datadg_13 19      6       lbcrmdb1  600507640081830E5800000000000027 0           io_grp0       shared       2               lbcrmdb           scsi
+39 lbcrmdb_datadg_13 19      7       lbcrmdb2  600507640081830E5800000000000027 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+40 lbcrmdb_datadg_14 20      6       lbcrmdb1  600507640081830E5800000000000028 0           io_grp0       shared       2               lbcrmdb           scsi
+40 lbcrmdb_datadg_14 20      7       lbcrmdb2  600507640081830E5800000000000028 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+41 lbcrmdb_datadg_15 21      6       lbcrmdb1  600507640081830E5800000000000029 0           io_grp0       shared       2               lbcrmdb           scsi
+41 lbcrmdb_datadg_15 21      7       lbcrmdb2  600507640081830E5800000000000029 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+42 lbcrmdb_datadg_16 22      6       lbcrmdb1  600507640081830E580000000000002A 0           io_grp0       shared       2               lbcrmdb           scsi
+42 lbcrmdb_datadg_16 22      7       lbcrmdb2  600507640081830E580000000000002A 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+43 lbcrmdb_datadg_17 23      6       lbcrmdb1  600507640081830E580000000000002B 0           io_grp0       shared       2               lbcrmdb           scsi
+43 lbcrmdb_datadg_17 23      7       lbcrmdb2  600507640081830E580000000000002B 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+44 lbcrmdb_datadg_18 24      6       lbcrmdb1  600507640081830E580000000000002C 0           io_grp0       shared       2               lbcrmdb           scsi
+44 lbcrmdb_datadg_18 24      7       lbcrmdb2  600507640081830E580000000000002C 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+45 lbcrmdb_datadg_19 25      6       lbcrmdb1  600507640081830E580000000000002D 0           io_grp0       shared       2               lbcrmdb           scsi
+45 lbcrmdb_datadg_19 25      7       lbcrmdb2  600507640081830E580000000000002D 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+46 lbcrmdb_datadg_20 26      6       lbcrmdb1  600507640081830E580000000000002E 0           io_grp0       shared       2               lbcrmdb           scsi
+46 lbcrmdb_datadg_20 26      7       lbcrmdb2  600507640081830E580000000000002E 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+47 lbcrmdb_datadg_21 27      6       lbcrmdb1  600507640081830E580000000000002F 0           io_grp0       shared       2               lbcrmdb           scsi
+47 lbcrmdb_datadg_21 27      7       lbcrmdb2  600507640081830E580000000000002F 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+48 lbcrmdb_datadg_22 28      6       lbcrmdb1  600507640081830E5800000000000030 0           io_grp0       shared       2               lbcrmdb           scsi
+48 lbcrmdb_datadg_22 28      7       lbcrmdb2  600507640081830E5800000000000030 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+49 lbcrmdb_datadg_23 29      6       lbcrmdb1  600507640081830E5800000000000031 0           io_grp0       shared       2               lbcrmdb           scsi
+49 lbcrmdb_datadg_23 29      7       lbcrmdb2  600507640081830E5800000000000031 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+50 lbcrmdb_datadg_24 30      6       lbcrmdb1  600507640081830E5800000000000032 0           io_grp0       shared       2               lbcrmdb           scsi
+50 lbcrmdb_datadg_24 30      7       lbcrmdb2  600507640081830E5800000000000032 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+51 lbcrmdb_archdg_01 0       6       lbcrmdb1  600507640081830E5800000000000033 0           io_grp0       shared       2               lbcrmdb           scsi
+51 lbcrmdb_archdg_01 0       7       lbcrmdb2  600507640081830E5800000000000033 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+52 lbcrmdb_archdg_02 1       6       lbcrmdb1  600507640081830E5800000000000034 0           io_grp0       shared       2               lbcrmdb           scsi
+52 lbcrmdb_archdg_02 1       7       lbcrmdb2  600507640081830E5800000000000034 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+53 lbcrmdb_archdg_03 2       6       lbcrmdb1  600507640081830E5800000000000035 0           io_grp0       shared       2               lbcrmdb           scsi
+53 lbcrmdb_archdg_03 2       7       lbcrmdb2  600507640081830E5800000000000035 0           io_grp0       shared       2               lbcrmdb           scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+54 lbcrmdb_archdg_04 3       6       lbcrmdb1  600507640081830E5800000000000036 0           io_grp0       shared       2               lbcrmdb           scsi
+54 lbcrmdb_archdg_04 3       7       lbcrmdb2  600507640081830E5800000000000036 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+55 lbcrmdb_redovg1_01 31      6       lbcrmdb1  600507640081830E5800000000000037 0           io_grp0       shared       2               lbcrmdb           scsi
+55 lbcrmdb_redovg1_01 31      7       lbcrmdb2  600507640081830E5800000000000037 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+56 lbcrmdb_redovg1_02 32      6       lbcrmdb1  600507640081830E5800000000000038 0           io_grp0       shared       2               lbcrmdb           scsi
+56 lbcrmdb_redovg1_02 32      7       lbcrmdb2  600507640081830E5800000000000038 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+57 lbcrmdb_redovg1_03 33      6       lbcrmdb1  600507640081830E5800000000000039 0           io_grp0       shared       2               lbcrmdb           scsi
+57 lbcrmdb_redovg1_03 33      7       lbcrmdb2  600507640081830E5800000000000039 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+58 lbcrmdb_redovg1_04 34      6       lbcrmdb1  600507640081830E580000000000003A 0           io_grp0       shared       2               lbcrmdb           scsi
+58 lbcrmdb_redovg1_04 34      7       lbcrmdb2  600507640081830E580000000000003A 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+59 lbcrmdb_redovg2_01 35      6       lbcrmdb1  600507640081830E580000000000003B 0           io_grp0       shared       2               lbcrmdb           scsi
+59 lbcrmdb_redovg2_01 35      7       lbcrmdb2  600507640081830E580000000000003B 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+60 lbcrmdb_redovg2_02 36      6       lbcrmdb1  600507640081830E580000000000003C 0           io_grp0       shared       2               lbcrmdb           scsi
+60 lbcrmdb_redovg2_02 36      7       lbcrmdb2  600507640081830E580000000000003C 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+61 lbcrmdb_redovg2_03 37      6       lbcrmdb1  600507640081830E580000000000003D 0           io_grp0       shared       2               lbcrmdb           scsi
+61 lbcrmdb_redovg2_03 37      7       lbcrmdb2  600507640081830E580000000000003D 0           io_grp0       shared       2               lbcrmdb           scsi
+id name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+62 lbcrmdb_redovg2_04 38      6       lbcrmdb1  600507640081830E580000000000003E 0           io_grp0       shared       2               lbcrmdb           scsi
+62 lbcrmdb_redovg2_04 38      7       lbcrmdb2  600507640081830E580000000000003E 0           io_grp0       shared       2               lbcrmdb           scsi
+id name            SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+63 lbkfdb_crsdg_01 4       10      lbkfdb1   600507640081830E580000000000003F 0           io_grp0       shared       3               lbkfdb            scsi
+63 lbkfdb_crsdg_01 4       11      lbkfdb2   600507640081830E580000000000003F 0           io_grp0       shared       3               lbkfdb            scsi
+id name            SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+64 lbkfdb_crsdg_02 5       10      lbkfdb1   600507640081830E5800000000000040 0           io_grp0       shared       3               lbkfdb            scsi
+64 lbkfdb_crsdg_02 5       11      lbkfdb2   600507640081830E5800000000000040 0           io_grp0       shared       3               lbkfdb            scsi
+id name            SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+65 lbkfdb_crsdg_03 6       10      lbkfdb1   600507640081830E5800000000000041 0           io_grp0       shared       3               lbkfdb            scsi
+65 lbkfdb_crsdg_03 6       11      lbkfdb2   600507640081830E5800000000000041 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+66 lbkfdb_datadg_01 15      10      lbkfdb1   600507640081830E5800000000000042 0           io_grp0       shared       3               lbkfdb            scsi
+66 lbkfdb_datadg_01 15      11      lbkfdb2   600507640081830E5800000000000042 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+67 lbkfdb_datadg_02 16      10      lbkfdb1   600507640081830E5800000000000043 0           io_grp0       shared       3               lbkfdb            scsi
+67 lbkfdb_datadg_02 16      11      lbkfdb2   600507640081830E5800000000000043 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+68 lbkfdb_datadg_03 17      10      lbkfdb1   600507640081830E5800000000000044 0           io_grp0       shared       3               lbkfdb            scsi
+68 lbkfdb_datadg_03 17      11      lbkfdb2   600507640081830E5800000000000044 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+69 lbkfdb_datadg_04 18      10      lbkfdb1   600507640081830E5800000000000045 0           io_grp0       shared       3               lbkfdb            scsi
+69 lbkfdb_datadg_04 18      11      lbkfdb2   600507640081830E5800000000000045 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+70 lbkfdb_datadg_05 19      10      lbkfdb1   600507640081830E5800000000000046 0           io_grp0       shared       3               lbkfdb            scsi
+70 lbkfdb_datadg_05 19      11      lbkfdb2   600507640081830E5800000000000046 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+71 lbkfdb_datadg_06 20      10      lbkfdb1   600507640081830E5800000000000047 0           io_grp0       shared       3               lbkfdb            scsi
+71 lbkfdb_datadg_06 20      11      lbkfdb2   600507640081830E5800000000000047 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+72 lbkfdb_datadg_07 21      10      lbkfdb1   600507640081830E5800000000000048 0           io_grp0       shared       3               lbkfdb            scsi
+72 lbkfdb_datadg_07 21      11      lbkfdb2   600507640081830E5800000000000048 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+73 lbkfdb_datadg_08 22      10      lbkfdb1   600507640081830E5800000000000049 0           io_grp0       shared       3               lbkfdb            scsi
+73 lbkfdb_datadg_08 22      11      lbkfdb2   600507640081830E5800000000000049 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+74 lbkfdb_data2dg_01 7       10      lbkfdb1   600507640081830E580000000000004A 0           io_grp0       shared       3               lbkfdb            scsi
+74 lbkfdb_data2dg_01 7       11      lbkfdb2   600507640081830E580000000000004A 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+75 lbkfdb_data2dg_02 8       10      lbkfdb1   600507640081830E580000000000004B 0           io_grp0       shared       3               lbkfdb            scsi
+75 lbkfdb_data2dg_02 8       11      lbkfdb2   600507640081830E580000000000004B 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+76 lbkfdb_data2dg_03 9       10      lbkfdb1   600507640081830E580000000000004C 0           io_grp0       shared       3               lbkfdb            scsi
+76 lbkfdb_data2dg_03 9       11      lbkfdb2   600507640081830E580000000000004C 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+77 lbkfdb_data2dg_04 10      10      lbkfdb1   600507640081830E580000000000004D 0           io_grp0       shared       3               lbkfdb            scsi
+77 lbkfdb_data2dg_04 10      11      lbkfdb2   600507640081830E580000000000004D 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+78 lbkfdb_data2dg_05 11      10      lbkfdb1   600507640081830E580000000000004E 0           io_grp0       shared       3               lbkfdb            scsi
+78 lbkfdb_data2dg_05 11      11      lbkfdb2   600507640081830E580000000000004E 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+79 lbkfdb_data2dg_06 12      10      lbkfdb1   600507640081830E580000000000004F 0           io_grp0       shared       3               lbkfdb            scsi
+79 lbkfdb_data2dg_06 12      11      lbkfdb2   600507640081830E580000000000004F 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+80 lbkfdb_data2dg_07 13      10      lbkfdb1   600507640081830E5800000000000050 0           io_grp0       shared       3               lbkfdb            scsi
+80 lbkfdb_data2dg_07 13      11      lbkfdb2   600507640081830E5800000000000050 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+81 lbkfdb_data2dg_08 14      10      lbkfdb1   600507640081830E5800000000000051 0           io_grp0       shared       3               lbkfdb            scsi
+81 lbkfdb_data2dg_08 14      11      lbkfdb2   600507640081830E5800000000000051 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+82 lbkfdb_archdg_01 0       10      lbkfdb1   600507640081830E5800000000000052 0           io_grp0       shared       3               lbkfdb            scsi
+82 lbkfdb_archdg_01 0       11      lbkfdb2   600507640081830E5800000000000052 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+83 lbkfdb_archdg_02 1       10      lbkfdb1   600507640081830E5800000000000053 0           io_grp0       shared       3               lbkfdb            scsi
+83 lbkfdb_archdg_02 1       11      lbkfdb2   600507640081830E5800000000000053 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+84 lbkfdb_archdg_03 2       10      lbkfdb1   600507640081830E5800000000000054 0           io_grp0       shared       3               lbkfdb            scsi
+84 lbkfdb_archdg_03 2       11      lbkfdb2   600507640081830E5800000000000054 0           io_grp0       shared       3               lbkfdb            scsi
+id name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+85 lbkfdb_archdg_04 3       10      lbkfdb1   600507640081830E5800000000000055 0           io_grp0       shared       3               lbkfdb            scsi
+85 lbkfdb_archdg_04 3       11      lbkfdb2   600507640081830E5800000000000055 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+86 lbkfdb_redovg1_01 23      10      lbkfdb1   600507640081830E5800000000000056 0           io_grp0       shared       3               lbkfdb            scsi
+86 lbkfdb_redovg1_01 23      11      lbkfdb2   600507640081830E5800000000000056 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+87 lbkfdb_redovg1_02 24      10      lbkfdb1   600507640081830E5800000000000057 0           io_grp0       shared       3               lbkfdb            scsi
+87 lbkfdb_redovg1_02 24      11      lbkfdb2   600507640081830E5800000000000057 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+88 lbkfdb_redovg1_03 25      10      lbkfdb1   600507640081830E5800000000000058 0           io_grp0       shared       3               lbkfdb            scsi
+88 lbkfdb_redovg1_03 25      11      lbkfdb2   600507640081830E5800000000000058 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+89 lbkfdb_redovg1_04 26      10      lbkfdb1   600507640081830E5800000000000059 0           io_grp0       shared       3               lbkfdb            scsi
+89 lbkfdb_redovg1_04 26      11      lbkfdb2   600507640081830E5800000000000059 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+90 lbkfdb_redovg2_01 27      10      lbkfdb1   600507640081830E580000000000005A 0           io_grp0       shared       3               lbkfdb            scsi
+90 lbkfdb_redovg2_01 27      11      lbkfdb2   600507640081830E580000000000005A 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+91 lbkfdb_redovg2_02 28      10      lbkfdb1   600507640081830E580000000000005B 0           io_grp0       shared       3               lbkfdb            scsi
+91 lbkfdb_redovg2_02 28      11      lbkfdb2   600507640081830E580000000000005B 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+92 lbkfdb_redovg2_03 29      10      lbkfdb1   600507640081830E580000000000005C 0           io_grp0       shared       3               lbkfdb            scsi
+92 lbkfdb_redovg2_03 29      11      lbkfdb2   600507640081830E580000000000005C 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+93 lbkfdb_redovg2_04 30      10      lbkfdb1   600507640081830E580000000000005D 0           io_grp0       shared       3               lbkfdb            scsi
+93 lbkfdb_redovg2_04 30      11      lbkfdb2   600507640081830E580000000000005D 0           io_grp0       shared       3               lbkfdb            scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+94 lbnk30_datadg1_01 8       5       lbnk30    600507640081830E580000000000005E 0           io_grp0       private                                        scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+95 lbnk30_datadg1_02 9       5       lbnk30    600507640081830E580000000000005F 0           io_grp0       private                                        scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+96 lbnk30_datadg1_03 10      5       lbnk30    600507640081830E5800000000000060 0           io_grp0       private                                        scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+97 lbnk30_datadg1_04 11      5       lbnk30    600507640081830E5800000000000061 0           io_grp0       private                                        scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+98 lbnk30_datadg1_05 12      5       lbnk30    600507640081830E5800000000000062 0           io_grp0       private                                        scsi
+id name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+99 lbnk30_datadg1_06 13      5       lbnk30    600507640081830E5800000000000063 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+100 lbnk30_datadg1_07 14      5       lbnk30    600507640081830E5800000000000064 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+101 lbnk30_datadg1_08 15      5       lbnk30    600507640081830E5800000000000065 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+102 lbnk30_datadg2_01 16      5       lbnk30    600507640081830E5800000000000066 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+103 lbnk30_datadg2_02 17      5       lbnk30    600507640081830E5800000000000067 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+104 lbnk30_datadg2_03 18      5       lbnk30    600507640081830E5800000000000068 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+105 lbnk30_datadg2_04 19      5       lbnk30    600507640081830E5800000000000069 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+106 lbnk30_datadg2_05 20      5       lbnk30    600507640081830E580000000000006A 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+107 lbnk30_datadg2_06 21      5       lbnk30    600507640081830E580000000000006B 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+108 lbnk30_datadg2_07 22      5       lbnk30    600507640081830E580000000000006C 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+109 lbnk30_datadg2_08 23      5       lbnk30    600507640081830E580000000000006D 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+110 lbnk30_archdg_01 0       5       lbnk30    600507640081830E580000000000006E 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+111 lbnk30_archdg_02 1       5       lbnk30    600507640081830E580000000000006F 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+112 lbnk30_archdg_03 2       5       lbnk30    600507640081830E5800000000000070 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+113 lbnk30_archdg_04 3       5       lbnk30    600507640081830E5800000000000071 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+114 lbnk30_archdg_05 4       5       lbnk30    600507640081830E5800000000000072 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+115 lbnk30_archdg_06 5       5       lbnk30    600507640081830E5800000000000073 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+116 lbnk30_archdg_07 6       5       lbnk30    600507640081830E5800000000000074 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+117 lbnk30_archdg_08 7       5       lbnk30    600507640081830E5800000000000075 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+118 lbnk40_datadg1_01 16      4       lbnk40    600507640081830E5800000000000076 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+119 lbnk40_datadg1_02 17      4       lbnk40    600507640081830E5800000000000077 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+120 lbnk40_datadg1_03 18      4       lbnk40    600507640081830E5800000000000078 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+121 lbnk40_datadg1_04 19      4       lbnk40    600507640081830E5800000000000079 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+122 lbnk40_datadg1_05 20      4       lbnk40    600507640081830E580000000000007A 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+123 lbnk40_datadg1_06 21      4       lbnk40    600507640081830E580000000000007B 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+124 lbnk40_datadg1_07 22      4       lbnk40    600507640081830E580000000000007C 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+125 lbnk40_datadg1_08 23      4       lbnk40    600507640081830E580000000000007D 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+126 lbnk40_datadg2_01 24      4       lbnk40    600507640081830E580000000000007E 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+127 lbnk40_datadg2_02 25      4       lbnk40    600507640081830E580000000000007F 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+128 lbnk40_datadg2_03 26      4       lbnk40    600507640081830E5800000000000080 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+129 lbnk40_datadg2_04 27      4       lbnk40    600507640081830E5800000000000081 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+130 lbnk40_datadg2_05 28      4       lbnk40    600507640081830E5800000000000082 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+131 lbnk40_datadg2_06 29      4       lbnk40    600507640081830E5800000000000083 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+132 lbnk40_datadg2_07 30      4       lbnk40    600507640081830E5800000000000084 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+133 lbnk40_datadg2_08 31      4       lbnk40    600507640081830E5800000000000085 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+134 lbnk40_archdg_01 0       4       lbnk40    600507640081830E5800000000000086 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+135 lbnk40_archdg_02 1       4       lbnk40    600507640081830E5800000000000087 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+136 lbnk40_archdg_03 2       4       lbnk40    600507640081830E5800000000000088 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+137 lbnk40_archdg_04 3       4       lbnk40    600507640081830E5800000000000089 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+138 lbnk40_archdg_05 4       4       lbnk40    600507640081830E580000000000008A 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+139 lbnk40_archdg_06 5       4       lbnk40    600507640081830E580000000000008B 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+140 lbnk40_archdg_07 6       4       lbnk40    600507640081830E580000000000008C 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+141 lbnk40_archdg_08 7       4       lbnk40    600507640081830E580000000000008D 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+142 lbnk40_archdg_09 8       4       lbnk40    600507640081830E580000000000008E 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+143 lbnk40_archdg_10 9       4       lbnk40    600507640081830E580000000000008F 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+144 lbnk40_archdg_11 10      4       lbnk40    600507640081830E5800000000000090 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+145 lbnk40_archdg_12 11      4       lbnk40    600507640081830E5800000000000091 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+146 lbnk40_archdg_13 12      4       lbnk40    600507640081830E5800000000000092 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+147 lbnk40_archdg_14 13      4       lbnk40    600507640081830E5800000000000093 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+148 lbnk40_archdg_15 14      4       lbnk40    600507640081830E5800000000000094 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+149 lbnk40_archdg_16 15      4       lbnk40    600507640081830E5800000000000095 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+150 lb_smb_datavg_01 0       2       lb_smb_201 600507640081830E5800000000000096 0           io_grp0       shared       1               lb_smb_jy         scsi
+150 lb_smb_datavg_01 0       3       lb_smb_202 600507640081830E5800000000000096 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+151 lb_smb_datavg_02 1       2       lb_smb_201 600507640081830E5800000000000097 0           io_grp0       shared       1               lb_smb_jy         scsi
+151 lb_smb_datavg_02 1       3       lb_smb_202 600507640081830E5800000000000097 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+152 lb_smb_datavg_03 2       2       lb_smb_201 600507640081830E5800000000000098 0           io_grp0       shared       1               lb_smb_jy         scsi
+152 lb_smb_datavg_03 2       3       lb_smb_202 600507640081830E5800000000000098 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+153 lb_smb_datavg_04 3       2       lb_smb_201 600507640081830E5800000000000099 0           io_grp0       shared       1               lb_smb_jy         scsi
+153 lb_smb_datavg_04 3       3       lb_smb_202 600507640081830E5800000000000099 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+154 lb_smb_datavg_05 4       2       lb_smb_201 600507640081830E580000000000009A 0           io_grp0       shared       1               lb_smb_jy         scsi
+154 lb_smb_datavg_05 4       3       lb_smb_202 600507640081830E580000000000009A 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+155 lb_smb_datavg_06 5       2       lb_smb_201 600507640081830E580000000000009B 0           io_grp0       shared       1               lb_smb_jy         scsi
+155 lb_smb_datavg_06 5       3       lb_smb_202 600507640081830E580000000000009B 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+156 lb_smb_datavg_07 6       2       lb_smb_201 600507640081830E580000000000009C 0           io_grp0       shared       1               lb_smb_jy         scsi
+156 lb_smb_datavg_07 6       3       lb_smb_202 600507640081830E580000000000009C 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+157 lb_smb_datavg_08 7       2       lb_smb_201 600507640081830E580000000000009D 0           io_grp0       shared       1               lb_smb_jy         scsi
+157 lb_smb_datavg_08 7       3       lb_smb_202 600507640081830E580000000000009D 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name  vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+158 lb_smb_voting_01 8       2       lb_smb_201 600507640081830E580000000000009E 0           io_grp0       shared       1               lb_smb_jy         scsi
+158 lb_smb_voting_01 8       3       lb_smb_202 600507640081830E580000000000009E 0           io_grp0       shared       1               lb_smb_jy         scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+159 lbtbdb_datavg_01 0       8       lbtbdb    600507640081830E580000000000009F 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+160 lbtbdb_datavg_02 1       8       lbtbdb    600507640081830E58000000000000A0 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+161 lbtbdb_datavg_03 2       8       lbtbdb    600507640081830E58000000000000A1 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+162 lbtbdb_datavg_04 3       8       lbtbdb    600507640081830E58000000000000A2 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+163 lbtbdb_datavg_05 4       8       lbtbdb    600507640081830E58000000000000A3 0           io_grp0       private                                        scsi
+id  name             SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+164 lbtbdb_datavg_06 5       8       lbtbdb    600507640081830E58000000000000A4 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+165 lbfrqsdb_datavg_01 0       9       lbfrqsdb  600507640081830E58000000000000A5 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+166 lbfrqsdb_datavg_02 1       9       lbfrqsdb  600507640081830E58000000000000A6 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+167 lbfrqsdb_datavg_03 2       9       lbfrqsdb  600507640081830E58000000000000A7 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+168 lbfrqsdb_datavg_04 3       9       lbfrqsdb  600507640081830E58000000000000A8 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+169 lbfrqsdb_datavg_05 4       9       lbfrqsdb  600507640081830E58000000000000A9 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+170 lbfrqsdb_datavg_06 5       9       lbfrqsdb  600507640081830E58000000000000AA 0           io_grp0       private                                        scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+171 lbcrmdb_datadg_25 39      6       lbcrmdb1  600507640081830E58000000000000AB 0           io_grp0       shared       2               lbcrmdb           scsi
+171 lbcrmdb_datadg_25 39      7       lbcrmdb2  600507640081830E58000000000000AB 0           io_grp0       shared       2               lbcrmdb           scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+172 lbcrmdb_datadg_26 40      6       lbcrmdb1  600507640081830E58000000000000AC 0           io_grp0       shared       2               lbcrmdb           scsi
+172 lbcrmdb_datadg_26 40      7       lbcrmdb2  600507640081830E58000000000000AC 0           io_grp0       shared       2               lbcrmdb           scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+173 lbcrmdb_datadg_27 41      6       lbcrmdb1  600507640081830E58000000000000AD 0           io_grp0       shared       2               lbcrmdb           scsi
+173 lbcrmdb_datadg_27 41      7       lbcrmdb2  600507640081830E58000000000000AD 0           io_grp0       shared       2               lbcrmdb           scsi
+id  name              SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+174 lbcrmdb_datadg_28 42      6       lbcrmdb1  600507640081830E58000000000000AE 0           io_grp0       shared       2               lbcrmdb           scsi
+174 lbcrmdb_datadg_28 42      7       lbcrmdb2  600507640081830E58000000000000AE 0           io_grp0       shared       2               lbcrmdb           scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+175 lbfrqsdb_datavg_07 6       9       lbfrqsdb  600507640081830E58000000000000AF 0           io_grp0       private                                        scsi
+id  name               SCSI_id host_id host_name vdisk_UID                        IO_group_id IO_group_name mapping_type host_cluster_id host_cluster_name protocol
+176 lbfrqsdb_datavg_08 7       9       lbfrqsdb  600507640081830E58000000000000B0 0           io_grp0       private                                        scsi

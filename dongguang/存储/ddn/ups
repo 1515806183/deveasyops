@@ -1,0 +1,16 @@
+
+******************
+*     UPS(s)     *
+******************
+
+
+   |Enclosure|                                                  |     Indicators     |
+Idx|Idx |Pos |Pos|Present|Charge|Hold Up|Enabled|AC Fail| Health|Fault|Failure|Locate|Location|SES Status
+---------------------------------------------------------------------------------------------------------
+  1    0   NA   1   TRUE    91%    8 min   TRUE   FALSE     OK    OFF    OFF    OFF            OK
+  1    2   NA   1   TRUE    91%    8 min   TRUE   FALSE     OK    OFF    OFF    OFF            OK
+
+Total UPS: 2
+
+
+Thu Sep  3 16:57:17 2020

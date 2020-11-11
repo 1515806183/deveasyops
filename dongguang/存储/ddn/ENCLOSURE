@@ -1,0 +1,16 @@
+
+************************
+*     Enclosure(s)     *
+************************
+
+
+Idx|Pos |Type      |Logical ID        |Vendor ID|      Product ID|Revision|FW Version|Responsive
+------------------------------------------------------------------------------------------------
+  0   NA CONTROLLER 0x0001ff0a188e0000       DDN         SFA7700X   0000      3.1.2.0    TRUE
+  1    1 DISK       0x50001ff24525e000       DDN           SS7700   0118     0118-108    TRUE
+  2   NA CONTROLLER 0x0001ff0a18ae0000       DDN         SFA7700X   0000      3.1.2.0    TRUE
+
+Total Enclosures: 3
+
+
+Thu Sep  3 17:07:20 2020

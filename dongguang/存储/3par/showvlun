@@ -1,0 +1,514 @@
+Active VLUNs
+Lun VVName             HostName -Host_WWN/iSCSI_Name-  Port     Type Status ID
+  0 gtwebdb_crsdg_.0   gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44A01      0:2:1 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44AA0      0:2:2 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44A01      1:2:1 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb1 1000E0071BD44AA0      1:2:2 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD44AAF      0:2:1 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD46A77      0:2:2 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD44AAF      1:2:1 host set active  1
+  0 gtwebdb_crsdg_.0   gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+  1 gtwebdb_crsdg_.1   gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+  2 gtwebdb_crsdg_.2   gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+  8 gtwebdb_datadg_.0  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+  9 gtwebdb_datadg_.1  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 10 gtwebdb_datadg_.2  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 11 gtwebdb_datadg_.3  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 12 gtwebdb_datadg_.4  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 13 gtwebdb_datadg_.5  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 14 gtwebdb_datadg_.6  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 15 gtwebdb_datadg_.7  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 16 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 17 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 18 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 19 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 21 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 22 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 23 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 24 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 30 gtwebdb_redodg2_.0 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 31 gtwebdb_redodg2_.1 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 32 gtwebdb_redodg2_.2 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 33 gtwebdb_redodg2_.3 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 39 gtwebdb_archdg_.0  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 40 gtwebdb_archdg_.1  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 41 gtwebdb_archdg_.2  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 42 gtwebdb_archdg_.3  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 48 gtwebdb_redodg1_.0 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 49 gtwebdb_redodg1_.1 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 50 gtwebdb_redodg1_.2 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 51 gtwebdb_redodg1_.3 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 57 gtwebdb_datadg_.8  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 58 gtwebdb_datadg_.9  gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 59 gtwebdb_datadg_.10 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+ 60 gtwebdb_datadg_.11 gtwebdb2 1000E0071BD46A77      1:2:2 host set active  1
+  0 lbhsdc_datavg01    lbhsdc   500143803313C278      0:2:1 host set active  1
+  1 lbhsdc_datavg02    lbhsdc   500143803313C278      0:2:1 host set active  1
+  2 lbhsdc_datavg03    lbhsdc   500143803313C278      0:2:1 host set active  1
+  3 lbhsdc_datavg04    lbhsdc   500143803313C278      0:2:1 host set active  1
+  4 lbhsdc_datavg05    lbhsdc   500143803313C278      0:2:1 host set active  1
+  5 lbhsdc_datavg06    lbhsdc   500143803313C278      0:2:1 host set active  1
+  6 lbhsdc_datavg07    lbhsdc   500143803313C278      0:2:1 host set active  1
+  7 lbhsdc_datavg08    lbhsdc   500143803313C278      0:2:1 host set active  1
+  8 lbhsdc_datavg09    lbhsdc   500143803313C278      0:2:1     host active  1
+  9 lbhsdc_datavg10    lbhsdc   500143803313C278      0:2:1     host active  1
+ 10 lbhsdc_datavg11    lbhsdc   500143803313C278      0:2:1     host active  1
+ 11 lbhsdc_datavg12    lbhsdc   500143803313C278      0:2:1     host active  1
+ 12 lbhsdc_datavg13    lbhsdc   500143803313C278      0:2:1     host active  1
+ 13 lbhsdc_datavg14    lbhsdc   500143803313C278      0:2:1     host active  1
+ 14 lbhsdc_datavg15    lbhsdc   500143803313C278      0:2:1     host active  1
+ 15 lbhsdc_datavg16    lbhsdc   500143803313C278      0:2:1     host active  1
+ 16 lbhsdc_datavg17    lbhsdc   500143803313C278      0:2:1     host active  1
+ 17 lbhsdc_datavg18    lbhsdc   500143803313C278      0:2:1     host active  1
+ 18 lbhsdc_datavg19    lbhsdc   500143803313C278      0:2:1     host active  1
+ 19 lbhsdc_datavg20    lbhsdc   500143803313C278      0:2:1     host active  1
+ 20 lbhsdc_datavg21    lbhsdc   500143803313C278      0:2:1     host active  1
+ 21 lbhsdc_datavg22    lbhsdc   500143803313C278      0:2:1     host active  1
+ 22 lbhsdc_datavg23    lbhsdc   500143803313C278      0:2:1     host active  1
+ 23 lbhsdc_datavg24    lbhsdc   500143803313C278      0:2:1     host active  1
+ 24 lbhsdc_datavg25    lbhsdc   500143803313C278      0:2:1     host active  1
+ 25 lbhsdc_datavg26    lbhsdc   500143803313C278      0:2:1     host active  1
+ 26 lbhsdc_datavg27    lbhsdc   500143803313C278      0:2:1     host active  1
+ 27 lbhsdc_datavg28    lbhsdc   500143803313C278      0:2:1     host active  1
+ 28 lbhsdc_datavg29    lbhsdc   500143803313C278      0:2:1     host active  1
+ 29 lbhsdc_datavg30    lbhsdc   500143803313C278      0:2:1     host active  1
+ 30 lbhsdc_datavg31    lbhsdc   500143803313C278      0:2:1     host active  1
+ 31 lbhsdc_datavg32    lbhsdc   500143803313C278      0:2:1     host active  1
+ 32 lbhsdc_datavg33    lbhsdc   500143803313C278      0:2:1     host active  1
+ 33 lbhsdc_datavg34    lbhsdc   500143803313C278      0:2:1     host active  1
+ 34 lbhsdc_datavg35    lbhsdc   500143803313C278      0:2:1     host active  1
+ 35 lbhsdc_datavg36    lbhsdc   500143803313C278      0:2:1     host active  1
+ 36 lbhsdc_datavg37    lbhsdc   500143803313C278      0:2:1     host active  1
+ 37 lbhsdc_datavg38    lbhsdc   500143803313C278      0:2:1     host active  1
+ 38 lbhsdc_datavg39    lbhsdc   500143803313C278      0:2:1     host active  1
+ 39 lbhsdc_datavg40    lbhsdc   500143803313C278      0:2:1     host active  1
+ 40 lbhsdc_datavg41    lbhsdc   500143803313C278      0:2:1     host active  1
+ 41 lbhsdc_datavg42    lbhsdc   500143803313C278      0:2:1     host active  1
+ 42 lbhsdc_datavg43    lbhsdc   500143803313C278      0:2:1     host active  1
+  0 lbhsdc_datavg01    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  1 lbhsdc_datavg02    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  2 lbhsdc_datavg03    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  3 lbhsdc_datavg04    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  4 lbhsdc_datavg05    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  5 lbhsdc_datavg06    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  6 lbhsdc_datavg07    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  7 lbhsdc_datavg08    lbhsdc   500143803313C27A      0:2:2 host set active  1
+  8 lbhsdc_datavg09    lbhsdc   500143803313C27A      0:2:2     host active  1
+  9 lbhsdc_datavg10    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 10 lbhsdc_datavg11    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 11 lbhsdc_datavg12    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 12 lbhsdc_datavg13    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 13 lbhsdc_datavg14    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 14 lbhsdc_datavg15    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 15 lbhsdc_datavg16    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 16 lbhsdc_datavg17    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 17 lbhsdc_datavg18    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 18 lbhsdc_datavg19    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 19 lbhsdc_datavg20    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 20 lbhsdc_datavg21    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 21 lbhsdc_datavg22    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 22 lbhsdc_datavg23    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 23 lbhsdc_datavg24    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 24 lbhsdc_datavg25    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 25 lbhsdc_datavg26    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 26 lbhsdc_datavg27    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 27 lbhsdc_datavg28    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 28 lbhsdc_datavg29    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 29 lbhsdc_datavg30    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 30 lbhsdc_datavg31    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 31 lbhsdc_datavg32    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 32 lbhsdc_datavg33    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 33 lbhsdc_datavg34    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 34 lbhsdc_datavg35    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 35 lbhsdc_datavg36    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 36 lbhsdc_datavg37    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 37 lbhsdc_datavg38    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 38 lbhsdc_datavg39    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 39 lbhsdc_datavg40    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 40 lbhsdc_datavg41    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 41 lbhsdc_datavg42    lbhsdc   500143803313C27A      0:2:2     host active  1
+ 42 lbhsdc_datavg43    lbhsdc   500143803313C27A      0:2:2     host active  1
+  0 lbhsdc_datavg01    lbhsdc   500143803313C278      1:2:1 host set active  1
+  1 lbhsdc_datavg02    lbhsdc   500143803313C278      1:2:1 host set active  1
+  2 lbhsdc_datavg03    lbhsdc   500143803313C278      1:2:1 host set active  1
+  3 lbhsdc_datavg04    lbhsdc   500143803313C278      1:2:1 host set active  1
+  4 lbhsdc_datavg05    lbhsdc   500143803313C278      1:2:1 host set active  1
+  5 lbhsdc_datavg06    lbhsdc   500143803313C278      1:2:1 host set active  1
+  6 lbhsdc_datavg07    lbhsdc   500143803313C278      1:2:1 host set active  1
+  7 lbhsdc_datavg08    lbhsdc   500143803313C278      1:2:1 host set active  1
+  8 lbhsdc_datavg09    lbhsdc   500143803313C278      1:2:1     host active  1
+  9 lbhsdc_datavg10    lbhsdc   500143803313C278      1:2:1     host active  1
+ 10 lbhsdc_datavg11    lbhsdc   500143803313C278      1:2:1     host active  1
+ 11 lbhsdc_datavg12    lbhsdc   500143803313C278      1:2:1     host active  1
+ 12 lbhsdc_datavg13    lbhsdc   500143803313C278      1:2:1     host active  1
+ 13 lbhsdc_datavg14    lbhsdc   500143803313C278      1:2:1     host active  1
+ 14 lbhsdc_datavg15    lbhsdc   500143803313C278      1:2:1     host active  1
+ 15 lbhsdc_datavg16    lbhsdc   500143803313C278      1:2:1     host active  1
+ 16 lbhsdc_datavg17    lbhsdc   500143803313C278      1:2:1     host active  1
+ 17 lbhsdc_datavg18    lbhsdc   500143803313C278      1:2:1     host active  1
+ 18 lbhsdc_datavg19    lbhsdc   500143803313C278      1:2:1     host active  1
+ 19 lbhsdc_datavg20    lbhsdc   500143803313C278      1:2:1     host active  1
+ 20 lbhsdc_datavg21    lbhsdc   500143803313C278      1:2:1     host active  1
+ 21 lbhsdc_datavg22    lbhsdc   500143803313C278      1:2:1     host active  1
+ 22 lbhsdc_datavg23    lbhsdc   500143803313C278      1:2:1     host active  1
+ 23 lbhsdc_datavg24    lbhsdc   500143803313C278      1:2:1     host active  1
+ 24 lbhsdc_datavg25    lbhsdc   500143803313C278      1:2:1     host active  1
+ 25 lbhsdc_datavg26    lbhsdc   500143803313C278      1:2:1     host active  1
+ 26 lbhsdc_datavg27    lbhsdc   500143803313C278      1:2:1     host active  1
+ 27 lbhsdc_datavg28    lbhsdc   500143803313C278      1:2:1     host active  1
+ 28 lbhsdc_datavg29    lbhsdc   500143803313C278      1:2:1     host active  1
+ 29 lbhsdc_datavg30    lbhsdc   500143803313C278      1:2:1     host active  1
+ 30 lbhsdc_datavg31    lbhsdc   500143803313C278      1:2:1     host active  1
+ 31 lbhsdc_datavg32    lbhsdc   500143803313C278      1:2:1     host active  1
+ 32 lbhsdc_datavg33    lbhsdc   500143803313C278      1:2:1     host active  1
+ 33 lbhsdc_datavg34    lbhsdc   500143803313C278      1:2:1     host active  1
+ 34 lbhsdc_datavg35    lbhsdc   500143803313C278      1:2:1     host active  1
+ 35 lbhsdc_datavg36    lbhsdc   500143803313C278      1:2:1     host active  1
+ 36 lbhsdc_datavg37    lbhsdc   500143803313C278      1:2:1     host active  1
+ 37 lbhsdc_datavg38    lbhsdc   500143803313C278      1:2:1     host active  1
+ 38 lbhsdc_datavg39    lbhsdc   500143803313C278      1:2:1     host active  1
+ 39 lbhsdc_datavg40    lbhsdc   500143803313C278      1:2:1     host active  1
+ 40 lbhsdc_datavg41    lbhsdc   500143803313C278      1:2:1     host active  1
+ 41 lbhsdc_datavg42    lbhsdc   500143803313C278      1:2:1     host active  1
+ 42 lbhsdc_datavg43    lbhsdc   500143803313C278      1:2:1     host active  1
+  0 lbhsdc_datavg01    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  1 lbhsdc_datavg02    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  2 lbhsdc_datavg03    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  3 lbhsdc_datavg04    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  4 lbhsdc_datavg05    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  5 lbhsdc_datavg06    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  6 lbhsdc_datavg07    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  7 lbhsdc_datavg08    lbhsdc   500143803313C27A      1:2:2 host set active  1
+  8 lbhsdc_datavg09    lbhsdc   500143803313C27A      1:2:2     host active  1
+  9 lbhsdc_datavg10    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 10 lbhsdc_datavg11    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 11 lbhsdc_datavg12    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 12 lbhsdc_datavg13    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 13 lbhsdc_datavg14    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 14 lbhsdc_datavg15    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 15 lbhsdc_datavg16    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 16 lbhsdc_datavg17    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 17 lbhsdc_datavg18    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 18 lbhsdc_datavg19    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 19 lbhsdc_datavg20    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 20 lbhsdc_datavg21    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 21 lbhsdc_datavg22    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 22 lbhsdc_datavg23    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 23 lbhsdc_datavg24    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 24 lbhsdc_datavg25    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 25 lbhsdc_datavg26    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 26 lbhsdc_datavg27    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 27 lbhsdc_datavg28    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 28 lbhsdc_datavg29    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 29 lbhsdc_datavg30    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 30 lbhsdc_datavg31    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 31 lbhsdc_datavg32    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 32 lbhsdc_datavg33    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 33 lbhsdc_datavg34    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 34 lbhsdc_datavg35    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 35 lbhsdc_datavg36    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 36 lbhsdc_datavg37    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 37 lbhsdc_datavg38    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 38 lbhsdc_datavg39    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 39 lbhsdc_datavg40    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 40 lbhsdc_datavg41    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 41 lbhsdc_datavg42    lbhsdc   500143803313C27A      1:2:2     host active  1
+ 42 lbhsdc_datavg43    lbhsdc   500143803313C27A      1:2:2     host active  1
+------------------------------------------------------------------------------
+452 total
+
+VLUN Templates
+Lun VVName               HostName     -Host_WWN/iSCSI_Name- Port     Type
+  8 lbhsdc_datavg09      lbhsdc       ----------------       ---     host
+  9 lbhsdc_datavg10      lbhsdc       ----------------       ---     host
+ 10 lbhsdc_datavg11      lbhsdc       ----------------       ---     host
+ 11 lbhsdc_datavg12      lbhsdc       ----------------       ---     host
+ 12 lbhsdc_datavg13      lbhsdc       ----------------       ---     host
+ 13 lbhsdc_datavg14      lbhsdc       ----------------       ---     host
+ 14 lbhsdc_datavg15      lbhsdc       ----------------       ---     host
+ 15 lbhsdc_datavg16      lbhsdc       ----------------       ---     host
+ 16 lbhsdc_datavg17      lbhsdc       ----------------       ---     host
+ 17 lbhsdc_datavg18      lbhsdc       ----------------       ---     host
+ 18 lbhsdc_datavg19      lbhsdc       ----------------       ---     host
+ 19 lbhsdc_datavg20      lbhsdc       ----------------       ---     host
+ 20 lbhsdc_datavg21      lbhsdc       ----------------       ---     host
+ 21 lbhsdc_datavg22      lbhsdc       ----------------       ---     host
+ 22 lbhsdc_datavg23      lbhsdc       ----------------       ---     host
+ 23 lbhsdc_datavg24      lbhsdc       ----------------       ---     host
+ 24 lbhsdc_datavg25      lbhsdc       ----------------       ---     host
+ 25 lbhsdc_datavg26      lbhsdc       ----------------       ---     host
+ 26 lbhsdc_datavg27      lbhsdc       ----------------       ---     host
+ 27 lbhsdc_datavg28      lbhsdc       ----------------       ---     host
+ 28 lbhsdc_datavg29      lbhsdc       ----------------       ---     host
+ 29 lbhsdc_datavg30      lbhsdc       ----------------       ---     host
+ 30 lbhsdc_datavg31      lbhsdc       ----------------       ---     host
+ 31 lbhsdc_datavg32      lbhsdc       ----------------       ---     host
+ 32 lbhsdc_datavg33      lbhsdc       ----------------       ---     host
+ 33 lbhsdc_datavg34      lbhsdc       ----------------       ---     host
+ 34 lbhsdc_datavg35      lbhsdc       ----------------       ---     host
+ 35 lbhsdc_datavg36      lbhsdc       ----------------       ---     host
+ 36 lbhsdc_datavg37      lbhsdc       ----------------       ---     host
+ 37 lbhsdc_datavg38      lbhsdc       ----------------       ---     host
+ 38 lbhsdc_datavg39      lbhsdc       ----------------       ---     host
+ 39 lbhsdc_datavg40      lbhsdc       ----------------       ---     host
+ 40 lbhsdc_datavg41      lbhsdc       ----------------       ---     host
+ 41 lbhsdc_datavg42      lbhsdc       ----------------       ---     host
+ 42 lbhsdc_datavg43      lbhsdc       ----------------       ---     host
+  0 lbhsdc_datavg01      set:gtkjptdb ----------------       --- host set
+  1 lbhsdc_datavg02      set:gtkjptdb ----------------       --- host set
+  2 lbhsdc_datavg03      set:gtkjptdb ----------------       --- host set
+  3 lbhsdc_datavg04      set:gtkjptdb ----------------       --- host set
+  4 lbhsdc_datavg05      set:gtkjptdb ----------------       --- host set
+  5 lbhsdc_datavg06      set:gtkjptdb ----------------       --- host set
+  6 lbhsdc_datavg07      set:gtkjptdb ----------------       --- host set
+  7 lbhsdc_datavg08      set:gtkjptdb ----------------       --- host set
+  0 set:gtwebdb_crsdg_   set:gtwebdb  ----------------       --- host set
+  8 set:gtwebdb_datadg_  set:gtwebdb  ----------------       --- host set
+ 21 set:gtwebdb_redodg1_ set:gtwebdb  ----------------       --- host set
+ 30 set:gtwebdb_redodg2_ set:gtwebdb  ----------------       --- host set
+ 39 set:gtwebdb_archdg_  set:gtwebdb  ----------------       --- host set
+ 48 set:gtwebdb_redodg1_ set:gtwebdb  ----------------       --- host set
+ 57 gtwebdb_datadg_.8    set:gtwebdb  ----------------       --- host set
+ 58 gtwebdb_datadg_.9    set:gtwebdb  ----------------       --- host set
+ 59 gtwebdb_datadg_.10   set:gtwebdb  ----------------       --- host set
+ 60 gtwebdb_datadg_.11   set:gtwebdb  ----------------       --- host set
+-------------------------------------------------------------------------
+ 53 total

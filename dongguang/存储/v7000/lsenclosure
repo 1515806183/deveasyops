@@ -1,0 +1,5 @@
+id status type      managed IO_group_id IO_group_name product_MTM serial_number total_canisters online_canisters total_PSUs online_PSUs drive_slots total_fan_modules online_fan_modules total_sems online_sems
+1  online control   yes     0           io_grp0       2076-624    7825MFW       2               2                2          2           24          2                 2                  0          0
+2  online expansion yes     0           io_grp0       2076-24F    7825HPW       2               2                2          2           24          0                 0                  0          0
+3  online expansion yes     0           io_grp0       2076-24F    7825NRY       2               2                2          2           24          0                 0                  0          0
+4  online expansion yes     0           io_grp0       2076-24F    7825KXA       2               2                2          2           24          0                 0                  0          0

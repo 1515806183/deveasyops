@@ -1,0 +1,4 @@
+                                                                  Control    Data        Cache
+Node ----Name---- -State- Master InCluster -Service_LED ---LED--- Mem(MB) Mem(MB) Available(%)
+   0 6CU84338Z3-0 OK      Yes    Yes       Off          GreenBlnk   65536   32768          100
+   1 6CU84338Z3-1 OK      No     Yes       Off          GreenBlnk   65536   32768          100

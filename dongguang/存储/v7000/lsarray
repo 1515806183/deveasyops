@@ -1,0 +1,12 @@
+mdisk_id mdisk_name status mdisk_grp_id mdisk_grp_name capacity raid_status raid_level redundancy strip_size tier            encrypt distributed
+0        mdisk0     online 0            Pool_sas_1200G 7.6TB    online      raid6      2          256        tier_enterprise no      no
+1        mdisk1     online 0            Pool_sas_1200G 7.6TB    online      raid6      2          256        tier_enterprise no      no
+2        mdisk2     online 0            Pool_sas_1200G 7.6TB    online      raid6      2          256        tier_enterprise no      no
+3        mdisk3     online 0            Pool_sas_1200G 7.6TB    online      raid6      2          256        tier_enterprise no      no
+4        mdisk4     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+5        mdisk5     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+6        mdisk6     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+7        mdisk7     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+8        mdisk8     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+9        mdisk9     online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no
+10       mdisk10    online 0            Pool_sas_1200G 6.5TB    online      raid6      2          256        tier_enterprise no      no

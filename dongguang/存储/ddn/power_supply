@@ -1,0 +1,16 @@
+
+***************************
+*     Power Supply(s)     *
+***************************
+
+
+   |Enclosure|   |Power|                                       |      Indicators        |
+Idx|Idx |Pos |Pos|State|Present|AC Fail|DC Fail|OT Fail|OT Warn|OK |Fault|Failure|Locate|Location|SES Status
+------------------------------------------------------------------------------------------------------------
+  1    1    1   1   ON    TRUE   FALSE   FALSE   FALSE   FALSE   ON  OFF    OFF    OFF   PCM A    OK
+  2    1    1   2   ON    TRUE   FALSE   FALSE   FALSE   FALSE   ON  OFF    OFF    OFF   PCM B    OK
+
+Total Power Supplies: 2
+
+
+Thu Sep  3 16:57:06 2020
