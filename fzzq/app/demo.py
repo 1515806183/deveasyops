@@ -54,11 +54,11 @@ class EasyopsPubic(object):
         search_result = self.http_post(method='post',
                                        restful_api='/object/{object_id}/instance/_search'.format(object_id=object_id),
                                        params=params,
-                                       object_id=object_id)
+                                       )
         return search_result['list']
 
     # 请求cmdb，汇报数据
-    def http_post(self, method, restful_api, params={}, object_id=None):
+    def http_post(self, method, restful_api, params={}):
         if not params.has_key('page_size'):
             page_size = 300
             params['page_size'] = page_size
@@ -75,7 +75,7 @@ class EasyopsPubic(object):
                         for cur_page in range(2, pages + 2):
                             params['page'] = cur_page
                             temp_ret = self.http_post(
-                                restful_api='/object/{object_id}/instance/_search'.format(object_id=object_id),
+                                restful_api=restful_api,
                                 params=params,
                                 method='post_page')
                             ret['list'] += temp_ret['list']
@@ -170,6 +170,7 @@ class ThreadInsert(object):
         for i in content:
             res.append(self.pool.spawn(self.gevent_data, i))
         gevent.joinall(res)
+        time.sleep(1.5)
 
         data = {
             "keys": ['name'],
@@ -178,13 +179,11 @@ class ThreadInsert(object):
         for i, g in enumerate(res):
             if g.value: data['datas'].append(g.value)
 
-        print data
-
         # 插入数据到模型
-        # if len(data['datas']):
-        #     info_url = "/object/{0}/instance/_import".format('APP')
-        #     res = self.easyopsObj.http_post('many_post', info_url, data)
-        #     print res
+        if len(data['datas']):
+            info_url = "/object/{0}/instance/_import".format('APP')
+            res = self.easyopsObj.http_post('many_post', info_url, data)
+            print res
 
     def gevent_data(self, data):
         pk = int(data.get('pk'))  # 标识
@@ -192,13 +191,16 @@ class ThreadInsert(object):
         ServiceNode = data.get('_SERVICENODE')  # 服务节点
         port = data.get('port')  # 端口
         featureRule = data.get('featureRule')  # 特征
-        file_name = str(name).split('_')[1]  # 分解出工作目录
+
+        try:
+            file_name = str(name).split('_')[1]  # 分解出工作目录
+        except Exception as e:
+            file_name = name
         # instanceId = data.get('instanceId')
 
         # ServiceNodeUrl = "/v2/object/APP/instance/%s" % instanceId  # 添加服务节点url
         if pk < 4:
             ServiceNodeData = {}
-
             # 判断是不是新应用，新应用：服务节点为空，特性为空
             if (not len(ServiceNode)) and (not featureRule):
                 # 1. 新应用，默认添加工作目录为特性。
@@ -210,6 +212,7 @@ class ThreadInsert(object):
                 # 循环取特性项
                 try:
                     for rule in featureRule:
+
                         if rule.get('key') == 'provider.cwd':
                             # 修改特性为port
                             if port:
@@ -217,8 +220,13 @@ class ThreadInsert(object):
                                 ServiceNodeData = {"featurePriority": "500", "featureEnabled": "true", "featureRule": [
                                     {"key": "port", "method": "eq", "value": "%s" % port, "label": "监听端口"}]}
                             else:
-                                # 关闭特性
-                                ServiceNodeData = {"featurePriority": "500", "featureEnabled": "false"}
+                                # # 关闭特性
+                                # ServiceNodeData = {"featurePriority": "500", "featureEnabled": "false"}
+                                # 如果没有端口，则匹配目录
+                                ServiceNodeData = {"featurePriority": "500", "featureEnabled": "true", "featureRule": [
+                                    {"key": "provider.cwd", "method": "like", "value": "%s" % file_name,
+                                     "label": "工作目录"}]}
+
                         elif rule.get('key') == 'port':
                             # 修改特性为type
                             ServiceNodeData = {"featurePriority": "500", "featureEnabled": "true", "featureRule": [
@@ -228,6 +236,9 @@ class ThreadInsert(object):
 
             # 标识相加，如果当标识等于3，则判断，节点特性取不到数据
             pk += 1
+            if not ServiceNodeData:
+                ServiceNodeData = {"featurePriority": "500", "featureEnabled": "true", "featureRule": [
+                    {"key": "provider.cwd", "method": "like", "value": "%s" % file_name, "label": "工作目录"}]}
 
             return dict({
                 "name": name,
