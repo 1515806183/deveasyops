@@ -426,6 +426,7 @@ class auto_add_node(EasyopsPubic):
 
 
 if __name__ == '__main__':
+    # 旧
     # 添加服务节点到实例
     ThreadInsert()
     # 增加实例的自动发现

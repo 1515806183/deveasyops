@@ -45,8 +45,8 @@ class EasyopsPubic(object):
 
     # 请求cmdb，汇报数据
     def http_post(self, method, restful_api, params={}):
+        page_size = 300
         if not params.has_key('page_size'):
-            page_size = 300
             params['page_size'] = page_size
 
         url = u'http://{easy_host}{restful_api}'.format(easy_host=easyops_cmdb_host, restful_api=restful_api)
