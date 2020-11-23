@@ -253,12 +253,15 @@ class ThreadInsert(EasyopsPubic):
         dataList = self.http_post('post', restful_api, params)
 
         node_list = []
-        # name 为key， instanceId为v
-        for data in dataList['list']:
-            ip_name = data.get('name')
-            instanceId = data.get('instanceId')
-            node_list.append(ip_name)
-            self.all_node_list.update({ip_name: instanceId})
+        try:
+            # name 为key， instanceId为v
+            for data in dataList['list']:
+                ip_name = data.get('name')
+                instanceId = data.get('instanceId')
+                node_list.append(ip_name)
+                self.all_node_list.update({ip_name: instanceId})
+        except Exception as e:
+            node_list = []
         return node_list
 
     def getData(self):

@@ -305,17 +305,27 @@ def __delete(request, url):
 
 if __name__ == '__main__':
     # 设置签名用的key
-    EasyRequest.ACCESS_KEY = '594cccbc318242b15ac7dc04'
-    EasyRequest.SECRET_KEY = '0884cfe52ae25ada159fef5e9871d1fdbf8834f2d6cc8cdabfc6facd97b4a286'
+    EasyRequest.ACCESS_KEY = 'bbf2c57378fd37c2623372ea'
+    EasyRequest.SECRET_KEY = '6f7a776c4c5943715742476c7475556b56464f4f6a5973526a53484549664468'
 
     # 设置请求IP地址
-    EasyRequest.IP = '18.100.254.231'
+    EasyRequest.IP = '192.168.10.144'
 
     # 实例化
     request = EasyRequest()
 
     # 获取 业务系统信息
-    url = '/cmdb_resource/object/{objectId}/instance/_search'.format(objectId='BUSINESS')  # objectId模型ID
+    url = '/cmdb_resource/v2/object/{objectId}/instance'.format(objectId='FCODE_FLOW')  # objectId模型ID
     # 参数
-    parse = '{"query":{},"fields":{"instanceId":true,"name":true, "_businesses_APP": true, "_businesses_APP.owner": true, "_businesses_APP.tester": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
+    # parse = '{"query":{},"fields":{"instanceId":true,"name":true, "_businesses_APP": true, "_businesses_APP.owner": true, "_businesses_APP.tester": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
+    parse = """
+    {
+      "name":"test123",
+      "version":"3.1.1",
+      "ftp_url":"ftp://1.1.1.1/app",
+      "business":"test_business",
+      "project_type":"tomcat",
+      "application":"test_app"
+    }
+    """
     res = __post(request, url, parse)
