@@ -272,7 +272,7 @@ def __post(request, url, parse):
     # request.data = "aaa,bbb,ccc\n111,222,333" # example_1
     # request.jsondata = "[]"  # example_2
     # request.jsondata = '{"query":{},"fields":{"instanceId":true,"name":true, "permission": true}}'  # example_3
-    request.jsondata = parse
+    request.jsondata = json.dumps(parse)
 
     return __test_print_result(request)
 
@@ -305,27 +305,40 @@ def __delete(request, url):
 
 if __name__ == '__main__':
     # 设置签名用的key
-    EasyRequest.ACCESS_KEY = 'bbf2c57378fd37c2623372ea'
-    EasyRequest.SECRET_KEY = '6f7a776c4c5943715742476c7475556b56464f4f6a5973526a53484549664468'
+    # EasyRequest.ACCESS_KEY = '470da6ceb8b1a012d19d7e3f'
+    # EasyRequest.SECRET_KEY = '49454e774245624c494b644e6b52584f474262717677746a735a546a6d6b726b'
 
+    # EasyRequest.ACCESS_KEY = '5f21c4407ec53bd76fc94edb'
+    # EasyRequest.SECRET_KEY = '70447877506950537871694f496f79594d4649655079576b624d7a6f566f476c'
+    # EasyRequest.ACCESS_KEY = 'bbf2c57378fd37c2623372ea'
+    # EasyRequest.SECRET_KEY = '6f7a776c4c5943715742476c7475556b56464f4f6a5973526a53484549664468'
+
+    EasyRequest.ACCESS_KEY = "04463dbea830dd25df7d782f"
+    EasyRequest.SECRET_KEY = "6a494f72656a6b584573714b57774679687863427843565a6f6a686470596e4c"
     # 设置请求IP地址
-    EasyRequest.IP = '192.168.10.144'
+    # EasyRequest.IP = '192.168.10.144'
+    # EasyRequest.IP = '28.163.0.123'
+    # EasyRequest.IP = '18.100.254.231'
 
+    EasyRequest.IP = "192.168.28.28"
     # 实例化
     request = EasyRequest()
 
-    # 获取 业务系统信息
-    url = '/cmdb_resource/v2/object/{objectId}/instance'.format(objectId='FCODE_FLOW')  # objectId模型ID
+    # 获取 业务系统信息uri: /object/{objectId}/instance/_import
+    url = '/cmdb_resource/object/{objectId}/instance/_search'.format(objectId='HOST')  # objectId模型ID
+    # url = '/cmdb_resource/object/{objectId}/instance/_import'.format(objectId='Parts')  # objectId模型ID
+    # url = '/cmdb_resource/object/{objectId}/instance/5b4ea4ada0a87'.format(objectId='Parts')  # objectId模型ID
+    # url = '/cmdb_resource/object/{objectId}/instance/_batch?instanceIds=5b4ea4a4fc216;5b4ea4ada0a87'.format(objectId='Parts')  # objectId模型ID
+
+    print url
     # 参数
-    # parse = '{"query":{},"fields":{"instanceId":true,"name":true, "_businesses_APP": true, "_businesses_APP.owner": true, "_businesses_APP.tester": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
-    parse = """
-    {
-      "name":"test123",
-      "version":"3.1.1",
-      "ftp_url":"ftp://1.1.1.1/app",
-      "business":"test_business",
-      "project_type":"tomcat",
-      "application":"test_app"
+    # parse = '{"query":{"name": "研究所"},"fields":{"instanceId":true, "name":true, "_businesses_APP.owner": true, "_businesses_APP.tester": true, "_businesses_APP.name_chineses": true, "_businesses_APP.name": true, "_businesses_APP.instanceId": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
+    # parse = '{"query":{"name": "secured_ifc-index-dubbo-service"},"fields":{"instanceId":true, "name":true, "clusters.deviceList.ip": true, "port": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
+    parse = {
+        "fields": {
+            "deleteAuthorizers": True,
+            "updateAuthorizers": True
+        }
     }
-    """
     res = __post(request, url, parse)
+    # __delete(request, url)

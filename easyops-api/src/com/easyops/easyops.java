@@ -29,8 +29,8 @@ class EasyOps {
     private String SECRET_KEY;
 
     public static void main(String[] args) {
-        EasyOps easyops = new EasyOps("18.100.254.231", "e56f660b48870ac3ac14ae97",
-                "4d6d54687778436b44664e66744f6c5771544e6a515048474364695363675a49");
+        EasyOps easyops = new EasyOps("28.163.0.123", "bada5e73756d30d9a7b5a47a",
+                "a81a31823a14eb79d7ca5ead1e12c7ff6e43e472fe6c6ec03913af637565845e");
 
 //        System.out.println("******************GET******************");
 //        Map<String, Object> get_params = new HashMap<String, Object>();
@@ -44,15 +44,25 @@ class EasyOps {
         Map<String, Object> post_params = new HashMap<String, Object>();
         post_params.put("page", "1");
         post_params.put("page_size", "2000");
-        post_params.put("only_relation_view", true);
-        post_params.put("only_my_instance", false);
+//        post_params.put("only_relation_view", true);
+//        post_params.put("only_my_instance", false);
         Map<String, Object> all_users_param_fields = new HashMap<String, Object>();
         all_users_param_fields.put("instanceId", 1);
         all_users_param_fields.put("name", 1);
-        all_users_param_fields.put("_businesses_APP", 1);
         all_users_param_fields.put("_businesses_APP.owner", 1);
         all_users_param_fields.put("_businesses_APP.tester", 1);
+        all_users_param_fields.put("_businesses_APP.name_chineses", 1);
+        all_users_param_fields.put("_businesses_APP.name", 1);
+        all_users_param_fields.put("_businesses_APP.instanceId", 1);
         post_params.put("fields", all_users_param_fields);
+
+        Map<String, Object> query = new HashMap<String, Object>();
+        query.put("name", "研究所");
+        post_params.put("query", query);
+
+        System.out.println(post_params);
+        System.out.println("----------------");
+
         String ret2 = easyops.sendRequest("/cmdb_resource/object/BUSINESS/instance/_search", post_params, "POST");
         System.out.println(ret2);
         System.out.println("******************END******************\n");

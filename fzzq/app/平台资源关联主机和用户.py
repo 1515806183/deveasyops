@@ -1,23 +1,38 @@
 # -*- coding:utf-8 -*-
 import time, requests, json, subprocess, re
-import threading
+import threading, logging, sys
 from Queue import Queue
 from gevent import monkey
 import gevent
 from gevent.pool import Pool
 
+# create logger object
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+# create a file handler
+logger_handler = logging.StreamHandler(stream=sys.stdout)
+logger_handler.setLevel(logging.DEBUG)
+
+# create a logging format
+formatter = logging.Formatter('[%(asctime)s] [%(levelname)s] [%(lineno)d] %(message)s', '%Y-%m-%d %H:%M:%S')
+logger_handler.setFormatter(formatter)
+
+# add the handlers to the logger
+logger.addHandler(logger_handler)
+
 monkey.patch_all()
 
 # CMDB配置
-easyops_cmdb_host = '18.100.254.231'
-easyops_org = '3087'
+easyops_cmdb_host = '192.168.28.28'
+easyops_org = '9070'
 easy_user = 'defaultUser'
 # header配置
 easy_domain = 'cmdb_resource.easyops-only.com'
 headers = {'host': easy_domain, 'org': easyops_org, 'user': easy_user, 'content-Type': 'application/json'}
 
 # 插入数据模型ID
-modelID = 'RocketMQ_SERVICE'
+modelID = 'JBOSS_SERVER'
 
 if modelID == "MYSQL_SERVICE":
     nodeID = 'mysql'
@@ -45,9 +60,9 @@ elif modelID == 'MEMCACHED_SERVICE':
     nodeID = 'memcached'
 elif modelID == 'ZOOPKEEPER_SERVICE':
     nodeID = 'zookeeper'
-elif modelID == "RocketMQ_SERVICE":
+elif modelID == "JBOSS_SERVER":
     nodeID = 'java'
-    mq_name = 'rocketmq'
+    mq_name = 'flink_tracing'
 else:
     nodeID = ''
 
@@ -69,7 +84,7 @@ class EasyopsPubic(object):
                             "only_relation_view": True,
                             "only_my_instance": False}
 
-        elif modelID == "RocketMQ_SERVICE":
+        elif modelID == "JBOSS_SERVER":
             ConfigParams = {"query": {
                 "$and": [{"$or": [{"type": {"$eq": nodeID}}]},
                          {"$or": [{"provider.cwd": {"$like": "%" + mq_name + "%"}}]}]},
@@ -79,6 +94,8 @@ class EasyopsPubic(object):
             ConfigParams = {"query": {"$and": [{"$or": [{"type": {"$eq": nodeID}}]}]},
                             "fields": {"instanceId": True, "agentIp": True}, "only_relation_view": True,
                             "only_my_instance": False}
+
+        print ConfigParams
 
         return self.instance_search("_SERVICENODE", ConfigParams)
 
@@ -396,7 +413,7 @@ class AutoAddNode(EasyopsPubic):
         :return:
         """
         for k, v in data.items():
-            if modelID == "RocketMQ_SERVICE":
+            if modelID == "JBOSS_SERVER":
                 data = {"featurePriority": "500", "featureEnabled": "true",
                         "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"},
                                         {"key": "provider.cwd", "method": "like", "value": mq_name, "label": "工作目录"}]}
