@@ -57,15 +57,18 @@ def DealData(callback, modelID):
 
     object_id = callback['data']['ext_info']['object_id']  # 模型ID
 
-    if object_id == 'FCODE_FLOW':
+    if object_id == modelID:
         flowId = ''  # 部署策略ID
         focdeId = callback['data']['target_id']  # 流水号ID
         name = callback['data']['ext_info']['instance_name']  # 实例名称流水号
         user = callback['data'].get('operator', 'easyops')
+        print '原始数据：', callback
+        focde_instanceid = callback['data']['ext_info']['instance_id']  # 流水线实例ID
 
         # 根据focdeId  获取应用名称 /object/@object_id/instance/@instance_id
         app_url = "http://{host}/object/{id}/instance/{model}".format(host=easyopsHost, id=modelID, model=focdeId)
         app_ret = http_post('GET', app_url)
+        print app_ret
         AppName = app_ret.get('application')  # 应用名
 
         # 根据应用ID，获取对应的Fcode流程管理ID，拼接URL
@@ -89,7 +92,7 @@ def DealData(callback, modelID):
         if search_ret:
             piplineList = search_ret[0].get('__pipeline')
             print "piplineList: ", piplineList
-            app_instanceId = search_ret[0]['instanceId']
+            app_instanceId = search_ret[0]['instanceId']  # 应用ID
             print "app_instanceId: ", app_instanceId
             logging.info(u'应用部署ID列表:', piplineList)
             print "AppName: ", AppName
@@ -120,8 +123,18 @@ def DealData(callback, modelID):
 
                 url = "http://{host}/object/{model}/instance/{id}".format(host=easyopsHost, model=modelID,
                                                                           id=focdeId)
-                print url
-                http_post('PUT', url, data)
+                res = http_post('PUT', url, data)
+                print res
+
+                # 处理关系
+                info_set_url = 'http://{host}/object/APP/relation/{model}/set'.format(host=easyopsHost, model=modelID)
+                print info_set_url
+                info_set_data = {
+                    "instance_ids": [app_instanceId],
+                    "related_instance_ids": [focde_instanceid]
+                }
+                print info_set_data
+                http_post('POST', info_set_url, info_set_data)
 
 
 def application(environ, start_response):

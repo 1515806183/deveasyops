@@ -32,7 +32,7 @@ easy_domain = 'cmdb_resource.easyops-only.com'
 headers = {'host': easy_domain, 'org': easyops_org, 'user': easy_user, 'content-Type': 'application/json'}
 
 # 插入数据模型ID
-modelID = 'JBOSS_SERVER'
+modelID = name
 
 if modelID == "MYSQL_SERVICE":
     nodeID = 'mysql'

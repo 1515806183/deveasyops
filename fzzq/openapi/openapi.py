@@ -305,21 +305,10 @@ def __delete(request, url):
 
 if __name__ == '__main__':
     # 设置签名用的key
-    # EasyRequest.ACCESS_KEY = '470da6ceb8b1a012d19d7e3f'
-    # EasyRequest.SECRET_KEY = '49454e774245624c494b644e6b52584f474262717677746a735a546a6d6b726b'
-
-    # EasyRequest.ACCESS_KEY = '5f21c4407ec53bd76fc94edb'
-    # EasyRequest.SECRET_KEY = '70447877506950537871694f496f79594d4649655079576b624d7a6f566f476c'
-    # EasyRequest.ACCESS_KEY = 'bbf2c57378fd37c2623372ea'
-    # EasyRequest.SECRET_KEY = '6f7a776c4c5943715742476c7475556b56464f4f6a5973526a53484549664468'
 
     EasyRequest.ACCESS_KEY = "04463dbea830dd25df7d782f"
     EasyRequest.SECRET_KEY = "6a494f72656a6b584573714b57774679687863427843565a6f6a686470596e4c"
     # 设置请求IP地址
-    # EasyRequest.IP = '192.168.10.144'
-    # EasyRequest.IP = '28.163.0.123'
-    # EasyRequest.IP = '18.100.254.231'
-
     EasyRequest.IP = "192.168.28.28"
     # 实例化
     request = EasyRequest()
@@ -341,4 +330,3 @@ if __name__ == '__main__':
         }
     }
     res = __post(request, url, parse)
-    # __delete(request, url)
