@@ -12,18 +12,17 @@
 
 import requests, logging, json, copy
 
-EASYOPS_CMDB_HOST = '28.163.0.123:80'
 
 headers = {
-    "org": '3087',
+    "org": str(EASYOPS_ORG),
     "user": "easyops",
-    "host": "deployrepo.easyops-only.com"
+    "host": "deployrepo.easyops-only.com",
 
 }
 cmdb_headers = {
-    "org": '3087',
+    "org": str(EASYOPS_ORG),
     "user": "easyops",
-    "host": 'cmdb_resource.easyops-only.com'
+    "host": 'cmdb_resource.easyops-only.com',
 }
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -58,6 +57,7 @@ class EasyopsPubic(object):
                             ret['list'] += temp_ret['list']
                     return ret
             except Exception as e:
+                print e
                 return {"list": []}
 
         elif method in ('post_page',):
@@ -107,7 +107,8 @@ class GetAppInfo(EasyopsPubic):
         params = {
             "query": {
                 "init_package": {"$eq": False},
-                "self_research": {"$eq": "是"}
+                "self_research": {"$eq": "是"},
+                "name": "app-qt_ifc-app-qt-wx-webapp"
             },
             "fields": {
                 "name": True,
@@ -273,12 +274,12 @@ user_check_script: ""
 
             logging.info('register_version url..... %s' % url)
             logging.info('register_version app instanceId %s..... %s' % (url, self.instanceId))
-            pkg_version = 0.0001
+            pkg_version = 0.00001
 
             params_dict = {
                 'name': str(pkg_version),
                 'message': '初始化启动，停止命令等信息',
-                'env_type': 3  # 版本类型 测试
+                'env_type': env_types  # 版本类型 测试
             }
             # logging.info('register_version params_dict..... %s' % params_dict)
 

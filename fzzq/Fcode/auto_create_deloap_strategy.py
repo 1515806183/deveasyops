@@ -7,7 +7,7 @@
 @application:
 @file: 创建灰度部署策略.py
 @time: 2020/12/7 15:16
-@desc: 自动创建部署策略_单机版
+@desc:
 '''
 import json, requests
 import logging
@@ -21,12 +21,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(filename)s[line:%(
                     datefmt='%a %d %b %Y %H:%M:%S')
 
 # CMDB配置
-# deploy_host = '28.163.0.123:8061'
-# cmdb_host = "28.163.0.123"
-deploy_host = '28.163.0.123:8061'
-cmdb_host = "28.163.0.123"
+deploy_host = EASYOPS_CMDB_HOST.split(':')[0] + ':8061'
+cmdb_host = EASYOPS_CMDB_HOST.split(':')[0]
 
-easyops_org = '3087'
+easyops_org = str(EASYOPS_ORG)
 easy_user = 'defaultUser'
 # header配置
 
@@ -34,10 +32,11 @@ deploy_headers = {'org': easyops_org, 'user': easy_user, 'content-Type': 'applic
 cmdb_headers = {'host': 'cmdb_resource.easyops-only.com', 'org': easyops_org, 'user': easy_user,
                 'content-Type': 'application/json'}
 
-app_name = 'secured_ifc-index-dubbo-service'
+app_name = name
+
 
 # 0 开发， 1测试  2生产
-clusterNum = "2"
+# clusterNum = "1"
 
 
 class EasyopsPubic(object):
@@ -80,7 +79,6 @@ class EasyopsPubic(object):
                     ret = json.loads(r.content)['data']
                     return ret
             except Exception as e:
-                print e
                 return {"list": []}
 
         elif method in ('get', 'get'):
@@ -112,15 +110,6 @@ class EasyopsPubic(object):
                 r = requests.get(url, headers=headers, timeout=60)
                 if r.status_code == 200:
                     return json.loads(r.content)['data']
-            except Exception as e:
-                return {"list": []}
-
-        # PUT
-        elif method in ('put', 'PUT'):
-            try:
-                r = requests.put(url, headers=headers, data=json.dumps(params), timeout=60)
-                if r.status_code == 200:
-                    return json.loads(r.content)['code']
             except Exception as e:
                 return {"list": []}
 
@@ -171,7 +160,6 @@ class CreatePackageInfo(EasyopsPubic):
                 if not only_one:
                     logging.info('create_one start...')
                     self.create_one()
-
                 if not only_other:
                     logging.info('create_other start...')
                     self.create_other()
@@ -213,7 +201,7 @@ class CreatePackageInfo(EasyopsPubic):
                 # 遍历集群列表
                 logging.info('CLUSTER ret_cluster: %s' % ret_cluster)
                 for clusters in ret_cluster.get('list'):
-                    if clusters.get('type') == clusterNum:
+                    if str(clusters.get('type')) == str(clusterNum):
                         logging.info('cluster == %s  info = %s' % (clusterNum, clusters))
                         del clusters['_object_id']
                         logging.info('CLUSTER info: %s' % clusters)
@@ -678,8 +666,15 @@ class CreatePackageInfo(EasyopsPubic):
         try:
             self.app_info = self.get_app_info()
             self.cluster_host_info = self.get_cluster_host_info()
+            if not self.cluster_host_info:
+                logging.error('error cluster_host_info is None, Check package type ')
+                return
             self.package_info = self.get_package_info()
+            if not self.package_info:
+                logging.error('error package_info is None, Check that the package exists')
+                return
             self.strategy_info = self.get_strategy_info()
+
         except Exception as e:
             logging.error('error %s' % e)
             logging.error('app name is', app_name)
