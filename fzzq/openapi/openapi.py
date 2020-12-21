@@ -289,10 +289,10 @@ def __get(request, url):
 
 
 # PUT方法
-def __put(request, url):
+def __put(request, url, parse):
     request.method = 'PUT'
     request.url = url
-    # request.data = json.dumps({"id": 123, "name": "jack"})
+    request.data = json.dumps(parse)
     __test_print_result(request)
 
 
@@ -306,27 +306,19 @@ def __delete(request, url):
 if __name__ == '__main__':
     # 设置签名用的key
 
-    EasyRequest.ACCESS_KEY = "04463dbea830dd25df7d782f"
-    EasyRequest.SECRET_KEY = "6a494f72656a6b584573714b57774679687863427843565a6f6a686470596e4c"
+    EasyRequest.ACCESS_KEY = "c220cef2d434a24c1ec32a52"
+    EasyRequest.SECRET_KEY = "6351516e66764469555a7a43684f4f4779655450716b715358736d4a544a4848"
     # 设置请求IP地址
-    EasyRequest.IP = "192.168.28.28"
+    EasyRequest.IP = "28.163.0.123"
     # 实例化
     request = EasyRequest()
 
-    # 获取 业务系统信息uri: /object/{objectId}/instance/_import
-    url = '/cmdb_resource/object/{objectId}/instance/_search'.format(objectId='HOST')  # objectId模型ID
-    # url = '/cmdb_resource/object/{objectId}/instance/_import'.format(objectId='Parts')  # objectId模型ID
-    # url = '/cmdb_resource/object/{objectId}/instance/5b4ea4ada0a87'.format(objectId='Parts')  # objectId模型ID
-    # url = '/cmdb_resource/object/{objectId}/instance/_batch?instanceIds=5b4ea4a4fc216;5b4ea4ada0a87'.format(objectId='Parts')  # objectId模型ID
-
+    # 获取 业务系统信息uri: /object/{objectId}/instance/_search
+    url = '/cmdb/object/{objectId}/instance/5923d36b1e729'.format(objectId='HOST')  # objectId模型ID
     print url
+
     # 参数
-    # parse = '{"query":{"name": "研究所"},"fields":{"instanceId":true, "name":true, "_businesses_APP.owner": true, "_businesses_APP.tester": true, "_businesses_APP.name_chineses": true, "_businesses_APP.name": true, "_businesses_APP.instanceId": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
-    # parse = '{"query":{"name": "secured_ifc-index-dubbo-service"},"fields":{"instanceId":true, "name":true, "clusters.deviceList.ip": true, "port": true},"only_relation_view":true,"only_my_instance":false, "page": 1,"page_size": 2000}'
     parse = {
-        "fields": {
-            "deleteAuthorizers": True,
-            "updateAuthorizers": True
-        }
+        "mome": "1"
     }
-    res = __post(request, url, parse)
+    res = __put(request, url, parse)

@@ -24,15 +24,15 @@ logger.addHandler(logger_handler)
 monkey.patch_all()
 
 # CMDB配置
-easyops_cmdb_host = '192.168.28.28'
-easyops_org = '9070'
+easyops_cmdb_host = '192.168.110.170'
+easyops_org = '1033'
 easy_user = 'defaultUser'
 # header配置
 easy_domain = 'cmdb_resource.easyops-only.com'
 headers = {'host': easy_domain, 'org': easyops_org, 'user': easy_user, 'content-Type': 'application/json'}
 
 # 插入数据模型ID
-modelID = name
+modelID = 'tuxedoltwo'
 
 if modelID == "MYSQL_SERVICE":
     nodeID = 'mysql'
@@ -63,6 +63,15 @@ elif modelID == 'ZOOPKEEPER_SERVICE':
 elif modelID == "JBOSS_SERVER":
     nodeID = 'java'
     mq_name = 'flink_tracing'
+
+elif modelID == "tuxedolone":
+    nodeID = 'CTBase.exe'
+    mq_name = 'CTBase.exe'
+
+elif modelID == "tuxedoltwo":
+    nodeID = 'tomcat'
+    mq_name = 'YNRCB_B2EF'
+
 else:
     nodeID = ''
 
@@ -90,12 +99,25 @@ class EasyopsPubic(object):
                          {"$or": [{"provider.cwd": {"$like": "%" + mq_name + "%"}}]}]},
                 "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
                 "only_relation_view": True, "only_my_instance": False}
+
+        elif modelID == "tuxedolone":
+            ConfigParams = {"query": {
+                "$and": [{"$or": [{"type": {"$eq": nodeID}}]},
+                         {"$or": [{"provider.cmd": {"$like": "%" + mq_name + "%"}},
+                                  ]}]},
+                "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
+                "only_relation_view": True, "only_my_instance": False}
+        elif modelID == "tuxedoltwo":
+            ConfigParams = {"query": {
+                "$and": [{"$or": [{"type": {"$eq": 'TOMCAT_SERVICE'}}]},
+                         {"$or": [{"provider.cmd": {"$like": "%" + mq_name + "%"}},
+                                  ]}]},
+                "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
+                "only_relation_view": True, "only_my_instance": False}
         else:
             ConfigParams = {"query": {"$and": [{"$or": [{"type": {"$eq": nodeID}}]}]},
                             "fields": {"instanceId": True, "agentIp": True}, "only_relation_view": True,
                             "only_my_instance": False}
-
-        print ConfigParams
 
         return self.instance_search("_SERVICENODE", ConfigParams)
 
@@ -417,6 +439,10 @@ class AutoAddNode(EasyopsPubic):
                 data = {"featurePriority": "500", "featureEnabled": "true",
                         "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"},
                                         {"key": "provider.cwd", "method": "like", "value": mq_name, "label": "工作目录"}]}
+            elif modelID == "tuxedolone":
+                data = {"featurePriority": "500", "featureEnabled": "true",
+                        "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"},
+                                        {"key": "provider.cmd", "method": "like", "value": mq_name, "label": "启动命令"}]}
             else:
                 data = {"featurePriority": "500", "featureEnabled": "true",
                         "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"}]}

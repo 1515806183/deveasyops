@@ -29,8 +29,8 @@ class EasyOps {
     private String SECRET_KEY;
 
     public static void main(String[] args) {
-        EasyOps easyops = new EasyOps("28.163.0.123", "bada5e73756d30d9a7b5a47a",
-                "a81a31823a14eb79d7ca5ead1e12c7ff6e43e472fe6c6ec03913af637565845e");
+        EasyOps easyops = new EasyOps("28.163.0.123", "c220cef2d434a24c1ec32a52",
+                "6351516e66764469555a7a43684f4f4779655450716b715358736d4a544a4848");
 
 //        System.out.println("******************GET******************");
 //        Map<String, Object> get_params = new HashMap<String, Object>();
