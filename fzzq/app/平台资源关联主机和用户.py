@@ -24,15 +24,15 @@ logger.addHandler(logger_handler)
 monkey.patch_all()
 
 # CMDB配置
-easyops_cmdb_host = '192.168.110.170'
-easyops_org = '1033'
+easyops_cmdb_host = str(EASYOPS_CMDB_HOST).split(':')[0]
+easyops_org = str(EASYOPS_ORG)
 easy_user = 'defaultUser'
 # header配置
 easy_domain = 'cmdb_resource.easyops-only.com'
 headers = {'host': easy_domain, 'org': easyops_org, 'user': easy_user, 'content-Type': 'application/json'}
 
 # 插入数据模型ID
-modelID = 'tuxedoltwo'
+modelID = name
 
 if modelID == "MYSQL_SERVICE":
     nodeID = 'mysql'
@@ -60,18 +60,9 @@ elif modelID == 'MEMCACHED_SERVICE':
     nodeID = 'memcached'
 elif modelID == 'ZOOPKEEPER_SERVICE':
     nodeID = 'zookeeper'
-elif modelID == "JBOSS_SERVER":
-    nodeID = 'java'
-    mq_name = 'flink_tracing'
-
-elif modelID == "tuxedolone":
-    nodeID = 'CTBase.exe'
-    mq_name = 'CTBase.exe'
-
-elif modelID == "tuxedoltwo":
-    nodeID = 'tomcat'
-    mq_name = 'YNRCB_B2EF'
-
+elif modelID == "RocketMQ_SERVICE":
+    eq_data = 'java'
+    mq_name = 'rocketmq'
 else:
     nodeID = ''
 
@@ -85,7 +76,7 @@ class EasyopsPubic(object):
     def searchQueryData(self):
         """
         通过查询参数查询数据
-        :return: 
+        :return:
         """
 
         if modelID == 'HOST':
@@ -93,31 +84,18 @@ class EasyopsPubic(object):
                             "only_relation_view": True,
                             "only_my_instance": False}
 
-        elif modelID == "JBOSS_SERVER":
+        elif modelID == "RocketMQ_SERVICE":
             ConfigParams = {"query": {
-                "$and": [{"$or": [{"type": {"$eq": nodeID}}]},
+                "$and": [{"$or": [{"type": {"$eq": eq_data}}]},
                          {"$or": [{"provider.cwd": {"$like": "%" + mq_name + "%"}}]}]},
                 "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
-                "only_relation_view": True, "only_my_instance": False}
-
-        elif modelID == "tuxedolone":
-            ConfigParams = {"query": {
-                "$and": [{"$or": [{"type": {"$eq": nodeID}}]},
-                         {"$or": [{"provider.cmd": {"$like": "%" + mq_name + "%"}},
-                                  ]}]},
-                "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
-                "only_relation_view": True, "only_my_instance": False}
-        elif modelID == "tuxedoltwo":
-            ConfigParams = {"query": {
-                "$and": [{"$or": [{"type": {"$eq": 'TOMCAT_SERVICE'}}]},
-                         {"$or": [{"provider.cmd": {"$like": "%" + mq_name + "%"}},
-                                  ]}]},
-                "fields": {"instanceId": True, "agentIp": True, "type": True, "provider": True},
-                "only_relation_view": True, "only_my_instance": False}
+                "only_relation_view": True, "only_my_instance": False, "page": 1}
         else:
             ConfigParams = {"query": {"$and": [{"$or": [{"type": {"$eq": nodeID}}]}]},
                             "fields": {"instanceId": True, "agentIp": True}, "only_relation_view": True,
                             "only_my_instance": False}
+
+        print ConfigParams
 
         return self.instance_search("_SERVICENODE", ConfigParams)
 
@@ -435,14 +413,10 @@ class AutoAddNode(EasyopsPubic):
         :return:
         """
         for k, v in data.items():
-            if modelID == "JBOSS_SERVER":
+            if modelID == "RocketMQ_SERVICE":
                 data = {"featurePriority": "500", "featureEnabled": "true",
                         "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"},
                                         {"key": "provider.cwd", "method": "like", "value": mq_name, "label": "工作目录"}]}
-            elif modelID == "tuxedolone":
-                data = {"featurePriority": "500", "featureEnabled": "true",
-                        "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"},
-                                        {"key": "provider.cmd", "method": "like", "value": mq_name, "label": "启动命令"}]}
             else:
                 data = {"featurePriority": "500", "featureEnabled": "true",
                         "featureRule": [{"key": "agentIp", "method": "eq", "value": k, "label": "AgentIp"}]}
