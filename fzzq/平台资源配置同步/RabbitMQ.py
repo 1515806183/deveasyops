@@ -255,7 +255,10 @@ class ThreadInsert(object):
                         elif info == 'erlang_full_version':
                             erlang_full_version += (data.get('value', ''),)
                         elif info == 'contexts':
-                            contexts += (json.loads(data.get('value', []))[0],)
+                            try:
+                                contexts += (json.loads(data.get('value', []))[0],)
+                            except Exception as e:
+                                continue
             res = {
                 "name": name,
                 "listeners": self.list_dict_duplicate_removal(listeners),
