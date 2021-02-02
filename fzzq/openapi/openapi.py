@@ -42,6 +42,7 @@ class EasyRequest(object):
         self.signature_params = {}
 
         self.set_header('Host', 'openapi.easyops-only.com')
+        self.set_header('org', '3087')
 
     def set_header(self, key, value):
         self.headers[key] = value
@@ -122,13 +123,14 @@ class EasyRequest(object):
 
     def build_url(self):
         """
-        签名，url，参数，组合成完整url
+        # 签名，url，参数，组合成完整url
         :return:
         """
         parts = urlparse(self.__url)
 
         query_string = ''
         param = dict(self.params, **self.signature_params)
+        print param
 
         if len(parts.query) > 0:
             query_string += parts.query + '&' + '&'.join(['%s=%s' % (k, v) for k, v in param.items()])
@@ -283,8 +285,7 @@ def __get(request, url):
     request.url = url
 
     # 设置请求参数
-    # request.set_param('page', 1).set_param('pageSize', 30)
-
+    # request.set_param('ip', '10.163.131.12').set_param('page_size', 1)
     __test_print_result(request)
 
 
@@ -306,19 +307,18 @@ def __delete(request, url):
 if __name__ == '__main__':
     # 设置签名用的key
 
-    EasyRequest.ACCESS_KEY = "c220cef2d434a24c1ec32a52"
-    EasyRequest.SECRET_KEY = "6351516e66764469555a7a43684f4f4779655450716b715358736d4a544a4848"
+    EasyRequest.ACCESS_KEY = "bd248944d1cff9f1c1a6f994"
+    EasyRequest.SECRET_KEY = "504b44455045577449766870434d586a71484a4d4c65686b766466557562784b"
     # 设置请求IP地址
-    EasyRequest.IP = "28.163.0.123"
+    EasyRequest.IP = "10.163.128.232"
     # 实例化
     request = EasyRequest()
 
     # 获取 业务系统信息uri: /object/{objectId}/instance/_search
-    url = '/cmdb/object/{objectId}/instance/5923d36b1e729'.format(objectId='HOST')  # objectId模型ID
-    print url
+    # url = '/cmdb/object/{objectId}/instance/_search'.format(objectId='APP')  # objectId模型ID
+    url = '/dc_console/api/v1/collector/list/host?ip=10.163.131.12&page_size=1&__select__=host.cpu.used_total%2Chost.mem.percent%2Chost.disk.max_used_percent'
+    url = '/api/v1/collector/list/host'
+    # print url
 
     # 参数
-    parse = {
-        "mome": "1"
-    }
-    res = __put(request, url, parse)
+    res = __get(request, url)

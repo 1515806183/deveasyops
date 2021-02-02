@@ -97,8 +97,10 @@ def get_deploy_data_from_notify():
             )
             if not response_data:
                 continue
+
             result_list = response_data['list']
             # print result_list
+
             # 查询一批数据处理一批数据
             if len(result_list) == 0:
                 break
