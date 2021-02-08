@@ -38,10 +38,14 @@ cmdb_headers = {
     'content-Type': 'application/json'
 }
 
-http_zcloud_url = "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="28.163.1.183")
+http_zcloud_url = {
+    "test": "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="28.163.1.183")
+}
 zcloud_headers = {
-    'token': 'e7043641-4bcc-368e-9b09-3dbe894cd24f',
-    'Content-Type': 'application/json'
+    "test": {
+        'token': 'e7043641-4bcc-368e-9b09-3dbe894cd24f',
+        'Content-Type': 'application/json'
+    }
 }
 
 
@@ -352,6 +356,7 @@ class AutoAppServiceNode():
                 "tester.nickname": True,
                 "developer.name": True,
                 "developer.nickname": True,
+                "clusters.type": True
             }}
         dataList = http_post('POSTS', url, params)
         logging.info('获取DB应用数量为:%s' % len(dataList))
@@ -375,19 +380,28 @@ class AutoAppServiceNode():
         :param i:  每个应用数据
         :return:
         """
-        app_instanceId = data.get('instanceId')
+        # print threading.enumerate() # 获取线程数量
         app_name = data.get('name')
         logging.info('开始处理的应用为:%s' % app_name)
+        app_instanceId = data.get('instanceId')
+
+        # 1.测试， 2生产
+        clusters_info_list = data.get('clusters', [])
+        if not clusters_info_list:
+            logging.warning('应用：%s，未创建集群信息！请创建集群纳管主机' % app_name)
+            return
+
         _SERVICENODE = data.get('_SERVICENODE')
         if not _SERVICENODE:
-            logging.warning('应用：%s,未发现服务节点信息，检查是否配置服务节点特征' % app_name)
+            logging.warning('应用：%s,未发现服务节点信息，检查是否配置服务节点特征和纳管主机' % app_name)
             return
 
         # 先获取主机信息
         try:
             url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="HOST")
             params = {"fields": {"ip": True, "save_type": True, "hardware_score": True,
-                                 "idc": True, "osSystem": True, "osArchitecture": True, "sn": True, "memo": True},
+                                 "idc": True, "osSystem": True, "osArchitecture": True, "sn": True, "memo": True,
+                                 "_deviceList_CLUSTER.type": True, "owner.name": True, "owner.nickname": True},
                       "query": {"_deviceList_CLUSTER.appId.instanceId": {"$eq": app_instanceId}}}
             hostdataList = http_post('POST', url, params)
             inspect_data = hostdataList[0]  # 检查字段,报错就退出
@@ -395,108 +409,174 @@ class AutoAppServiceNode():
             logging.warning('应用：%s，未纳管主机信息，请纳管主机信息' % app_name)
             return
 
-        host_dict = {}
-        for host in hostdataList:
-            host_ip = host.get('ip')
-            host_instanceId = host.get('instanceId')
-            host_dict.update({host_ip: host_instanceId})
-
-        # 处理用户信息
-        all_user_list = []
-        add_existence = []
-        owner = data.get('owner')
-        if owner:
-            for user in owner:
-                name = user.get('name')
-                if name in add_existence:
-                    continue
-                nickname = user.get('nickname', '')
-                all_user_list.append({"name": name, "nickname": nickname})
-                add_existence.append(name)
-
-        test = data.get('test')
-        if test:
-            for user in test:
-                name = user.get('name')
-                if name in add_existence:
-                    continue
-                nickname = user.get('nickname', '')
-                all_user_list.append({"name": name, "nickname": nickname})
-                add_existence.append(name)
-        developer = data.get('developer')
-        if developer:
-            for user in developer:
-                name = user.get('name')
-                if name in add_existence:
-                    continue
-                nickname = user.get('nickname', '')
-                all_user_list.append({"name": name, "nickname": nickname})
-                add_existence.append(name)
-        logging.info('应用用户数量为:%s' % len(all_user_list))
+        # 获取测试，生产主机信息
+        uat_host_dict = {}  # ip: host_info
+        pro_host_dict = {}
+        for host_info in hostdataList:
+            host_ip = host_info.get('ip')
+            cluster_type = host_info.get('_deviceList_CLUSTER', [])[0]['type']  # 获取集群类型
+            host_info.pop('_deviceList_CLUSTER')  # 删除集群信息
+            if cluster_type == "1":
+                host_info['_environment'] = 'test'
+                uat_host_dict.update({host_ip: host_info})
+            elif cluster_type == "2":
+                host_info['_environment'] = 'pro'
+                pro_host_dict.update({host_ip: host_info})
+        logging.info(u'测试环境主机IP列表：%s' % uat_host_dict.keys())
+        logging.info(u'生产环境主机IP列表：%s' % pro_host_dict.keys())
 
         # 去掉没有port的节点
         _SERVICENODE = filter(lambda x: "port" in x.keys(), _SERVICENODE)
 
-        http_zcloud_data = {
-            "jsonStr": {
-                "list": [
-                    {
-                        "APP": [app_name],
-                        "HOST": hostdataList,
-                        "USER": all_user_list,
-                        "_SERVICENODE": _SERVICENODE
-                    }
-                ]
+        # 处理生产环境环境servernode信息
+        pro_user_list = []
+        pro_add_existence = []  # 为了聚合去重
+        pro_ip_node_info = {}  # ip为key的servernode信息
+        owner = data.get('owner')
+        if owner:
+            for user in owner:
+                name = user.get('name')
+                nickname = user.get('nickname', '')
+                if name in pro_add_existence:
+                    continue
+                pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
+
+            # 处理服务节点
+            node_type = ''  # 数据库类型 mysql oracle redis
+            for node_info in _SERVICENODE:
+                node_type = node_info.get('type')
+                agentIp = node_info.get('agentIp')
+                node_info['DBAPP'] = app_name
+                node_info['USER'] = pro_user_list  # # 应用运维负责人
+
+                # 如果添加过IP，则不用初始化信息为LIST
+                if not pro_ip_node_info.has_key(agentIp):
+                    pro_ip_node_info[agentIp] = []
+                pro_ip_node_info[agentIp].append(node_info)
+
+        logging.info('应用运维负责人数量为:%s， 用户信息:%s' % (len(pro_user_list), pro_user_list))
+
+        # 处理测试环境servernode信息
+        uat_user_list = []
+        uat_add_existence = []  # 为了聚合去重
+        uat_ip_node_info = {}  # ip为key的servernode信息
+        tester = data.get('tester')
+        if tester:
+            for user in tester:
+                name = user.get('name')
+                nickname = user.get('nickname', '')
+                if name in uat_add_existence:
+                    continue
+                uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
+
+            # 处理服务节点
+            node_type = ''  # 数据库类型 mysql oracle redis
+            for node_info in _SERVICENODE:
+                node_type = node_info.get('type')
+                agentIp = node_info.get('agentIp')
+                node_info['DBAPP'] = app_name
+                node_info['USER'] = uat_user_list  # 应用运维负责人
+
+                # 如果添加过IP，则不用初始化信息为LIST
+                if not uat_ip_node_info.has_key(agentIp):
+                    uat_ip_node_info[agentIp] = []
+                uat_ip_node_info[agentIp].append(node_info)
+
+        logging.info('应用测试负责人数量为:%s， 用户信息:%s' % (len(uat_user_list), uat_user_list))
+
+        logging.info('应用数据库类型为: %s' % node_type)
+
+        # 测试环境，组合请求zcloud数据
+        if uat_host_dict:
+            uat_zcloud_data = {
+                "jsonStr": {
+                    "list": []
+                }
             }
-        }
-        logging.info('http_zcloud_data: %s' % json.dumps(http_zcloud_data, sort_keys=True, indent=2))
-        ret = http_post('POST', http_zcloud_url, headers=zcloud_headers, params=http_zcloud_data)
-        # pprint.pprint(ret, stream=None, indent=2, width=80)
-        zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
+            for uat_ip in uat_host_dict:
+                data = {
+                    "APP": [app_name],
+                    "HOST": uat_host_dict.get(uat_ip, []),
+                    "USER": uat_host_dict[uat_ip].get('owner', []),  # 主机运维负责人
+                    "_SERVICENODE": uat_ip_node_info.get(uat_ip, [])
+                }
+                uat_zcloud_data['jsonStr']['list'].append(data)
 
-        # 类型分类
-        node_dict = {"mysql": []}
-        for node in zcloud_SERVICENODE:
-            node_type = node.get('type')
-            node_ip = node.get('agentIp')
-            node_port = str(node.get('port'))
-            node_name = node_ip + ":" + node_port
-            node['name'] = node_name
-            node['HOST'] = [host_dict.get(node_ip, [])]  # 主机
+            logging.info('测试环境请求zcloud数据: %s' % json.dumps(uat_zcloud_data, sort_keys=True, indent=2))
 
-            node.update(
-                {"featurePriority": "500", "featureEnabled": "true",
-                 "featureRule": [{"key": "agentIp", "method": "eq", "value": node_ip, "label": "AgentIp"},
-                                 {"key": "port", "method": "eq", "value": node_port, "label": "监听端口"}]}
-            )
+            ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
+            print ret
 
-            # 处理是否被zcloud纳管
-            zcloud_instance_id = node.get('zcloud_instance_id')
-            if zcloud_instance_id:
-                node['existence'] = u"是"
-                # 处理是否是集群
-                zcloud_is_cluster = node.get('zcloud_is_cluster', 0)
-                if zcloud_is_cluster:
-                    node['zcloud_is_cluster'] = u"是"
-                else:
-                    node['zcloud_is_cluster'] = u"否"
+        else:
+            logging.info(u'测试环境主机没有节点信息')
 
-                # 处理是否开发binlog
-                zcloud_is_open_binlog = node.get('zcloud_is_open_binlog', 0)
-                if zcloud_is_open_binlog:
-                    node['zcloud_is_open_binlog'] = u"是"
-                else:
-                    node['zcloud_is_open_binlog'] = u"否"
+        # 生产环境， 组合请求zcloud数据
+        if pro_host_dict:
+            pro_zcloud_data = {
+                "jsonStr": {
+                    "list": []
+                }
+            }
+            for pro_ip in pro_host_dict:
+                data = {
+                    "APP": [app_name],
+                    "HOST": pro_host_dict.get(pro_ip, []),
+                    "USER": pro_host_dict.get('owner', []),
+                    "_SERVICENODE": pro_ip_node_info.get(pro_ip, [])
+                }
+                pro_zcloud_data['jsonStr']['list'].append(data)
 
-            else:
-                node['existence'] = u"否"
+            logging.info('生产环境请求zcloud数据: %s' % json.dumps(pro_zcloud_data, sort_keys=True, indent=2))
 
-            if node_type == 'mysql':
-                node['APP_MYSQL_SERVICE'] = [app_instanceId]  # 关联应用
-                node_dict["mysql"].append(
-                    node
-                )
-        return node_dict
+        else:
+            logging.info(u'生产环境主机没有节点信息')
+
+        # # pprint.pprint(ret, stream=None, indent=2, width=80)
+        # zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
+        #
+        # # 类型分类
+        # node_dict = {"mysql": []}
+        # for node in zcloud_SERVICENODE:
+        #     node_type = node.get('type')
+        #     node_ip = node.get('agentIp')
+        #     node_port = str(node.get('port'))
+        #     node_name = node_ip + ":" + node_port
+        #     node['name'] = node_name
+        #     node['HOST'] = [host_dict.get(node_ip, [])]  # 主机
+        #
+        #     node.update(
+        #         {"featurePriority": "500", "featureEnabled": "true",
+        #          "featureRule": [{"key": "agentIp", "method": "eq", "value": node_ip, "label": "AgentIp"},
+        #                          {"key": "port", "method": "eq", "value": node_port, "label": "监听端口"}]}
+        #     )
+        #
+        #     # 处理是否被zcloud纳管
+        #     zcloud_instance_id = node.get('zcloud_instance_id')
+        #     if zcloud_instance_id:
+        #         node['existence'] = u"是"
+        #         # 处理是否是集群
+        #         zcloud_is_cluster = node.get('zcloud_is_cluster', 0)
+        #         if zcloud_is_cluster:
+        #             node['zcloud_is_cluster'] = u"是"
+        #         else:
+        #             node['zcloud_is_cluster'] = u"否"
+        #
+        #         # 处理是否开发binlog
+        #         zcloud_is_open_binlog = node.get('zcloud_is_open_binlog', 0)
+        #         if zcloud_is_open_binlog:
+        #             node['zcloud_is_open_binlog'] = u"是"
+        #         else:
+        #             node['zcloud_is_open_binlog'] = u"否"
+        #
+        #     else:
+        #         node['existence'] = u"否"
+        #
+        #     if node_type == 'mysql':
+        #         node['APP_MYSQL_SERVICE'] = [app_instanceId]  # 关联应用
+        #         node_dict["mysql"].append(
+        #             node
+        #         )
+        # return node_dict
 
     def dealdata(self, content):
         res = []
@@ -509,19 +589,19 @@ class AutoAppServiceNode():
             "datas": []
         }
 
-        for i, g in enumerate(res):
-            ret = g.value
-            if isinstance(ret, dict):
-                if 'mysql' in ret.keys():
-                    mysql_data['datas'] = ret['mysql']
-
-        if len(mysql_data['datas']):
-            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
-            time.sleep(1)
-            res = http_post('repo', url, mysql_data)
-            logging.info('Return of inserted data: %s' % res)
-        else:
-            logging.info('There is no data to insert')
+        # for i, g in enumerate(res):
+        #     ret = g.value
+        #     if isinstance(ret, dict):
+        #         if 'mysql' in ret.keys():
+        #             mysql_data['datas'] = ret['mysql']
+        #
+        # if len(mysql_data['datas']):
+        #     url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
+        #     time.sleep(1)
+        #     res = http_post('repo', url, mysql_data)
+        #     logging.info('Return of inserted data: %s' % res)
+        # else:
+        #     logging.info('There is no data to insert')
 
     # 开启多线程任务
     def task(self):
@@ -543,4 +623,4 @@ class AutoAppServiceNode():
 
 if __name__ == '__main__':
     AutoAppServiceNode()
-    InstanceCluster("MYSQL_SERVICE", "MYSQL")
+    # InstanceCluster("MYSQL_SERVICE", "MYSQL")
