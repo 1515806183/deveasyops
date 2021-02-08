@@ -316,9 +316,22 @@ if __name__ == '__main__':
 
     # 获取 业务系统信息uri: /object/{objectId}/instance/_search
     # url = '/cmdb/object/{objectId}/instance/_search'.format(objectId='APP')  # objectId模型ID
-    url = '/dc_console/api/v1/collector/list/host?ip=10.163.131.12&page_size=1&__select__=host.cpu.used_total%2Chost.mem.percent%2Chost.disk.max_used_percent'
-    url = '/api/v1/collector/list/host'
+    # url = '/dc_console/api/v1/collector/list/host?ip=10.163.131.12&page_size=1&__select__=host.cpu.used_total%2Chost.mem.percent%2Chost.disk.max_used_percent'
+    # url = '/api/v1/collector/list/host'
     # print url
+    url = "/tool/tools/execution"
+    data = {
+        "toolId": "235bb37ac75fa8d2687544e537bd0d2b",
+        "inputs": {
+            "@agents": [
+                {
+                    "ip": "10.163.128.232",
+                }
+            ],
+        },
+        "execUser": "root",
+        "vId": "6916b502246cfc3567138543c799956f"
+    }
 
     # 参数
-    res = __get(request, url)
+    res = __post(request, url, data)

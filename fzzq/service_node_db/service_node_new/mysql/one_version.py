@@ -574,7 +574,7 @@ class InstanceCluster():
         """
         url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID=SERVICE_MODEL)
         params = {"fields": {'name': True, "memo": True, "zcloud_relation_node": True, "agentIp": True, "port": True,
-                             "existence": True, "zcloud_is_cluster": True}}
+                             "existence": True, "zcloud_is_cluster": True, "zcloud_cluster_type": True}}
         dataList = http_post('POSTS', url, params)
         if len(dataList) == 0:
             logging.warning('There is no instance data in the CMDB platform {MODELE}'.format(MODELE=SERVICE_MODEL))
@@ -586,7 +586,7 @@ class InstanceCluster():
             # zcloud 纳管的数据，这里区分实例是否是集群
             if data.get('existence') == "是":
                 # 是集群实例
-                if data.get('zcloud_is_cluster') == "是":
+                if str(data.get('zcloud_cluster_type')) == u"主从":
                     cluster_true_list.append(data)
                     node_instanceId = data.get('instanceId')
                     node_name = str(data.get('name'))
@@ -753,11 +753,11 @@ class InstanceCluster():
 
 
 if __name__ == '__main__':
-    logging.info('----------------------------------------------------------------------------------------自动发现服务节点实例')
-    AutoDiscoveryInstance()
-    logging.info('----------------------------------------------------------------------------------------关联主机和运维人员信息')
-    AutoADDRela()
-    logging.info('----------------------------------------------------------------------------------------获取zcloud数据')
-    Synchronize()
-    logging.info('----------------------------------------------------------------------------------------集群信息')
+    # logging.info('----------------------------------------------------------------------------------------自动发现服务节点实例')
+    # AutoDiscoveryInstance()
+    # logging.info('----------------------------------------------------------------------------------------关联主机和运维人员信息')
+    # AutoADDRela()
+    # logging.info('----------------------------------------------------------------------------------------获取zcloud数据')
+    # Synchronize()
+    # logging.info('----------------------------------------------------------------------------------------集群信息')
     InstanceCluster()

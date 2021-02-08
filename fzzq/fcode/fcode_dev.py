@@ -44,9 +44,9 @@ tool_headers = {
     "user": "defaultUser"
 }
 
-easyopsHost = '10.163.128.232'
-# easyopsHost = '28.163.0.123'
-domain_name = 'cmdb.foundersc.com'
+# easyopsHost = '10.163.128.232'
+easyopsHost = '28.163.0.123'
+domain_name = '28.163.0.123'
 EASYOPS_DEPLOY_REPO_HOST = easyopsHost
 
 deploy_host = easyopsHost + ':8061'
@@ -59,9 +59,9 @@ pro_tmp_galy = u'生产环境灰度部署(Fcode)'
 dev_tmp_full = u'开发环境部署(Fcode)'
 uat_tmp_full = u'测试环境部署(Fcode)'
 
-# 工具
+# 自动刷新权限工具
 TOOLID = '4f0de6b83cea57dafbcbdfc3506f78d1'  # 工具库ID
-VID = '44b9c1d39f2843a31c0c8826b9b6dd95'  # 工具库版本ID
+VID = '415f74462f74df3a0087e036e300679f'  # 工具库版本ID
 
 
 def http_post(method, url, params=None, headers=cmdb_headers):
@@ -480,55 +480,38 @@ class AutoaddApplicationInformation():
         ret = http_post('PUT', url, params=params)
         return ret
 
+    # 根据应用名称查询程序包信息
+    def __serch_package(self, app_name):
+        url = 'http://{HOST}/package/search?name={appname}&page=1&pageSize=10&exact=true'.format(HOST=easyopsHost,
+                                                                                                 appname=app_name)
+        logging.info(u'根据应用名称查询程序包URL: %s' % url)
+        ret = http_post('GET', url, headers=deploy_headers)
+        return ret
+
     # 创建修改程序包信息
     def createUpdatePackage(self):
-        # 1. 先从程序包中查询程序包是否存在
 
-        packageId = ''
-        url = 'http://{HOST}/package/search?name={appname}&page=1&pageSize=10&exact=true'.format(HOST=easyopsHost,
-                                                                                                 appname=self.instance_name)
-        logging.info('search package URL: %s' % url)
-        ret = http_post('GET', url, headers=deploy_headers)
-        # {u'total': 0, u'list': [], u'page': 1, u'pageSize': 10}
+        diff_data = self.ext_info.get('diff_data', {})
         platform_type = self.app_info[0].get('platform_type', '')
         install_path = self.app_info[0].get('install_path', '')
         deploy_user = self.app_info[0].get('deploy_user', '')
         self.app_instanceId = self.app_info[0].get('instanceId')
 
-        if not platform_type or not install_path or not deploy_user:
-            logging.error('Application has no deployment path, deployment user, platform type')
-            return False
+        if diff_data.has_key("name"):
+            logging.info(u'应用更新的字段为:%s' % self._change_fields)
+            diff_data_name = diff_data.get('name')
+            new_name = diff_data_name.get('new')  # 新应用名称
+            old_name = diff_data_name.get('old')  # 新应用名称
+            logging.info(u'更新了应用名称，新应用名称为: %s' % new_name)
+            logging.info(u'开始查询旧程序包信息，旧程序包名称为:%s' % old_name)
+            ret = self.__serch_package(old_name)
+            logging.info(u'查询程序包数量为： %s' % ret.get('total'))  # 这里程序包是存在的（必须）
 
-        if str(ret.get('total')) == '0':
-            # 包不存在，创建包
-            logging.info('Query package information : %s' % ret)
-            # 需要创建程序包
-
-            url = u"http://{host}/package".format(host=easyopsHost)
-            logging.info('Create package URL: %s' % url)
-            params = {
-                "name": self.instance_name,
-                "cId": 1,
-                "type": 1,
-                "installPath": install_path,
-                "platform": platform_type.lower(),
-                "memo": "auto create"
-            }
-            logging.info('Create package params: %s' % params)
-            ret = http_post('POST', url, params, headers=deploy_headers)
-            logging.info('Create package and return result : %s' % ret)
-            if ret.get('code') == 0:
-                packageId = ret.get('data')['packageId']
-
-        else:
-            # {u'total': 1, u'list': [{u'category': u'', u'style': u'', u'lastVersionInfo': {}, u'name': u'111', u'conf': None, u'cId': u'1', u'memo': u'auto create', u'creator': u'defaultUser', u'ctime': u'2021-01-11 16:18:55', u'repoPath': u'/3087/51/67/69/aba9c50cd9a5c05068929d1649', u'source': u'', u'instanceCount': 0, u'installPath': u'/rooot/1', u'platform': u'Linux', u'packageId': u'516769aba9c50cd9a5c05068929d1649', u'mtime': None, u'org': u'3087', u'authUsers': None, u'type': u'1', u'repoId': u'', u'icon': u''}], u'page': 1, u'pageSize': 10}
-            # 包存在，比较包的部署路径，类型，如果不相同则修改包信息
-            # 只能从self.exce_info获取变更的信息，不然数据不会变 install_path
             packageId = ret.get('list')[0].get('packageId')
-            logging.info('The package exists. Now judge whether the package path and user modify it')
-            params = {}
+            logging.info('查询的程序包ID为:%s' % packageId)
+            url = u"http://{host}/package/{packageId}".format(host=easyopsHost, packageId=packageId)
 
-            diff_data = self.ext_info.get('diff_data', {})
+            params = {"name": new_name}
             # 1. 创建应用，程序包以前存在,修改包信息
             if diff_data.has_key('platform_type') or diff_data.has_key('install_path'):
                 logging.info('Updated data : %s' % diff_data)
@@ -538,32 +521,82 @@ class AutoaddApplicationInformation():
                 if diff_data.has_key('install_path'):
                     new_install_path = diff_data.get('install_path').get('new')
                     params['installPath'] = new_install_path
+
+            ret = http_post('PUT', url, params, deploy_headers)
+            logging.info(u'更新程序包名称返回结果:%s' % ret)
+
+        else:
+            packageId = ''
+            # 1. 先从程序包中查询程序包是否存在
+            ret = self.__serch_package(self.instance_name)
+            # {u'total': 0, u'list': [], u'page': 1, u'pageSize': 10}
+
+            if not platform_type or not install_path or not deploy_user:
+                logging.error('Application has no deployment path, deployment user, platform type')
+                return False
+
+            if str(ret.get('total')) == '0':
+                # 包不存在，创建包
+                logging.info('Query package information : %s' % ret)
+                # 需要创建程序包
+
+                url = u"http://{host}/package".format(host=easyopsHost)
+                logging.info('Create package URL: %s' % url)
+                params = {
+                    "name": self.instance_name,
+                    "cId": 1,
+                    "type": 1,
+                    "installPath": install_path,
+                    "platform": platform_type.lower(),
+                    "memo": "auto create"
+                }
+                logging.info('Create package params: %s' % params)
+                ret = http_post('POST', url, params, headers=deploy_headers)
+                logging.info('Create package and return result : %s' % ret)
+                if ret.get('code') == 0:
+                    packageId = ret.get('data')['packageId']
+
             else:
-                # 2. 修改应用，程序包存在，修改信息,程序包信息都没更改
-                # logging.info('Package exists, package path and user are not modified, will exit')
-                # params['platform'] = platform_type.lower()
-                # params['installPath'] = install_path
-                pass
+                # {u'total': 1, u'list': [{u'category': u'', u'style': u'', u'lastVersionInfo': {}, u'name': u'111', u'conf': None, u'cId': u'1', u'memo': u'auto create', u'creator': u'defaultUser', u'ctime': u'2021-01-11 16:18:55', u'repoPath': u'/3087/51/67/69/aba9c50cd9a5c05068929d1649', u'source': u'', u'instanceCount': 0, u'installPath': u'/rooot/1', u'platform': u'Linux', u'packageId': u'516769aba9c50cd9a5c05068929d1649', u'mtime': None, u'org': u'3087', u'authUsers': None, u'type': u'1', u'repoId': u'', u'icon': u''}], u'page': 1, u'pageSize': 10}
+                # 包存在，比较包的部署路径，类型，如果不相同则修改包信息
+                # 只能从self.exce_info获取变更的信息，不然数据不会变 install_path
+                packageId = ret.get('list')[0].get('packageId')
+                logging.info(u'程序包存在，下面判断包路径和用户是否修改, 应用名称是否修改')
+                params = {}
 
-            if params:
-                logging.info('Update package information : %s' % params)
-                url = u"http://{host}/package/{packageId}".format(host=easyopsHost, packageId=packageId)
-                logging.info('Update package URL: %s' % url)
-                ret = http_post('PUT', url, params, deploy_headers)
-                logging.info('Update package returns results : %s' % ret)
+                # 1. 创建应用，程序包以前存在,修改包信息
+                if diff_data.has_key('platform_type') or diff_data.has_key('install_path'):
+                    logging.info('Updated data : %s' % diff_data)
+                    if diff_data.has_key('platform_type'):
+                        new_platform_type = diff_data.get('platform_type').get('new').lower()
+                        params['platform'] = new_platform_type
+                    if diff_data.has_key('install_path'):
+                        new_install_path = diff_data.get('install_path').get('new')
+                        params['installPath'] = new_install_path
 
-                # 这里要更新下部署策略，不然程序包不会绑定最新的
-                for clusterNum in clusterNumList:
-                    logging.info(
-                        u'程序包部署信息已经修改，修改修改部署策略的程序包信息, 集群类型 0 开发， 1测试  2生产--------------------当前处理的集群ID：%s' % clusterNum)
-                    CreateClusterInfo(self.app_instanceId, clusterNum)
+                if params:
+                    logging.info(u'更新程序包信息为 : %s' % params)
+                    url = u"http://{host}/package/{packageId}".format(host=easyopsHost, packageId=packageId)
+                    logging.info(u'更新程序包的URL: %s' % url)
+                    ret = http_post('PUT', url, params, deploy_headers)
+                    logging.info(u'更新程序包请求结果 : %s' % ret)
+
+                    # 这里要更新下部署策略，不然程序包不会绑定最新的
+                    for clusterNum in clusterNumList:
+                        logging.info(
+                            u'程序包部署信息已经修改，修改修改部署策略的程序包信息, 集群类型 0 开发， 1测试  2生产--------------------当前处理的集群ID：%s' % clusterNum)
+                        CreateClusterInfo(self.app_instanceId, clusterNum)
+                else:
+                    logging.warning(u'应用名称和程序包信息没修改，无需处理')
+                    return False
 
         ret_data = {
             "packageId": packageId,
             "deploy_user": deploy_user,
             "installPath": install_path,
-            "instanceId": self.instance_id
+            "instanceId": self.instance_id,
         }
+        logging.info(u'创建或更新的程序包返回信息为: %s' % ret_data)
         return ret_data
 
     # 应用关联程序包
@@ -574,12 +607,12 @@ class AutoaddApplicationInformation():
         """
         try:
             falg = True
-            logging.info('Package data: %s' % data)
-            logging.info('app data info: %s' % self.app_info)
+            logging.info(u'包信息: %s' % data)
+            logging.info(u'应用信息: %s' % self.app_info)
             packageId = data.get('packageId')
             installPath = data.get('installPath')
             if not packageId:
-                logging.error('No packages are associated, packageId is : %s' % packageId)
+                logging.error(u'应用未关联任何包，packageId为 : %s' % packageId)
 
             # 判断应用是否存在此程序包
             url = 'http://{HOST}:8113/app/{appid}/package'.format(HOST=easyopsHost, appid=self.instance_id)
@@ -593,10 +626,10 @@ class AutoaddApplicationInformation():
             ]
 
             if not self.app_info[0].has_key('_packageList'):
-                logging.warning('app no package, create it directly')
+                logging.warning(u'应用没有程序包，需要创建程序包')
 
             else:
-                logging.info('There are packages in the application system')
+                logging.info(u'应用系统中有软件包')
                 # 1.根据packageId 判断是否存在，如果存在判断部署路径是否相同
                 _packageList = self.app_info[0].get('_packageList')
                 for package in _packageList:
@@ -630,11 +663,13 @@ class AutoaddApplicationInformation():
                 logging.info('Application associated package ret :%s' % ret)
 
                 # 如果为真，则需要修改部署策略的程序包信息
+                logging.info('程序包已经变更，现在需要变更部署策略里面的程序包信息')
                 for clusterNum in clusterNumList:
-                    logging.info('程序包已经变更，现在需要变更部署策略里面的程序包信息')
-                    logging.info(
-                        u'--------------------the cluster ID to process the deployment policy is: %s, 集群类型 0 开发， 1测试  2生产--------------------' % clusterNum)
+                    logging.info(u'---处理部署策略的群集ID为: %s, 集群类型 0 开发， 1测试  2生产' % clusterNum)
                     CreateClusterInfo(self.instance_id, clusterNum)
+                logging.info('变更部署策略里面的程序包信息完成')
+            else:
+                logging.warning('程序包和应用名称没修改,不会修改应用和程序包信息')
 
         except Exception as e:
             logging.error('Application Association Package error: %s' % e)
@@ -807,42 +842,44 @@ class AutoaddApplicationInformation():
             logging.error('Failed to query application information')
             return
 
+        self.pro_type = self.app_info[0].get('type', '')  # 工程类型 vue2 不需要启停脚本
+        self.init_package = self.app_info[0].get('init_package')  # 是否已经初始化程序包 true false
+        self._change_fields = self.ext_info.get('_change_fields', '')  # [u'name'] 修改字段
+
         # 只处理自研应用的初始化
         if self.app_info[0].get('self_research') != u"是":
             logging.warning('Only the initialization of self-developed application is processed')
             return
         event = data.get('event')  # event.instance.create event.instance.modify
         logging.info('event info %s' % event)
-        _change_fields = data["ext_info"].get('_change_fields')  # [u'name']
-        logging.info('应用修改的字段为:%s' % _change_fields)
 
-        # 应用修改，编辑
-        packageData = ''
-        logging.info('------------------------------------------------------------创建程序包')
-        if event in ['event.instance.modify', 'event.instance.create']:
-            packageData = self.createUpdatePackage()  # 创建程序包,返回程序包ID
-            logging.info('Package created successfully')
+        # 程序创建程序包，只有新建应用，修改了应用名称，部署路径，平台类型才会触发
+        diff_data = self.ext_info.get('diff_data', {})
+        logging.info(u'应用修改的字段为:%s' % diff_data)
+        diff_set = set(diff_data.keys())
+        package_set = set(["name", "install_path", "platform_type"])
 
-        if packageData:
-            logging.info('packageData info : %s' % packageData)
-            self.init_package = self.app_info[0].get('init_package')  # 是否已经初始化程序包 true false
-            self.pro_type = self.app_info[0].get('type')  # 工程类型
-            logging.info('是否初始化程序包值:%s' % self.init_package)
-            # 初始化程序包第一个版本,只初始化一次,如果修改了应用名称，则需要重新创建程序包，初始化程序包，关联程序包
-
-            if (not self.init_package) or ("name" in _change_fields):
-                logging.info('------------------------------------------------------------初始化程序包')
-                status = self.initPackage(packageData)
-                logging.info('是否初始化程序包值: %s' % status)
-
-            logging.info('------------------------------------------------------------应用关联程序包')
-            self.linkPackage(packageData)  # 应用关联程序包
+        if event in ['event.instance.create', ] or (diff_set & package_set):
+            logging.info('------------------------------------------------------------创建程序包')
+            packageData = self.createUpdatePackage()  # 创建修改程序包,返回程序包ID
+            logging.info('程序包创建修改代码运行完成。。')
+            if packageData:
+                logging.info('程序包数据信息 : %s' % packageData)
+                # 初始化程序包第一个版本,只初始化一次,如果修改了应用名称，则需要重新创建程序包，初始化程序包，关联程序包
+                logging.info(u'判断程序包失败能初始化:%s' % self.init_package)
+                # 如果init_package 为false 则初始化程序包
+                if not self.init_package:
+                    logging.info('------------------------------------------------------------初始化程序包')
+                    status = self.initPackage(packageData)
+                    logging.info('------------------------------------------------------------是否初始化程序包值: %s' % status)
+                logging.info('------------------------------------------------------------应用关联程序包')
+                self.linkPackage(packageData)  # 应用关联程序包
 
         # 创建流水线
         logging.info('------------------------------------------------------------处理流水线')
         init_tem = self.app_info[0].get('init_tem')
         if init_tem:
-            logging.warning('The pipeline template has been initialized')
+            logging.warning('流水线已经初始化，值为:%s' % str(init_tem))
             return
         self.create_pipline()
 
@@ -1411,10 +1448,10 @@ def tool_exec(target_ip):
             data = result.get('data')
             exec_id = data.get('execId')  # 任务ID
             if exec_id:
-                logging.info('在%s服务器%s执行ip检测工具 - 完成')
+                logging.info('在服务器执行ip检测工具 - 完成')
                 return exec_id
         else:
-            logging.warning('在%s服务器%s执行ip检测工具 - 失败')
+            logging.warning('在服务器执行ip检测工具 - 失败')
     except Exception:
         logging.warning('实例IP检测工具执行失败,可尝试将工具标记为生产后重试')
 
@@ -1438,7 +1475,13 @@ def DealData(callback, modelID):
         """
         data = callback['data']
         ext_info = data.get('ext_info')
-        logging.info('Information for creating applications: %s' % ext_info)
+        # 判断是否存在修改权限的数据存在
+        diff_data = ext_info.get('diff_data', {}).keys()
+        if "productionClusterOperateAuthorizers" in diff_data or "testPipelineOperateAuthorizers" in diff_data or "developPipelineOperateAuthorizers" in diff_data:
+            logging.warning(u'应用在修改权限，跳过处理')
+            return
+
+        logging.info('消息订阅变更的应用程序的信息ext_info: %s' % ext_info)
         AutoaddApplicationInformation(ext_info).run(data)
         return
 
@@ -1451,12 +1494,12 @@ def DealData(callback, modelID):
 
     # 应用修改用户后，调用创建权限工具
     try:
-        if callback['data']['ext_info']['relation_id'] == 'APP_owner_USER':
+        if callback['data']['ext_info']['relation_id'] in ['APP_owner_USER', 'APP_developer_USER', "APP_tester_USER"]:
             exec_id = tool_exec(easyopsHost)
             logging.info('执行权限脚本任务ID：%s' % str(exec_id))
             return
     except Exception as e:
-        logging.warning('no relation_id skip')
+        logging.warning('no relation_id skip: %s' % e)
 
     # fcode模型
     if object_id == modelID:
