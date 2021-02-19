@@ -10,7 +10,7 @@
 @desc:
 '''
 import time, requests, json, subprocess, re
-import threading, logging, sys
+import threading, logging, sys, copy
 from Queue import Queue
 from gevent import monkey
 import gevent
@@ -349,8 +349,8 @@ class AutoAppServiceNode():
         """
         url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="APP")
         params = {"query": {
-            "type":
-                {"$eq": u"oracle"},
+            # "type":
+            #     {"$eq": u"oracle"},
             "name": {"$eq": u"BOP_DB"}
             # "name": {"$eq": u"db-test-app"}
         },
@@ -384,6 +384,147 @@ class AutoAppServiceNode():
 
         logging.info("共获取{}组数据,每组{}个元素.==>> 耗时:{}'s".format(len(result), n, round(time.time() - st, 3)))
         return result
+
+    def processingProServices(self, data, app_name, _SERVICENODE, pro_host_dict):
+        """
+        :param data: 应用全量数据
+        :param app_name: 应用名称
+        :param _SERVICENODE: 处理好的服务节点信息[]
+        :param pro_host_dict: 应用生产环境主机信息
+        :return:
+        """
+        # --------------------------处理生产环境环境servernode信息
+        # 1. 生产：user信息
+        pro_user_list = []
+        pro_add_existence = []  # 为了聚合去重
+        owner = data.get('owner')
+        if owner:
+            for user in owner:
+                name = user.get('name')
+                nickname = user.get('nickname', '')
+                if name in pro_add_existence:
+                    continue
+                pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
+        logging.info('处理的应用名称:%s, 运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
+
+        #  2. 生产：去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
+        pro_ip_node_info = {}  # ip为key的servernode信息
+        pro_ip_port_set = []
+        for node_info in _SERVICENODE:
+            agentIp = node_info.get('agentIp')
+            node_port = str(node_info.get('port'))
+
+            # 判断ip和端口是否重复
+            ip_port_name = agentIp + ":" + node_port
+            if ip_port_name in pro_ip_port_set:
+                continue
+            pro_ip_port_set.append(ip_port_name)
+
+            # 拼接zcloud需要的参数
+            node_info['DBAPP'] = app_name
+            node_info['USER'] = pro_user_list  # # 应用运维负责人
+
+            # 如果添加过IP，则不用初始化信息为LIST
+            if not pro_ip_node_info.has_key(agentIp):
+                pro_ip_node_info[agentIp] = []
+            pro_ip_node_info[agentIp].append(node_info)
+
+        # 3. 生产环境， 组合请求zcloud数据
+        if pro_host_dict:
+            pro_zcloud_data = {
+                "jsonStr": {
+                    "list": []
+                }
+            }
+            for pro_ip, pro_host_info in pro_host_dict.items():
+                data = {
+                    "APP": [app_name],
+                    "HOST": [pro_host_info],
+                    "USER": pro_host_info.get('owner', []),  # 主机运维负责人
+                    "_SERVICENODE": pro_ip_node_info.get(pro_ip, [])
+                }
+                pro_zcloud_data['jsonStr']['list'].append(data)
+
+            logging.info(
+                '处理的应用名称:%s, 生产环境请求zcloud数据: %s' % (app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
+
+            # 4. 生产环境， 请求zcloud
+            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'], params=pro_zcloud_data)
+            print '-----------------------------------'
+            print ret
+
+        else:
+            logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
+        # --------------------------处理生产环境环境servernode信息 end
+
+    def processingTestServices(self, data, app_name, _SERVICENODE, uat_host_dict):
+        """
+        :param data: 应用全量数据
+        :param app_name: 应用名称
+        :param _SERVICENODE: 处理好的服务节点信息[]
+        :param uat_host_dict: 应用测试环境主机信息
+        :return:
+        """
+        # --------------------------处理测试环境servernode信息
+        # 1. 测试：user信息
+        uat_user_list = []
+        uat_add_existence = []  # user为了聚合去重
+        tester = data.get('tester')
+        if tester:
+            for user in tester:
+                name = user.get('name')
+                nickname = user.get('nickname', '')
+                if name in uat_add_existence:
+                    continue
+                uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
+        logging.info('处理的应用名称:%s, 测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
+
+        # 2. 测试：去掉相同的端口的服务节点，  组合zalcoud需要的数据
+        uat_ip_node_info = {}  # ip为key的servernode信息
+        uat_ip_port_set = []
+        for node_info in _SERVICENODE:
+            agentIp = node_info.get('agentIp')
+            node_port = str(node_info.get('port'))
+
+            # 判断ip和端口是否重复
+            ip_port_name = agentIp + ":" + node_port
+            if ip_port_name in uat_ip_port_set:
+                continue
+            uat_ip_port_set.append(ip_port_name)
+
+            node_info['DBAPP'] = app_name
+            node_info['USER'] = uat_user_list  # 应用运维负责人
+
+            # 如果添加过IP，则不用初始化信息为LIST
+            if not uat_ip_node_info.has_key(agentIp):
+                uat_ip_node_info[agentIp] = []
+            uat_ip_node_info[agentIp].append(node_info)
+
+        # 3. 测试环境，组合请求zcloud数据
+        if uat_host_dict:
+            uat_zcloud_data = {
+                "jsonStr": {
+                    "list": []
+                }
+            }
+            for uat_ip, uat_host_info in uat_host_dict.items():
+                data = {
+                    "APP": [app_name],
+                    "HOST": [uat_host_info],
+                    "USER": uat_host_info.get('owner', []),  # 主机运维负责人
+                    "_SERVICENODE": uat_ip_node_info.get(uat_ip, [])
+                }
+                uat_zcloud_data['jsonStr']['list'].append(data)
+
+            logging.info(
+                '处理的应用名称:%s, 测试环境请求zcloud数据: %s' % (app_name, json.dumps(uat_zcloud_data, sort_keys=True, indent=2)))
+
+            # 4. 测试环境，发送zcloud请求
+            ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
+            print ret
+
+        else:
+            logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
 
     def gevent_data(self, data):
         """
@@ -439,127 +580,11 @@ class AutoAppServiceNode():
         # 去掉没有port的节点
         _SERVICENODE = filter(lambda x: "port" in x.keys(), _SERVICENODE)
 
-        # --------------------------处理生产环境环境servernode信息
-        pro_user_list = []
-        pro_add_existence = []  # 为了聚合去重
-        pro_ip_node_info = {}  # ip为key的servernode信息
-        pro_ip_port_set = []
-        owner = data.get('owner')
-        if owner:
-            for user in owner:
-                name = user.get('name')
-                nickname = user.get('nickname', '')
-                if name in pro_add_existence:
-                    continue
-                pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
-        logging.info('处理的应用名称:%s, 应用运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
+        # 处理生产环境
+        self.processingProServices(data, app_name, _SERVICENODE, pro_host_dict)
 
-        # 1. 去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
-        for node_info in _SERVICENODE:
-            agentIp = node_info.get('agentIp')
-            node_port = str(node_info.get('port'))
-
-            # 判断ip和端口是否重复
-            ip_port_name = agentIp + ":" + node_port
-            if ip_port_name in pro_ip_port_set:
-                continue
-            pro_ip_port_set.append(ip_port_name)
-
-            # 拼接zcloud需要的参数
-            node_info['DBAPP'] = app_name
-            node_info['USER'] = pro_user_list  # # 应用运维负责人
-
-            # 如果添加过IP，则不用初始化信息为LIST
-            if not pro_ip_node_info.has_key(agentIp):
-                pro_ip_node_info[agentIp] = []
-            pro_ip_node_info[agentIp].append(node_info)
-        # --------------------------处理生产环境环境servernode信息 end
-
-        # --------------------------处理测试环境servernode信息
-        uat_user_list = []
-        uat_add_existence = []  # 为了聚合去重
-        uat_ip_node_info = {}  # ip为key的servernode信息
-        uat_ip_port_set = []
-        tester = data.get('tester')
-        if tester:
-            for user in tester:
-                name = user.get('name')
-                nickname = user.get('nickname', '')
-                if name in uat_add_existence:
-                    continue
-                uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
-        logging.info('处理的应用名称:%s, 应用测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
-
-        # 1. 去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
-        for node_info in _SERVICENODE:
-            agentIp = node_info.get('agentIp')
-            node_port = str(node_info.get('port'))
-
-            # 判断ip和端口是否重复
-            ip_port_name = agentIp + ":" + node_port
-            if ip_port_name in uat_ip_port_set:
-                continue
-            uat_ip_port_set.append(ip_port_name)
-
-            node_info['DBAPP'] = app_name
-            node_info['USER'] = uat_user_list  # 应用运维负责人
-
-            # 如果添加过IP，则不用初始化信息为LIST
-            if not uat_ip_node_info.has_key(agentIp):
-                uat_ip_node_info[agentIp] = []
-            uat_ip_node_info[agentIp].append(node_info)
-        # --------------------------处理测试环境servernode信息 end
-
-        # 测试环境，组合请求zcloud数据
-        if uat_host_dict:
-            uat_zcloud_data = {
-                "jsonStr": {
-                    "list": []
-                }
-            }
-            for uat_ip in uat_host_dict:
-                data = {
-                    "APP": [app_name],
-                    "HOST": [uat_host_dict.get(uat_ip, {})],
-                    "USER": uat_host_dict[uat_ip].get('owner', []),  # 主机运维负责人
-                    "_SERVICENODE": uat_ip_node_info.get(uat_ip, [])
-                }
-                uat_zcloud_data['jsonStr']['list'].append(data)
-
-            logging.info(
-                '处理的应用名称:%s, 测试环境请求zcloud数据: %s' % (app_name, json.dumps(uat_zcloud_data, sort_keys=True, indent=2)))
-
-            ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
-            print ret
-
-        else:
-            logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
-
-        # 生产环境， 组合请求zcloud数据
-        if pro_host_dict:
-            pro_zcloud_data = {
-                "jsonStr": {
-                    "list": []
-                }
-            }
-            for pro_ip in pro_host_dict:
-                data = {
-                    "APP": [app_name],
-                    "HOST": [pro_host_dict.get(pro_ip, {})],
-                    "USER": pro_host_dict.get('owner', []),
-                    "_SERVICENODE": pro_ip_node_info.get(pro_ip, [])
-                }
-                pro_zcloud_data['jsonStr']['list'].append(data)
-
-            logging.info(
-                '处理的应用名称:%s, 生产环境请求zcloud数据: %s' % (app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
-
-            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'], params=pro_zcloud_data)
-            print '-----------------------------------'
-            print ret
-
-        else:
-            logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
+        # 处理测试环境
+        self.processingTestServices(data, app_name, _SERVICENODE, uat_host_dict)
 
         # # pprint.pprint(ret, stream=None, indent=2, width=80)
         # zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
