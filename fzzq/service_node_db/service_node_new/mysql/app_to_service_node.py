@@ -28,7 +28,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s %(filename)s[line:%(
 n = 20  # 按每1000行数据为最小单位拆分成嵌套列表，可以根据实际情况拆分
 pool = Pool(20)
 
-cmdb_host = "28.163.0.123"
+cmdb_host = "10.163.128.232"
+# cmdb_host = "28.163.0.123"
 easyops_org = "3087"
 
 cmdb_headers = {
@@ -39,10 +40,16 @@ cmdb_headers = {
 }
 
 http_zcloud_url = {
-    "test": "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="28.163.1.183")
+    # "test": "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="100.116.9.144"),
+    "test": "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="28.163.1.183"),
+    "pro": "http://{HOST}:8023/dbaasInfrastructure/cmdbAttr/dataParser".format(HOST="10.163.128.19"),
 }
 zcloud_headers = {
     "test": {
+        'token': 'e7043641-4bcc-368e-9b09-3dbe894cd24f',
+        'Content-Type': 'application/json'
+    },
+    "pro": {
         'token': 'e7043641-4bcc-368e-9b09-3dbe894cd24f',
         'Content-Type': 'application/json'
     }
@@ -343,7 +350,9 @@ class AutoAppServiceNode():
         url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="APP")
         params = {"query": {
             "type":
-                {"$eq": u"DB工程"}
+                {"$eq": u"oracle"},
+            "name": {"$eq": u"BOP_DB"}
+            # "name": {"$eq": u"db-test-app"}
         },
             "fields": {
                 "name": True,
@@ -356,7 +365,8 @@ class AutoAppServiceNode():
                 "tester.nickname": True,
                 "developer.name": True,
                 "developer.nickname": True,
-                "clusters.type": True
+                "clusters.type": True,
+                "type": True
             }}
         dataList = http_post('POSTS', url, params)
         logging.info('获取DB应用数量为:%s' % len(dataList))
@@ -382,18 +392,19 @@ class AutoAppServiceNode():
         """
         # print threading.enumerate() # 获取线程数量
         app_name = data.get('name')
-        logging.info('开始处理的应用为:%s' % app_name)
+        app_tyep = data.get('type')
+        logging.info('开始处理的应用名称:%s, 应用类型为：%s' % (app_name, app_tyep))
         app_instanceId = data.get('instanceId')
 
         # 1.测试， 2生产
         clusters_info_list = data.get('clusters', [])
         if not clusters_info_list:
-            logging.warning('应用：%s，未创建集群信息！请创建集群纳管主机' % app_name)
+            logging.warning('处理的应用名称:%s，未创建集群信息！请创建集群纳管主机' % app_name)
             return
 
         _SERVICENODE = data.get('_SERVICENODE')
         if not _SERVICENODE:
-            logging.warning('应用：%s,未发现服务节点信息，检查是否配置服务节点特征和纳管主机' % app_name)
+            logging.warning('处理的应用名称:%s,未发现服务节点信息，检查是否配置服务节点特征和纳管主机' % app_name)
             return
 
         # 先获取主机信息
@@ -406,7 +417,7 @@ class AutoAppServiceNode():
             hostdataList = http_post('POST', url, params)
             inspect_data = hostdataList[0]  # 检查字段,报错就退出
         except Exception as e:
-            logging.warning('应用：%s，未纳管主机信息，请纳管主机信息' % app_name)
+            logging.warning('处理的应用名称:%s，未纳管主机信息，请纳管主机信息' % app_name)
             return
 
         # 获取测试，生产主机信息
@@ -422,16 +433,17 @@ class AutoAppServiceNode():
             elif cluster_type == "2":
                 host_info['_environment'] = 'pro'
                 pro_host_dict.update({host_ip: host_info})
-        logging.info(u'测试环境主机IP列表：%s' % uat_host_dict.keys())
-        logging.info(u'生产环境主机IP列表：%s' % pro_host_dict.keys())
+        logging.info(u'处理的应用名称:%s, 测试环境主机IP列表：%s' % (app_name, uat_host_dict.keys()))
+        logging.info(u'处理的应用名称:%s, 生产环境主机IP列表：%s' % (app_name, pro_host_dict.keys()))
 
         # 去掉没有port的节点
         _SERVICENODE = filter(lambda x: "port" in x.keys(), _SERVICENODE)
 
-        # 处理生产环境环境servernode信息
+        # --------------------------处理生产环境环境servernode信息
         pro_user_list = []
         pro_add_existence = []  # 为了聚合去重
         pro_ip_node_info = {}  # ip为key的servernode信息
+        pro_ip_port_set = []
         owner = data.get('owner')
         if owner:
             for user in owner:
@@ -440,26 +452,34 @@ class AutoAppServiceNode():
                 if name in pro_add_existence:
                     continue
                 pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
+        logging.info('处理的应用名称:%s, 应用运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
 
-            # 处理服务节点
-            node_type = ''  # 数据库类型 mysql oracle redis
-            for node_info in _SERVICENODE:
-                node_type = node_info.get('type')
-                agentIp = node_info.get('agentIp')
-                node_info['DBAPP'] = app_name
-                node_info['USER'] = pro_user_list  # # 应用运维负责人
+        # 1. 去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
+        for node_info in _SERVICENODE:
+            agentIp = node_info.get('agentIp')
+            node_port = str(node_info.get('port'))
 
-                # 如果添加过IP，则不用初始化信息为LIST
-                if not pro_ip_node_info.has_key(agentIp):
-                    pro_ip_node_info[agentIp] = []
-                pro_ip_node_info[agentIp].append(node_info)
+            # 判断ip和端口是否重复
+            ip_port_name = agentIp + ":" + node_port
+            if ip_port_name in pro_ip_port_set:
+                continue
+            pro_ip_port_set.append(ip_port_name)
 
-        logging.info('应用运维负责人数量为:%s， 用户信息:%s' % (len(pro_user_list), pro_user_list))
+            # 拼接zcloud需要的参数
+            node_info['DBAPP'] = app_name
+            node_info['USER'] = pro_user_list  # # 应用运维负责人
 
-        # 处理测试环境servernode信息
+            # 如果添加过IP，则不用初始化信息为LIST
+            if not pro_ip_node_info.has_key(agentIp):
+                pro_ip_node_info[agentIp] = []
+            pro_ip_node_info[agentIp].append(node_info)
+        # --------------------------处理生产环境环境servernode信息 end
+
+        # --------------------------处理测试环境servernode信息
         uat_user_list = []
         uat_add_existence = []  # 为了聚合去重
         uat_ip_node_info = {}  # ip为key的servernode信息
+        uat_ip_port_set = []
         tester = data.get('tester')
         if tester:
             for user in tester:
@@ -468,23 +488,27 @@ class AutoAppServiceNode():
                 if name in uat_add_existence:
                     continue
                 uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
+        logging.info('处理的应用名称:%s, 应用测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
 
-            # 处理服务节点
-            node_type = ''  # 数据库类型 mysql oracle redis
-            for node_info in _SERVICENODE:
-                node_type = node_info.get('type')
-                agentIp = node_info.get('agentIp')
-                node_info['DBAPP'] = app_name
-                node_info['USER'] = uat_user_list  # 应用运维负责人
+        # 1. 去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
+        for node_info in _SERVICENODE:
+            agentIp = node_info.get('agentIp')
+            node_port = str(node_info.get('port'))
 
-                # 如果添加过IP，则不用初始化信息为LIST
-                if not uat_ip_node_info.has_key(agentIp):
-                    uat_ip_node_info[agentIp] = []
-                uat_ip_node_info[agentIp].append(node_info)
+            # 判断ip和端口是否重复
+            ip_port_name = agentIp + ":" + node_port
+            if ip_port_name in uat_ip_port_set:
+                continue
+            uat_ip_port_set.append(ip_port_name)
 
-        logging.info('应用测试负责人数量为:%s， 用户信息:%s' % (len(uat_user_list), uat_user_list))
+            node_info['DBAPP'] = app_name
+            node_info['USER'] = uat_user_list  # 应用运维负责人
 
-        logging.info('应用数据库类型为: %s' % node_type)
+            # 如果添加过IP，则不用初始化信息为LIST
+            if not uat_ip_node_info.has_key(agentIp):
+                uat_ip_node_info[agentIp] = []
+            uat_ip_node_info[agentIp].append(node_info)
+        # --------------------------处理测试环境servernode信息 end
 
         # 测试环境，组合请求zcloud数据
         if uat_host_dict:
@@ -496,19 +520,20 @@ class AutoAppServiceNode():
             for uat_ip in uat_host_dict:
                 data = {
                     "APP": [app_name],
-                    "HOST": uat_host_dict.get(uat_ip, []),
+                    "HOST": [uat_host_dict.get(uat_ip, {})],
                     "USER": uat_host_dict[uat_ip].get('owner', []),  # 主机运维负责人
                     "_SERVICENODE": uat_ip_node_info.get(uat_ip, [])
                 }
                 uat_zcloud_data['jsonStr']['list'].append(data)
 
-            logging.info('测试环境请求zcloud数据: %s' % json.dumps(uat_zcloud_data, sort_keys=True, indent=2))
+            logging.info(
+                '处理的应用名称:%s, 测试环境请求zcloud数据: %s' % (app_name, json.dumps(uat_zcloud_data, sort_keys=True, indent=2)))
 
             ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
             print ret
 
         else:
-            logging.info(u'测试环境主机没有节点信息')
+            logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
 
         # 生产环境， 组合请求zcloud数据
         if pro_host_dict:
@@ -520,16 +545,21 @@ class AutoAppServiceNode():
             for pro_ip in pro_host_dict:
                 data = {
                     "APP": [app_name],
-                    "HOST": pro_host_dict.get(pro_ip, []),
+                    "HOST": [pro_host_dict.get(pro_ip, {})],
                     "USER": pro_host_dict.get('owner', []),
                     "_SERVICENODE": pro_ip_node_info.get(pro_ip, [])
                 }
                 pro_zcloud_data['jsonStr']['list'].append(data)
 
-            logging.info('生产环境请求zcloud数据: %s' % json.dumps(pro_zcloud_data, sort_keys=True, indent=2))
+            logging.info(
+                '处理的应用名称:%s, 生产环境请求zcloud数据: %s' % (app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
+
+            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'], params=pro_zcloud_data)
+            print '-----------------------------------'
+            print ret
 
         else:
-            logging.info(u'生产环境主机没有节点信息')
+            logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
 
         # # pprint.pprint(ret, stream=None, indent=2, width=80)
         # zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
