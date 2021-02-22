@@ -31,7 +31,7 @@ pool = Pool(20)
 cmdb_host = "10.163.128.232"
 # cmdb_host = "28.163.0.123"
 easyops_org = "3087"
-db_app_name = 'BOP_DB'
+db_app_name = ''
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -369,7 +369,10 @@ class AutoAppServiceNode():
                 "developer.nickname": True,
                 "clusters.type": True,
                 "type": True,
-                "port": True
+                "port": True,
+                "featureRule": True,
+                "featureEnabled": True
+
             }}
 
         if db_app_name:
@@ -391,11 +394,11 @@ class AutoAppServiceNode():
         logging.info("共获取{}组数据,每组{}个元素.==>> 耗时:{}'s".format(len(result), n, round(time.time() - st, 3)))
         return result
 
-    def processingProServices(self, data, app_name, app_instanceId, _SERVICENODE, pro_host_dict):
+    def processingProServices(self, data, app_name, app_instanceId, app_port, pro_host_dict):
         """
         :param data: 应用全量数据
         :param app_name: 应用名称
-        :param _SERVICENODE: 处理好的服务节点信息[]
+        :param app_port: 服务端口
         :param pro_host_dict: 应用生产环境主机信息
         :return:
         """
@@ -413,30 +416,15 @@ class AutoAppServiceNode():
                 pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
         logging.info('处理的应用名称:%s, 运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
 
-        #  2. 生产：去掉相同的端口的服务节点， 2. 组合zalcoud需要的数据
-        pro_ip_node_info = {}  # ip为key的servernode信息
-        pro_ip_port_set = []
-        for node_info in _SERVICENODE:
-            agentIp = node_info.get('agentIp')
-            node_port = str(node_info.get('port'))
+        # 2.整理服务端口信息
+        if "|" in app_port:
+            app_port_list = [port.strip() for port in app_port.split("|")]
+        else:
+            app_port_list = [str(app_port).strip()]
 
-            # 判断ip和端口是否重复
-            ip_port_name = agentIp + ":" + node_port
-            if ip_port_name in pro_ip_port_set:
-                continue
-            pro_ip_port_set.append(ip_port_name)
+        logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
 
-            # 拼接zcloud需要的参数
-            node_info['DBAPP'] = app_name
-            node_info['USER'] = pro_user_list  # # 应用运维负责人
-            node_info['app_instanceId'] = app_instanceId  # # 应用ID
-
-            # 如果添加过IP，则不用初始化信息为LIST
-            if not pro_ip_node_info.has_key(agentIp):
-                pro_ip_node_info[agentIp] = []
-            pro_ip_node_info[agentIp].append(node_info)
-
-        # 3. 生产环境， 组合请求zcloud数据
+        # 2. 生产环境， 组合请求zcloud数据
         if pro_host_dict:
             pro_zcloud_data = {
                 "jsonStr": {
@@ -444,30 +432,46 @@ class AutoAppServiceNode():
                 }
             }
             for pro_ip, pro_host_info in pro_host_dict.items():
+
+                # 循环遍历服务端口，组合_SERVICENODE信息
+                node_info_list = []
+                for port in app_port_list:
+                    node_info = {
+                        "app_instanceId": app_instanceId,
+                        "DBAPP": app_name,
+                        "agentIp": pro_ip,
+                        "type": "oracle",
+                        "port": int(port),
+                        "USER": pro_user_list  # 应用负责人
+                    }
+                    node_info_list.append(node_info)
+
                 data = {
                     "APP": [app_name],
                     "HOST": [pro_host_info],
                     "USER": pro_host_info.get('owner', []),  # 主机运维负责人
-                    "_SERVICENODE": pro_ip_node_info.get(pro_ip, [])
+                    "_SERVICENODE": node_info_list
                 }
                 pro_zcloud_data['jsonStr']['list'].append(data)
 
             logging.info(
-                '处理的应用名称:%s, 生产环境请求zcloud数据: %s' % (app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
+                '处理的应用名称:%s, 生产环境请求zcloud数据: %s' % (
+                    app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
 
             # 4. 生产环境， 请求zcloud
-            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'], params=pro_zcloud_data)
+            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'],
+                            params=pro_zcloud_data)
             print '处理的应用名称:%s----------------------------------- %s' % (app_name, ret)
 
         else:
             logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
-        # --------------------------处理生产环境环境servernode信息 end
+            # --------------------------处理生产环境环境servernode信息 end
 
-    def processingTestServices(self, data, app_name, app_instanceId, _SERVICENODE, uat_host_dict):
+    def processingTestServices(self, data, app_name, app_instanceId, app_port, uat_host_dict):
         """
         :param data: 应用全量数据
         :param app_name: 应用名称
-        :param _SERVICENODE: 处理好的服务节点信息[]
+        :param app_port: 服务端口
         :param uat_host_dict: 应用测试环境主机信息
         :return:
         """
@@ -485,27 +489,13 @@ class AutoAppServiceNode():
                 uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
         logging.info('处理的应用名称:%s, 测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
 
-        # 2. 测试：去掉相同的端口的服务节点，  组合zalcoud需要的数据
-        uat_ip_node_info = {}  # ip为key的servernode信息
-        uat_ip_port_set = []
-        for node_info in _SERVICENODE:
-            agentIp = node_info.get('agentIp')
-            node_port = str(node_info.get('port'))
+        # 2.整理服务端口信息
+        if "|" in app_port:
+            app_port_list = [port.strip() for port in app_port.split("|")]
+        else:
+            app_port_list = [str(app_port).strip()]
 
-            # 判断ip和端口是否重复
-            ip_port_name = agentIp + ":" + node_port
-            if ip_port_name in uat_ip_port_set:
-                continue
-            uat_ip_port_set.append(ip_port_name)
-
-            node_info['DBAPP'] = app_name
-            node_info['USER'] = uat_user_list  # 应用运维负责人
-            node_info['app_instanceId'] = app_instanceId  # # 应用ID
-
-            # 如果添加过IP，则不用初始化信息为LIST
-            if not uat_ip_node_info.has_key(agentIp):
-                uat_ip_node_info[agentIp] = []
-            uat_ip_node_info[agentIp].append(node_info)
+        logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
 
         # 3. 测试环境，组合请求zcloud数据
         if uat_host_dict:
@@ -515,11 +505,24 @@ class AutoAppServiceNode():
                 }
             }
             for uat_ip, uat_host_info in uat_host_dict.items():
+                # 循环遍历服务端口，组合_SERVICENODE信息
+                node_info_list = []
+                for port in app_port_list:
+                    node_info = {
+                        "app_instanceId": app_instanceId,
+                        "DBAPP": app_name,
+                        "agentIp": uat_ip,
+                        "type": "oracle",
+                        "port": int(port),
+                        "USER": uat_user_list  # 应用负责人
+                    }
+                    node_info_list.append(node_info)
+
                 data = {
                     "APP": [app_name],
                     "HOST": [uat_host_info],
                     "USER": uat_host_info.get('owner', []),  # 主机运维负责人
-                    "_SERVICENODE": uat_ip_node_info.get(uat_ip, [])
+                    "_SERVICENODE": node_info_list
                 }
                 uat_zcloud_data['jsonStr']['list'].append(data)
 
@@ -542,6 +545,10 @@ class AutoAppServiceNode():
         app_name = data.get('name')
         app_port = data.get('port')
         app_tyep = data.get('type')
+        _SERVICENODE = data.get('_SERVICENODE')
+        featureRule = data.get('featureRule')
+        featureEnabled = data.get('featureEnabled')
+
         logging.info('开始处理的应用名称:%s, 应用类型为：%s' % (app_name, app_tyep))
         app_instanceId = data.get('instanceId')
 
@@ -550,10 +557,8 @@ class AutoAppServiceNode():
         if not clusters_info_list:
             logging.warning('处理的应用名称:%s，未创建集群信息！请创建集群纳管主机' % app_name)
             return
-
-        _SERVICENODE = data.get('_SERVICENODE')
-        if not _SERVICENODE:
-            logging.warning('处理的应用名称:%s,未发现服务节点信息，检查是否配置服务节点特征和纳管主机' % app_name)
+        if not app_port:
+            logging.error('处理的应用名称:%s，设置应用服务端口属性，多个端口以|分割开' % app_name)
             return
 
         # 先获取主机信息
@@ -585,22 +590,29 @@ class AutoAppServiceNode():
         logging.info(u'处理的应用名称:%s, 测试环境主机IP列表：%s' % (app_name, uat_host_dict.keys()))
         logging.info(u'处理的应用名称:%s, 生产环境主机IP列表：%s' % (app_name, pro_host_dict.keys()))
 
-        # 去掉没有port的节点
-        _SERVICENODE = filter(lambda x: "port" in x.keys(), _SERVICENODE)
-
         # 处理生产环境
-        self.processingProServices(data, app_name, app_instanceId, _SERVICENODE, pro_host_dict)
+        self.processingProServices(data, app_name, app_instanceId, app_port, pro_host_dict)
 
         # 处理测试环境
-        self.processingTestServices(data, app_name, app_instanceId, _SERVICENODE, uat_host_dict)
+        self.processingTestServices(data, app_name, app_instanceId, app_port, uat_host_dict)
 
         # 添加服务特征
-        # node_auto = {"featurePriority": "500", "featureEnabled": "true",
-        #              "featureRule": [
-        #                  {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}]}
-        #
-        # return {app_instanceId: node_auto}
+        if not featureEnabled:
+            # 表示服务节点开关关闭
+            node_auto = {"featurePriority": "500", "featureEnabled": "true",
+                         "featureRule": [
+                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}],
+                         "instanceId": app_instanceId}
+        elif int(featureRule[0]['value']) != int(app_port):
+            # 表示端口不一致
+            node_auto = {"featurePriority": "500", "featureEnabled": "true",
+                         "featureRule": [
+                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}],
+                         "instanceId": app_instanceId}
+        else:
+            node_auto = False
 
+        return node_auto
 
         # # pprint.pprint(ret, stream=None, indent=2, width=80)
         # zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
@@ -655,24 +667,22 @@ class AutoAppServiceNode():
             res.append(pool.spawn(self.gevent_data, ip))
         gevent.joinall(res)
 
-        mysql_data = {
-            "keys": ['name'],
+        data = {
+            "keys": ['instanceId'],
             "datas": []
         }
 
-        # for i, g in enumerate(res):
-        #     ret = g.value
-        #     if isinstance(ret, dict):
-        #         if 'mysql' in ret.keys():
-        #             mysql_data['datas'] = ret['mysql']
-        #
-        # if len(mysql_data['datas']):
-        #     url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
-        #     time.sleep(1)
-        #     res = http_post('repo', url, mysql_data)
-        #     logging.info('Return of inserted data: %s' % res)
-        # else:
-        #     logging.info('There is no data to insert')
+        for i, g in enumerate(res):
+            if g.value:
+                data['datas'].append(g.value)
+
+        if len(data['datas']):
+            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="APP")
+            time.sleep(1)
+            res = http_post('repo', url, data)
+            logging.info('Return of inserted data: %s' % res)
+        else:
+            logging.info('There is no data to insert')
 
     # 开启多线程任务
     def task(self):
