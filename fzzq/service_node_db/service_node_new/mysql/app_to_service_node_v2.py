@@ -7,7 +7,7 @@
 @application:
 @file: service_node.py
 @time: 2021/1/26 12:17
-@desc:
+@desc: db应用，根据服务端口来上报数据到zcloud
 '''
 import time, requests, json, subprocess, re
 import threading, logging, sys, copy
@@ -394,7 +394,7 @@ class AutoAppServiceNode():
         logging.info("共获取{}组数据,每组{}个元素.==>> 耗时:{}'s".format(len(result), n, round(time.time() - st, 3)))
         return result
 
-    def processingProServices(self, data, app_name, app_instanceId, app_port, pro_host_dict):
+    def processingProServices(self, data, app_name, app_instanceId, app_port_list, pro_host_dict):
         """
         :param data: 应用全量数据
         :param app_name: 应用名称
@@ -415,14 +415,6 @@ class AutoAppServiceNode():
                     continue
                 pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
         logging.info('处理的应用名称:%s, 运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
-
-        # 2.整理服务端口信息
-        if "|" in app_port:
-            app_port_list = [port.strip() for port in app_port.split("|")]
-        else:
-            app_port_list = [str(app_port).strip()]
-
-        logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
 
         # 2. 生产环境， 组合请求zcloud数据
         if pro_host_dict:
@@ -467,7 +459,7 @@ class AutoAppServiceNode():
             logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
             # --------------------------处理生产环境环境servernode信息 end
 
-    def processingTestServices(self, data, app_name, app_instanceId, app_port, uat_host_dict):
+    def processingTestServices(self, data, app_name, app_instanceId, app_port_list, uat_host_dict):
         """
         :param data: 应用全量数据
         :param app_name: 应用名称
@@ -488,14 +480,6 @@ class AutoAppServiceNode():
                     continue
                 uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
         logging.info('处理的应用名称:%s, 测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
-
-        # 2.整理服务端口信息
-        if "|" in app_port:
-            app_port_list = [port.strip() for port in app_port.split("|")]
-        else:
-            app_port_list = [str(app_port).strip()]
-
-        logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
 
         # 3. 测试环境，组合请求zcloud数据
         if uat_host_dict:
@@ -544,20 +528,28 @@ class AutoAppServiceNode():
         # print threading.enumerate() # 获取线程数量
         app_name = data.get('name')
         app_port = data.get('port')
-        app_tyep = data.get('type')
+        app_type = data.get('type')
         _SERVICENODE = data.get('_SERVICENODE')
         featureRule = data.get('featureRule')
         featureEnabled = data.get('featureEnabled')
-
-        logging.info('开始处理的应用名称:%s, 应用类型为：%s' % (app_name, app_tyep))
         app_instanceId = data.get('instanceId')
+
+        # 2.整理服务端口信息
+        if "|" in app_port:
+            app_port_list = [port.strip() for port in app_port.split("|")]
+        else:
+            app_port_list = [str(app_port).strip()]
+
+        logging.info('开始处理的应用名称:%s, 应用类型为：%s' % (app_name, app_type))
+        logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
+
 
         # 1.测试， 2生产
         clusters_info_list = data.get('clusters', [])
         if not clusters_info_list:
             logging.warning('处理的应用名称:%s，未创建集群信息！请创建集群纳管主机' % app_name)
             return
-        if not app_port:
+        if not app_port_list:
             logging.error('处理的应用名称:%s，设置应用服务端口属性，多个端口以|分割开' % app_name)
             return
 
@@ -591,19 +583,22 @@ class AutoAppServiceNode():
         logging.info(u'处理的应用名称:%s, 生产环境主机IP列表：%s' % (app_name, pro_host_dict.keys()))
 
         # 处理生产环境
-        self.processingProServices(data, app_name, app_instanceId, app_port, pro_host_dict)
+        self.processingProServices(data, app_name, app_instanceId, app_port_list, pro_host_dict)
 
         # 处理测试环境
-        self.processingTestServices(data, app_name, app_instanceId, app_port, uat_host_dict)
+        self.processingTestServices(data, app_name, app_instanceId, app_port_list, uat_host_dict)
 
         # 添加服务特征
+        if len(app_port_list) > 1:
+            app_port = '|'.join(app_port_list)
+
         if not featureEnabled:
             # 表示服务节点开关关闭
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [
                              {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}],
                          "instanceId": app_instanceId}
-        elif int(featureRule[0]['value']) != int(app_port):
+        elif str(featureRule[0]['value']) != str(app_port):
             # 表示端口不一致
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [

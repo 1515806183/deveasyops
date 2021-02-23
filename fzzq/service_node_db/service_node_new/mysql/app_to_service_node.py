@@ -7,7 +7,7 @@
 @application:
 @file: service_node.py
 @time: 2021/1/26 12:17
-@desc:
+@desc: db应用，根据服务节点来上报数据到zcloud
 '''
 import time, requests, json, subprocess, re
 import threading, logging, sys, copy
