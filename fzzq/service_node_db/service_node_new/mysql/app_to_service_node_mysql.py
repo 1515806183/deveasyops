@@ -31,7 +31,7 @@ pool = Pool(20)
 cmdb_host = "10.163.128.232"
 # cmdb_host = "28.163.0.123"
 easyops_org = "3087"
-db_app_name = ''
+#db_app_name = 'VTM_DB'
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -352,7 +352,7 @@ class AutoAppServiceNode():
 
         params = {"query": {
             "type":
-                {"$eq": u"oracle"},
+                {"$eq": u"mysql"},
             # "name": {"$eq": u"BOP_DB"}
             # "name": {"$eq": u"db-test-app"}
         },
@@ -394,6 +394,7 @@ class AutoAppServiceNode():
         logging.info("共获取{}组数据,每组{}个元素.==>> 耗时:{}'s".format(len(result), n, round(time.time() - st, 3)))
         return result
 
+    # 生产环境-请求zcloud
     def processingProServices(self, data, app_name, app_instanceId, app_port_list, pro_host_dict):
         """
         :param data: 应用全量数据
@@ -411,9 +412,11 @@ class AutoAppServiceNode():
             for user in owner:
                 name = user.get('name')
                 nickname = user.get('nickname', '')
+                user_instanceId = user.get('instanceId')
                 if name in pro_add_existence:
                     continue
-                pro_user_list.append({"name": name, "nickname": nickname, "type": u"运维"})
+                pro_user_list.append(
+                    {"name": name, "nickname": nickname, "type": u"运维", "user_instanceId": user_instanceId})
         logging.info('处理的应用名称:%s, 运维负责人数量为:%s， 用户信息:%s' % (app_name, len(pro_user_list), pro_user_list))
 
         # 2. 生产环境， 组合请求zcloud数据
@@ -432,7 +435,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": pro_ip,
-                        "type": "oracle",
+                        "type": "mysql",
                         "port": int(port),
                         "USER": pro_user_list  # 应用负责人
                     }
@@ -453,12 +456,22 @@ class AutoAppServiceNode():
             # 4. 生产环境， 请求zcloud
             ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'],
                             params=pro_zcloud_data)
-            print '处理的应用名称:%s----------------------------------- %s' % (app_name, ret)
+
+            # ret = {u'msg': u'\u64cd\u4f5c\u6210\u529f', u'code': u'1000',
+            #        u'data': u'{"list":[{"APP":["VTM_DB"],"_SERVICENODE":[{"zcloud_service_node":[{"zcloud_binlog_dir":"","zcloud_vip_port":null,"zcloud_create_time":"","zcloud_base_dir":"","zcloud_error_log":"","zcloud_vip":"","zcloud_cluster_type":"","zcloud_pid_file":"","zcloud_slow_query_log":"","zcloud_innodb_buffer_pool_size":null,"zcloud_is_cluster":null,"zcloud_instance_id":"","zcloud_user_list":"","zcloud_update_time":"","zcloud_relation_node":"","zcloud_db_attribute":"","zcloud_data_dir":"","zcloud_is_open_binlog":null,"zcloud_cluster_role":"","zcloud_department":"","zcloud_db_version":""}],"port":3306,"app_instanceId":"5df712bb570fc","USER":[{"nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","type":"\u8fd0\u7ef4","user_instanceId":"5c35956e4cc7d"},{"nickname":"\u5218\u6b63","name":"liuzheng3","type":"\u8fd0\u7ef4","user_instanceId":"5db1573b744d0"}],"type":"mysql","DBAPP":"VTM_DB","agentIp":"10.166.20.82"}],"HOST":[{"owner":[{"instanceId":"5c35956e4cc7d","nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","_object_id":"USER"},{"instanceId":"5c359576a9c00","nickname":"\u77f3\u9510","name":"shirui","_object_id":"USER"},{"instanceId":"5db1573b744d0","nickname":"\u5218\u6b63","name":"liuzheng3","_object_id":"USER"}],"tenant_id":"a24c36da7f1d436d82fabfa61e2795b2","instanceId":"5dd266c616cd5","osSystem":"Linux","ip":"10.166.20.82","_environment":"pro","memo":"VTM_DB","osArchitecture":"x86_64","idc":"\u957f\u6c99\u4e91\u8c37\u6570\u636e\u4e2d\u5fc3","_object_id":"HOST","sn":"210200A00QH19A009953"}],"USER":[{"instanceId":"5c35956e4cc7d","nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","_object_id":"USER"},{"instanceId":"5c359576a9c00","nickname":"\u77f3\u9510","name":"shirui","_object_id":"USER"},{"instanceId":"5db1573b744d0","nickname":"\u5218\u6b63","name":"liuzheng3","_object_id":"USER"}]},{"APP":["VTM_DB"],"_SERVICENODE":[{"zcloud_service_node":[{"zcloud_binlog_dir":"","zcloud_vip_port":null,"zcloud_create_time":"","zcloud_base_dir":"","zcloud_error_log":"","zcloud_vip":"","zcloud_cluster_type":"","zcloud_pid_file":"","zcloud_slow_query_log":"","zcloud_innodb_buffer_pool_size":null,"zcloud_is_cluster":null,"zcloud_instance_id":"","zcloud_user_list":"","zcloud_update_time":"","zcloud_relation_node":"","zcloud_db_attribute":"","zcloud_data_dir":"","zcloud_is_open_binlog":null,"zcloud_cluster_role":"","zcloud_department":"","zcloud_db_version":""}],"port":3306,"app_instanceId":"5df712bb570fc","USER":[{"nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","type":"\u8fd0\u7ef4","user_instanceId":"5c35956e4cc7d"},{"nickname":"\u5218\u6b63","name":"liuzheng3","type":"\u8fd0\u7ef4","user_instanceId":"5db1573b744d0"}],"type":"mysql","DBAPP":"VTM_DB","agentIp":"10.166.20.81"}],"HOST":[{"owner":[{"instanceId":"5c35956e4cc7d","nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","_object_id":"USER"},{"instanceId":"5c359576a9c00","nickname":"\u77f3\u9510","name":"shirui","_object_id":"USER"},{"instanceId":"5db1573b744d0","nickname":"\u5218\u6b63","name":"liuzheng3","_object_id":"USER"}],"tenant_id":"a24c36da7f1d436d82fabfa61e2795b2","instanceId":"5dd266c616966","osSystem":"Linux","ip":"10.166.20.81","_environment":"pro","memo":"VTM_DB","osArchitecture":"x86_64","idc":"\u957f\u6c99\u4e91\u8c37\u6570\u636e\u4e2d\u5fc3","_object_id":"HOST","sn":"210200A00QH19A009952","poolName":"VTM_DB"}],"USER":[{"instanceId":"5c35956e4cc7d","nickname":"\u9ece\u5c0f\u5e73","name":"lixiaoping0","_object_id":"USER"},{"instanceId":"5c359576a9c00","nickname":"\u77f3\u9510","name":"shirui","_object_id":"USER"},{"instanceId":"5db1573b744d0","nickname":"\u5218\u6b63","name":"liuzheng3","_object_id":"USER"}]}]}'}
+            logging.info('处理的应用名称:%s, 生产环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
+
+            # 处理返回数据，存入cmdb
+            logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
+            examples_cleaning_list = self._deal_zcloud_pro_uat_data(ret, u"生产")
+            return examples_cleaning_list
 
         else:
             logging.info(u'处理的应用名称:%s, 生产环境主机没有节点信息' % app_name)
+            return []
             # --------------------------处理生产环境环境servernode信息 end
 
+    # 测试环境-请求zcloud
     def processingTestServices(self, data, app_name, app_instanceId, app_port_list, uat_host_dict):
         """
         :param data: 应用全量数据
@@ -476,9 +489,11 @@ class AutoAppServiceNode():
             for user in tester:
                 name = user.get('name')
                 nickname = user.get('nickname', '')
+                user_instanceId = user.get('instanceId')
                 if name in uat_add_existence:
                     continue
-                uat_user_list.append({"name": name, "nickname": nickname, "type": u"测试"})
+                uat_user_list.append(
+                    {"name": name, "nickname": nickname, "type": u"测试", "user_instanceId": user_instanceId})
         logging.info('处理的应用名称:%s, 测试负责人数量为:%s， 用户信息:%s' % (app_name, len(uat_user_list), uat_user_list))
 
         # 3. 测试环境，组合请求zcloud数据
@@ -496,7 +511,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": uat_ip,
-                        "type": "oracle",
+                        "type": "mysql",
                         "port": int(port),
                         "USER": uat_user_list  # 应用负责人
                     }
@@ -515,10 +530,98 @@ class AutoAppServiceNode():
 
             # 4. 测试环境，发送zcloud请求
             ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
-            print ret
+            logging.info('处理的应用名称:%s, 测试环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
+            # 处理返回数据，存入cmdb
+            logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
+            examples_cleaning_list = self._deal_zcloud_pro_uat_data(ret, u"测试")
+            return examples_cleaning_list
 
         else:
             logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
+            return []
+
+    # 清洗zcloud返回的数据，生产测试
+    def _deal_zcloud_pro_uat_data(self, ret, host_type):
+        zcloud_ret_data_list = json.loads(ret.get('data'))['list']
+
+        ret_node_list = []
+        for data in zcloud_ret_data_list:
+            app_name = data.get('APP')[0]
+            _SERVICENODE = data.get('_SERVICENODE')  # 节点列表
+            ret_host_list = data.get('HOST')  # 主机信息 list
+
+            # 处理主机信息以IP 和实例ID为字典
+            host_id_dict = {}
+            for host in ret_host_list:
+                host_instanceId = host.get('instanceId')
+                host_ip = host.get('ip')
+                if not host_id_dict.has_key(host_ip):
+                    host_id_dict[host_ip] = []
+                host_id_dict[host_ip].append(host_instanceId)
+
+            for server_node_data in _SERVICENODE:
+                try:
+                    # 应用用户信息 list
+                    ret_user_list = server_node_data.get('USER')
+
+                    # 处理负责人信息
+                    user_list = []
+                    for user in ret_user_list:
+                        user_list.append(user.get('user_instanceId'))
+                except Exception as e:
+                    logging.warning(u'处理的应用名称:%s, %s环境处理zcloud返回数据，其中用户信息为空' % (app_name, host_type))
+                    user_list = []
+
+                # 获取基本信息
+                app_instanceId = [server_node_data.get('app_instanceId')]
+                node_ip = server_node_data.get('agentIp')
+                node_port = str(server_node_data.get('port'))  # int
+                node_name = node_ip + ":" + node_port
+
+                zcloud_service_node = server_node_data.get('zcloud_service_node')  # zcloud返回的数据list
+                for node in zcloud_service_node:
+                    node['name'] = node_name
+                    node['agentIp'] = node_ip
+                    node['port'] = int(node_port)
+                    node['type'] = 'mysql'
+                    # 处理是否被zcloud纳管
+                    zcloud_instance_id = node.get('zcloud_instance_id')
+                    if zcloud_instance_id:
+                        node['existence'] = u"是"
+                        # 处理是否是集群
+                        zcloud_is_cluster = node.get('zcloud_is_cluster', 0)
+                        if zcloud_is_cluster:
+                            node['zcloud_is_cluster'] = u"是"
+                        else:
+                            node['zcloud_is_cluster'] = u"否"
+
+                        # 处理是否开发binlog
+                        zcloud_is_open_binlog = node.get('zcloud_is_open_binlog', 0)
+                        if zcloud_is_open_binlog:
+                            node['zcloud_is_open_binlog'] = u"是"
+                        else:
+                            node['zcloud_is_open_binlog'] = u"否"
+
+                    else:
+                        node['existence'] = u"否"
+
+                    # 处理关联关系
+                    node['host_type'] = host_type
+                    node['APP_MYSQL_SERVICE'] = app_instanceId
+                    node['HOST'] = host_id_dict.get(node_ip, [])
+                    node['USER'] = user_list
+
+                    # 增加服务节点发现规则
+                    node.update({"featurePriority": "500", "featureEnabled": "true",
+                                 "featureRule": [
+                                     {"key": "port", "method": "eq", "value": node_port, "label": u"监听端口"},
+                                     {"key": "agentIp", "label": "AgentIp", "method": "eq", "value": node_ip}
+
+                                 ]})
+                    ret_node_list.append(node)
+                    logging.info(u'处理的应用名称:%s, %s环境处理zcloud返回数据，即将入库的数据: %s' % (
+                        app_name, host_type, json.dumps(node, sort_keys=True, indent=2)))
+        return ret_node_list
 
     def gevent_data(self, data):
         """
@@ -542,7 +645,6 @@ class AutoAppServiceNode():
 
         logging.info('开始处理的应用名称:%s, 应用类型为：%s' % (app_name, app_type))
         logging.info('处理的应用名称:%s, 服务端口为:%s' % (app_name, app_port_list))
-
 
         # 1.测试， 2生产
         clusters_info_list = data.get('clusters', [])
@@ -583,78 +685,38 @@ class AutoAppServiceNode():
         logging.info(u'处理的应用名称:%s, 生产环境主机IP列表：%s' % (app_name, pro_host_dict.keys()))
 
         # 处理生产环境
-        self.processingProServices(data, app_name, app_instanceId, app_port_list, pro_host_dict)
+        examples_cleaning_list_pro = self.processingProServices(data, app_name, app_instanceId, app_port_list,
+                                                                pro_host_dict)
 
         # 处理测试环境
-        self.processingTestServices(data, app_name, app_instanceId, app_port_list, uat_host_dict)
+        examples_cleaning_list_uat = self.processingTestServices(data, app_name, app_instanceId, app_port_list,
+                                                                 uat_host_dict)
 
         # 添加服务特征
         if len(app_port_list) > 1:
             app_port = '|'.join(app_port_list)
 
-        if not featureEnabled:
+        if "true" != str(featureEnabled):
             # 表示服务节点开关关闭
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [
-                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}],
-                         "instanceId": app_instanceId}
+                             {"key": "port", "method": "eq", "value": app_port, "label": u"监听端口"}]}
         elif str(featureRule[0]['value']) != str(app_port):
             # 表示端口不一致
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [
-                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}],
-                         "instanceId": app_instanceId}
+                             {"key": "port", "method": "eq", "value": app_port, "label": u"监听端口"}]}
         else:
             node_auto = False
 
-        return node_auto
+        # 更新应用的服务节点规则
+        if node_auto:
+            url = "http://{HOST}/object/APP/instance/{app_id}".format(HOST=cmdb_host, app_id=app_instanceId)
+            code, ret = http_post('PUT', url, node_auto)
+            logging.info(u'处理的应用名称:%s, 更新应用的服务节点规则： %s' % (app_name, ret))
 
-        # # pprint.pprint(ret, stream=None, indent=2, width=80)
-        # zcloud_SERVICENODE = json.loads(ret.get('data'))['list'][0]['_SERVICENODE']
-        #
-        # # 类型分类
-        # node_dict = {"mysql": []}
-        # for node in zcloud_SERVICENODE:
-        #     node_type = node.get('type')
-        #     node_ip = node.get('agentIp')
-        #     node_port = str(node.get('port'))
-        #     node_name = node_ip + ":" + node_port
-        #     node['name'] = node_name
-        #     node['HOST'] = [host_dict.get(node_ip, [])]  # 主机
-        #
-        #     node.update(
-        #         {"featurePriority": "500", "featureEnabled": "true",
-        #          "featureRule": [{"key": "agentIp", "method": "eq", "value": node_ip, "label": "AgentIp"},
-        #                          {"key": "port", "method": "eq", "value": node_port, "label": "监听端口"}]}
-        #     )
-        #
-        #     # 处理是否被zcloud纳管
-        #     zcloud_instance_id = node.get('zcloud_instance_id')
-        #     if zcloud_instance_id:
-        #         node['existence'] = u"是"
-        #         # 处理是否是集群
-        #         zcloud_is_cluster = node.get('zcloud_is_cluster', 0)
-        #         if zcloud_is_cluster:
-        #             node['zcloud_is_cluster'] = u"是"
-        #         else:
-        #             node['zcloud_is_cluster'] = u"否"
-        #
-        #         # 处理是否开发binlog
-        #         zcloud_is_open_binlog = node.get('zcloud_is_open_binlog', 0)
-        #         if zcloud_is_open_binlog:
-        #             node['zcloud_is_open_binlog'] = u"是"
-        #         else:
-        #             node['zcloud_is_open_binlog'] = u"否"
-        #
-        #     else:
-        #         node['existence'] = u"否"
-        #
-        #     if node_type == 'mysql':
-        #         node['APP_MYSQL_SERVICE'] = [app_instanceId]  # 关联应用
-        #         node_dict["mysql"].append(
-        #             node
-        #         )
-        # return node_dict
+        ret_data = examples_cleaning_list_pro + examples_cleaning_list_uat
+        return ret_data
 
     def dealdata(self, content):
         res = []
@@ -663,16 +725,16 @@ class AutoAppServiceNode():
         gevent.joinall(res)
 
         data = {
-            "keys": ['instanceId'],
+            "keys": ['name'],
             "datas": []
         }
 
         for i, g in enumerate(res):
-            if g.value:
-                data['datas'].append(g.value)
+            if g.value:  # list
+                data['datas'] += g.value
 
         if len(data['datas']):
-            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="APP")
+            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
             time.sleep(1)
             res = http_post('repo', url, data)
             logging.info('Return of inserted data: %s' % res)
