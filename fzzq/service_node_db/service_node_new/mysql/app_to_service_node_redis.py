@@ -10,7 +10,7 @@
 @desc: db应用，根据服务端口来上报数据到zcloud
 '''
 import time, requests, json, subprocess, re
-import threading, logging, sys, copy, datetime
+import threading, logging, sys, copy
 from Queue import Queue
 from gevent import monkey
 import gevent
@@ -31,7 +31,7 @@ pool = Pool(20)
 cmdb_host = "10.163.128.232"
 # cmdb_host = "28.163.0.123"
 easyops_org = "3087"
-db_app_name = 'BOP_DB'
+db_app_name = '恒生PB投资交易管理系统_交易_DB'
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -352,7 +352,7 @@ class AutoAppServiceNode():
 
         params = {"query": {
             "type":
-                {"$eq": u"oracle"},
+                {"$eq": u"redis"},
             # "name": {"$eq": u"BOP_DB"}
             # "name": {"$eq": u"db-test-app"}
         },
@@ -435,7 +435,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": pro_ip,
-                        "type": "oracle",
+                        "type": "redis",
                         "port": int(port),
                         "USER": pro_user_list  # 应用负责人
                     }
@@ -454,20 +454,12 @@ class AutoAppServiceNode():
                     app_name, json.dumps(pro_zcloud_data, sort_keys=True, indent=2)))
 
             # 4. 生产环境， 请求zcloud
-            try:
-                ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'],
-                                params=pro_zcloud_data)
-                logging.info(
-                    '处理的应用名称:%s, 生产环境zcloud返回的zcloud数据----------------------------------- %s' % (app_name, ret))
+            ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'],
+                            params=pro_zcloud_data)
+            logging.info('处理的应用名称:%s, 生产环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
 
-                logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
-                examples_cleaning_list = self._deal_zcloud_pro_uat_data(pro_zcloud_data, app_name, ret, u"生产")
-            # 考虑zcloud连接失败
-            except Exception as e:
-                examples_cleaning_list = self._zcloud_error_init_cmdb_data(pro_zcloud_data, u'生产')
-                logging.info(
-                    '处理的应用名称:%s, 生产环境请求zcloud数据连接失败，cmdb进行初始化工作完成，结果为:%s ' % (app_name, examples_cleaning_list))
-
+            logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
+            examples_cleaning_list = self._deal_zcloud_pro_uat_data(app_name, ret, u"生产")
             return examples_cleaning_list
 
         else:
@@ -515,7 +507,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": uat_ip,
-                        "type": "oracle",
+                        "type": "redis",
                         "port": int(port),
                         "USER": uat_user_list  # 应用负责人
                     }
@@ -533,33 +525,18 @@ class AutoAppServiceNode():
                 '处理的应用名称:%s, 测试环境请求zcloud数据: %s' % (app_name, json.dumps(uat_zcloud_data, sort_keys=True, indent=2)))
 
             # 4. 测试环境，发送zcloud请求
-            try:
-                ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
-                logging.info(
-                    '处理的应用名称:%s, 测试环境zcloud返回的zcloud数据----------------------------------- %s' % (app_name, ret))
+            ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
+            logging.info('处理的应用名称:%s, 测试环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
 
-                logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
-                examples_cleaning_list = self._deal_zcloud_pro_uat_data(uat_zcloud_data, app_name, ret, u"测试")
-
-            # 考虑zcloud连接失败
-            except Exception as e:
-                examples_cleaning_list = self._zcloud_error_init_cmdb_data(uat_zcloud_data, u'测试')
-                logging.info(
-                    '处理的应用名称:%s, 测试环境请求zcloud数据连接失败，cmdb进行了初始化工作完成，结果为:%s ' % (app_name, examples_cleaning_list))
+            logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
+            examples_cleaning_list = self._deal_zcloud_pro_uat_data(app_name, ret, u"测试")
             return examples_cleaning_list
 
         else:
             logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
             return []
 
-    def _deal_zcloud_pro_uat_data(self, cmdb_repo_data, app_name, ret, host_type):
-        """
-        :param cmdb_repo_data: cmdb请求zcloud数据
-        :param app_name: 应用名称
-        :param ret: zcloud返回的数据
-        :param host_type: 环境类型，生产，测试
-        :return:
-        """
+    def _deal_zcloud_pro_uat_data(self,app_name, ret, host_type):
         ret_node_list = []
         try:
             zcloud_ret_data_list = json.loads(ret.get('data'))['list']
@@ -612,41 +589,8 @@ class AutoAppServiceNode():
                             else:
                                 node['zcloud_is_cluster'] = u"否"
 
-                            try:
-                                # # 处理zcloud_config_info配置信息
-                                # # 服务名
-                                # # 监听列表
-                                # # 监听日志路径
-                                zcloud_config_info = node.get('zcloud_config_info', [])
-                                new_zcloud_config_info = []  # 去掉监听列表的新配置文件
-                                listener_list = []
-                                if zcloud_config_info:
-                                    for config in zcloud_config_info:
-                                        # {u'value': (u'SYS$BACKGROUND', u'SYS$USERS', u'icsdb3'), u'key': u'service_name', u'label': u'\u670d\u52a1\u540d'}
-                                        key = config.get('key')
-                                        value = config.get('value', [])
-                                        if key == 'listener_list':
-                                            listener_list = value
-                                            #  'value': [{
-                                            # 					u 'port': u '1521',
-                                            # 					u 'listen_name': u 'LISTENER'
-                                            # 				}]
-                                            continue
-
-                                        value = config.get('value', [])
-                                        config['value'] = ",".join(value)
-                                        new_zcloud_config_info.append(config)
-                                    node['zcloud_config_info'] = new_zcloud_config_info
-                                    node['listener_list'] = listener_list
-
-                            except Exception as e:
-                                logging.error(u'处理的应用名称:%s, %s环境处理zcloud返回数据 ' % (app_name, e))
-
                         else:
                             node['existence'] = u"否"
-                            # 更新时间
-                            now_time = datetime.datetime.now()
-                            node['zcloud_update_time'] = datetime.datetime.strftime(now_time, '%Y-%m-%d %H:%M:%S')
 
                         # 处理关联关系
                         node['host_type'] = host_type
@@ -662,68 +606,13 @@ class AutoAppServiceNode():
 
                                      ]})
 
-                        ret_node_list.append(node)
                         logging.info(u'处理的应用名称:%s, %s环境处理zcloud返回数据，即将入库的数据: %s' % (
                             app_name, host_type, json.dumps(node, sort_keys=True, indent=2)))
-
-        # 考虑zcloud返回数据失败
+                        ret_node_list.append(node)
         except Exception as e:
             logging.error('处理的应用名称:%s, 清理zcloud数据错误%s--------ret:%s' % (app_name, e, ret))
-            ret_node_list = self._zcloud_error_init_cmdb_data(cmdb_repo_data, host_type)
 
         return ret_node_list
-
-    def _zcloud_error_init_cmdb_data(self, cmdb_repo_data, host_type):
-        """
-        zcloud连接失败，或者返回数据异常，cmdb需要初始化数据
-        :param cmdb_repo_data: cmdb请求zcloud所有数据
-        :param host_type: 环境类型
-        :return:
-        """
-        ret_list = []
-        try:
-            cmdb_repo_data_list = cmdb_repo_data.get('jsonStr')['list']
-            for ret in cmdb_repo_data_list:
-                data = {}
-                service_node_list = ret.get('_SERVICENODE')
-                for node in service_node_list:
-                    app_instanceId = node.get('app_instanceId')
-                    agentIp = node.get('agentIp')
-                    port = node.get('port')
-                    type = node.get('type')
-                    name = agentIp + ":" + str(port)
-                    user_list = node.get('USER')
-                    user_instanceId_list = [user.get('user_instanceId', '') for user in user_list]
-                    data['name'] = name
-                    data['type'] = type
-                    data['agentIp'] = agentIp
-                    data['USER'] = user_instanceId_list
-                    data['APP_ORACLE_SERVICE'] = app_instanceId
-                    data['existence'] = u'否'
-
-                    data.update({"featurePriority": "500", "featureEnabled": "true",
-                                 "featureRule": [
-                                     {"key": "port", "method": "eq", "value": port, "label": u"监听端口"},
-                                     {"key": "agentIp", "label": "AgentIp", "method": "eq", "value": agentIp}
-
-                                 ]})
-
-                host_info = ret.get('HOST')
-                host_instanceId_list = [host.get('instanceId', '') for host in host_info]
-                data['HOST'] = host_instanceId_list
-                data['host_type'] = host_type
-
-                # 更新时间
-                now_time = datetime.datetime.now()
-                data['zcloud_update_time'] = datetime.datetime.strftime(now_time, '%Y-%m-%d %H:%M:%S')
-
-                ret_list.append(data)
-
-        # 处理数据失败
-        except Exception as e:
-            logging.error(e)
-
-        return ret_list
 
     def gevent_data(self, data):
         """
