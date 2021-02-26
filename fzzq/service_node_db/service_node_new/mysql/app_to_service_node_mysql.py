@@ -31,7 +31,8 @@ pool = Pool(20)
 
 cmdb_host = "10.163.128.232"
 easyops_org = "3087"
-db_app_name = 'VTM_DB'
+# db_app_name = 'VTM_DB'
+# del_day = 0
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -635,5 +636,104 @@ class AutoAppServiceNode():
                     t.join()
 
 
+# 清理僵尸数据
+class CleanUpData():
+    def __init__(self):
+        logging.info('------------------------开始清理僵尸数据，清理大于 %s 天的数据------------------------' % del_day)
+        self.data = self.getData()  # 现网数据
+        self.task()
+
+    def getAppNodeInfo(self):
+        """
+        获取 应用信息,服务节点信息，主机信息
+        :return:
+        """
+        url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
+
+        params = {"query": {},
+
+                  "fields": {
+                      "name": True,
+                      "zcloud_update_time": True
+                  }}
+
+        if db_app_name:
+            params['query']['APP_MYSQL_SERVICE.name'] = {"$eq": db_app_name}
+        dataList = http_post('POSTS', url, params)
+        logging.info('获取%s应用关联的数据数量为:%s' % (db_app_name, len(dataList)))
+
+        if len(dataList) == 0:
+            logging.warning('There is no instance data in the CMDB platform {MODELE}'.format(MODELE="APP"))
+        return dataList
+
+    def getData(self):
+        st = time.time()
+        # 获取现网服务数据
+        self.dataList = self.getAppNodeInfo()  # 获取应用信息
+
+        result = [self.dataList[i:i + n] for i in range(0, len(self.dataList), n)]
+
+        logging.info("共获取{}组数据,每组{}个元素.==>> 耗时:{}'s".format(len(result), n, round(time.time() - st, 3)))
+        return result
+
+    def gevent_data(self, data):
+        """
+        :param data:  每个应用数据
+        :return:
+        """
+        # print threading.enumerate() # 获取线程数量
+        now_time = datetime.datetime.now()
+        zcloud_update_time = data.get("zcloud_update_time")
+        zcloud_update_time = datetime.datetime.strptime(zcloud_update_time, "%Y-%m-%d %H:%M:%S")
+        diff_day = (now_time - zcloud_update_time).days
+        # 表示改条实例del_day内没有汇报过数据
+        if diff_day >= del_day:
+            instanceId = data.get('instanceId')
+            name = data.get('name')
+            logging.info('实例名称:%s, %s 天没汇报数据，将被删除' % (name, str(diff_day)))
+            return instanceId
+
+    def dealdata(self, content):
+        res = []
+        for ip in content:
+            res.append(pool.spawn(self.gevent_data, ip))
+        gevent.joinall(res)
+
+        del_instanceIds_list = []
+        for i, g in enumerate(res):
+            if g.value:  # list
+                del_instanceIds_list.append(g.value)
+
+        if del_instanceIds_list:
+            del_instanceIds_str = ";".join(del_instanceIds_list)
+            url = "http://{HOST}/object/{ID}/instance/_batch?instanceIds={DEL_STR}".format(HOST=cmdb_host,
+                                                                                           ID="MYSQL_SERVICE",
+                                                                                           DEL_STR=del_instanceIds_str)
+            time.sleep(1)
+            res = http_post('DELETE', url)
+            logging.info('Return of inserted data: %s' % res)
+        else:
+            logging.info('There is no data to insert')
+
+    # 开启多线程任务
+    def task(self):
+        # 设定最大队列数和线程数
+        q = Queue(maxsize=10)
+        while self.data:
+            content = self.data.pop()
+            t = threading.Thread(target=self.dealdata, args=(content,))
+            q.put(t)
+            if (q.full() == True) or (len(self.data)) == 0:
+                thread_list = []
+                while q.empty() == False:
+                    t = q.get()
+                    thread_list.append(t)
+                    t.start()
+                for t in thread_list:
+                    t.join()
+
+
 if __name__ == '__main__':
     AutoAppServiceNode()
+    # 清理垃圾数据
+    CleanUpData()
