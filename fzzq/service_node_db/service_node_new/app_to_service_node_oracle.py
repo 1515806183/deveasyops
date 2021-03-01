@@ -9,9 +9,8 @@
 @time: 2021/1/26 12:17
 @desc: db应用，根据服务端口来上报数据到zcloud
 '''
-import datetime
 import time, requests, json, subprocess, re
-import threading, logging, sys, copy
+import threading, logging, sys, copy, datetime
 from Queue import Queue
 from gevent import monkey
 import gevent
@@ -25,14 +24,14 @@ monkey.patch_all()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
                     datefmt='%a %d %b %Y %H:%M:%S')
 
-# 携程池
+# 携程池-开始清理僵尸数据，清理大于 2 天的数据
 n = 20  # 按每1000行数据为最小单位拆分成嵌套列表，可以根据实际情况拆分
 pool = Pool(20)
 
 cmdb_host = "10.163.128.232"
 easyops_org = "3087"
-# db_app_name = 'VTM_DB'
-# del_day = 0
+db_app_name = '新意资金结算系统_DB'
+del_day = 2
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -89,6 +88,9 @@ def http_post(method, url, params=None, headers=cmdb_headers):
                         ret_list += one_ret
                     else:
                         break
+                else:
+                    logging.error("code: %s, url: %s" % (str(r.status_code), url))
+                    break
             return ret_list
         except Exception as e:
             return []
@@ -124,7 +126,7 @@ def http_post(method, url, params=None, headers=cmdb_headers):
 
     elif method in ('DELETE', 'delete'):
         try:
-            r = requests.delete(url, headers=headers, data=json.dumps(params), timeout=60)
+            r = requests.delete(url, headers=headers, timeout=60)
             if r.status_code == 200:
                 data = json.loads(r.content)
                 return data
@@ -151,7 +153,7 @@ class AutoAppServiceNode():
 
         params = {"query": {
             "type":
-                {"$eq": u"mysql"},
+                {"$eq": u"oracle"},
             # "name": {"$eq": u"BOP_DB"}
             # "name": {"$eq": u"db-test-app"}
         },
@@ -178,7 +180,6 @@ class AutoAppServiceNode():
             params['query']['name'] = {"$eq": db_app_name}
         dataList = http_post('POSTS', url, params)
         logging.info('获取DB应用数量为:%s' % len(dataList))
-
         if len(dataList) == 0:
             logging.warning('There is no instance data in the CMDB platform {MODELE}'.format(MODELE="APP"))
         return dataList
@@ -234,7 +235,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": pro_ip,
-                        "type": "mysql",
+                        "type": "oracle",
                         "port": int(port),
                         "USER": pro_user_list  # 应用负责人
                     }
@@ -256,13 +257,12 @@ class AutoAppServiceNode():
             try:
                 ret = http_post('POST', http_zcloud_url['pro'], headers=zcloud_headers['pro'],
                                 params=pro_zcloud_data)
+                logging.info(
+                    '处理的应用名称:%s, 生产环境zcloud返回的zcloud数据----------------------------------- %s' % (app_name, ret))
 
-                logging.info('处理的应用名称:%s, 生产环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
-
-                # 处理返回数据，存入cmdb
                 logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
                 examples_cleaning_list = self._deal_zcloud_pro_uat_data(pro_zcloud_data, app_name, ret, u"生产")
-            # zcloud连接超时，cmdb初始化数据
+            # 考虑zcloud连接失败
             except Exception as e:
                 examples_cleaning_list = self._zcloud_error_init_cmdb_data(pro_zcloud_data, u'生产')
                 logging.info(
@@ -315,7 +315,7 @@ class AutoAppServiceNode():
                         "app_instanceId": app_instanceId,
                         "DBAPP": app_name,
                         "agentIp": uat_ip,
-                        "type": "mysql",
+                        "type": "oracle",
                         "port": int(port),
                         "USER": uat_user_list  # 应用负责人
                     }
@@ -335,10 +335,12 @@ class AutoAppServiceNode():
             # 4. 测试环境，发送zcloud请求
             try:
                 ret = http_post('POST', http_zcloud_url['test'], headers=zcloud_headers['test'], params=uat_zcloud_data)
-                logging.info('处理的应用名称:%s, 测试环境返回的zcloud数据----------------------------------- %s' % (app_name, ret))
-                # 处理返回数据，存入cmdb
+                logging.info(
+                    '处理的应用名称:%s, 测试环境zcloud返回的zcloud数据----------------------------------- %s' % (app_name, ret))
+
                 logging.info('-----------------处理的应用名称:%s, 开始处理zcloud返回数据------------------' % app_name)
                 examples_cleaning_list = self._deal_zcloud_pro_uat_data(uat_zcloud_data, app_name, ret, u"测试")
+
             # 考虑zcloud连接失败
             except Exception as e:
                 examples_cleaning_list = self._zcloud_error_init_cmdb_data(uat_zcloud_data, u'测试')
@@ -350,7 +352,6 @@ class AutoAppServiceNode():
             logging.info(u'处理的应用名称:%s, 测试环境主机没有节点信息' % app_name)
             return []
 
-    # 清洗zcloud返回的数据，生产测试
     def _deal_zcloud_pro_uat_data(self, cmdb_repo_data, app_name, ret, host_type):
         """
         :param cmdb_repo_data: cmdb请求zcloud数据
@@ -362,7 +363,6 @@ class AutoAppServiceNode():
         ret_node_list = []
         try:
             zcloud_ret_data_list = json.loads(ret.get('data'))['list']
-
             for data in zcloud_ret_data_list:
                 _SERVICENODE = data.get('_SERVICENODE')  # 节点列表
                 ret_host_list = data.get('HOST')  # 主机信息 list
@@ -400,7 +400,7 @@ class AutoAppServiceNode():
                         node['name'] = node_name
                         node['agentIp'] = node_ip
                         node['port'] = int(node_port)
-                        node['type'] = 'mysql'
+                        node['type'] = 'oracle'
                         # 处理是否被zcloud纳管
                         zcloud_instance_id = node.get('zcloud_instance_id')
                         if zcloud_instance_id:
@@ -412,12 +412,35 @@ class AutoAppServiceNode():
                             else:
                                 node['zcloud_is_cluster'] = u"否"
 
-                            # 处理是否开发binlog
-                            zcloud_is_open_binlog = node.get('zcloud_is_open_binlog', 0)
-                            if zcloud_is_open_binlog:
-                                node['zcloud_is_open_binlog'] = u"是"
-                            else:
-                                node['zcloud_is_open_binlog'] = u"否"
+                            try:
+                                # # 处理zcloud_config_info配置信息
+                                # # 服务名
+                                # # 监听列表
+                                # # 监听日志路径
+                                zcloud_config_info = node.get('zcloud_config_info', [])
+                                new_zcloud_config_info = []  # 去掉监听列表的新配置文件
+                                listener_list = []
+                                if zcloud_config_info:
+                                    for config in zcloud_config_info:
+                                        # {u'value': (u'SYS$BACKGROUND', u'SYS$USERS', u'icsdb3'), u'key': u'service_name', u'label': u'\u670d\u52a1\u540d'}
+                                        key = config.get('key')
+                                        value = config.get('value', [])
+                                        if key == 'listener_list':
+                                            listener_list = value
+                                            #  'value': [{
+                                            # 					u 'port': u '1521',
+                                            # 					u 'listen_name': u 'LISTENER'
+                                            # 				}]
+                                            continue
+
+                                        value = config.get('value', [])
+                                        config['value'] = ",".join(value)
+                                        new_zcloud_config_info.append(config)
+                                    node['zcloud_config_info'] = new_zcloud_config_info
+                                    node['listener_list'] = listener_list
+
+                            except Exception as e:
+                                logging.error(u'处理的应用名称:%s, %s环境处理zcloud返回数据 ' % (app_name, e))
 
                         else:
                             node['existence'] = u"否"
@@ -427,7 +450,7 @@ class AutoAppServiceNode():
 
                         # 处理关联关系
                         node['host_type'] = host_type
-                        node['APP_MYSQL_SERVICE'] = app_instanceId
+                        node['APP_ORACLE_SERVICE'] = app_instanceId
                         node['HOST'] = host_id_dict.get(node_ip, [])
                         node['USER'] = user_list
 
@@ -438,10 +461,12 @@ class AutoAppServiceNode():
                                          {"key": "agentIp", "label": "AgentIp", "method": "eq", "value": node_ip}
 
                                      ]})
+
                         ret_node_list.append(node)
                         logging.info(u'处理的应用名称:%s, %s环境处理zcloud返回数据，即将入库的数据: %s' % (
                             app_name, host_type, json.dumps(node, sort_keys=True, indent=2)))
-        # 考虑zcloudf返回数据失败情况
+
+        # 考虑zcloud返回数据失败
         except Exception as e:
             logging.error('处理的应用名称:%s, 清理zcloud数据错误%s--------ret:%s' % (app_name, e, ret))
             ret_node_list = self._zcloud_error_init_cmdb_data(cmdb_repo_data, host_type)
@@ -573,16 +598,16 @@ class AutoAppServiceNode():
         if len(app_port_list) > 1:
             app_port = '|'.join(app_port_list)
 
-        if "true" != str(featureEnabled):
+        if not featureEnabled:
             # 表示服务节点开关关闭
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [
-                             {"key": "port", "method": "eq", "value": app_port, "label": u"监听端口"}]}
+                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}]}
         elif str(featureRule[0]['value']) != str(app_port):
             # 表示端口不一致
             node_auto = {"featurePriority": "500", "featureEnabled": "true",
                          "featureRule": [
-                             {"key": "port", "method": "eq", "value": app_port, "label": u"监听端口"}]}
+                             {"key": "port", "method": "eq", "value": app_port, "label": "监听端口"}]}
         else:
             node_auto = False
 
@@ -611,7 +636,7 @@ class AutoAppServiceNode():
                 data['datas'] += g.value
 
         if len(data['datas']):
-            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
+            url = "http://{HOST}/object/{ID}/instance/_import".format(HOST=cmdb_host, ID="ORACLE_SERVICE")
             time.sleep(1)
             res = http_post('repo', url, data)
             logging.info('Return of inserted data: %s' % res)
@@ -648,7 +673,7 @@ class CleanUpData():
         获取 应用信息,服务节点信息，主机信息
         :return:
         """
-        url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="MYSQL_SERVICE")
+        url = "http://{HOST}/object/{ID}/instance/_search".format(HOST=cmdb_host, ID="ORACLE_SERVICE")
 
         params = {"query": {},
 
@@ -658,7 +683,8 @@ class CleanUpData():
                   }}
 
         if db_app_name:
-            params['query']['APP_MYSQL_SERVICE.name'] = {"$eq": db_app_name}
+            params['query']['APP_ORACLE_SERVICE.name'] = {"$eq": db_app_name}
+
         dataList = http_post('POSTS', url, params)
         logging.info('获取%s应用关联的数据数量为:%s' % (db_app_name, len(dataList)))
 
@@ -707,7 +733,7 @@ class CleanUpData():
         if del_instanceIds_list:
             del_instanceIds_str = ";".join(del_instanceIds_list)
             url = "http://{HOST}/object/{ID}/instance/_batch?instanceIds={DEL_STR}".format(HOST=cmdb_host,
-                                                                                           ID="MYSQL_SERVICE",
+                                                                                           ID="ORACLE_SERVICE",
                                                                                            DEL_STR=del_instanceIds_str)
             time.sleep(1)
             res = http_post('DELETE', url)
