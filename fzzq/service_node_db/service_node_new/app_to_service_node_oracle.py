@@ -30,8 +30,8 @@ pool = Pool(20)
 
 cmdb_host = "10.163.128.232"
 easyops_org = "3087"
-db_app_name = '新意资金结算系统_DB'
-del_day = 2
+# db_app_name = '新意资金结算系统_DB'
+# del_day = 2
 
 cmdb_headers = {
     'host': "cmdb_resource.easyops-only.com",
@@ -237,7 +237,8 @@ class AutoAppServiceNode():
                         "agentIp": pro_ip,
                         "type": "oracle",
                         "port": int(port),
-                        "USER": pro_user_list  # 应用负责人
+                        "USER": pro_user_list,  # 应用负责人
+                        "ZCLOUD": u"生产环境"
                     }
                     node_info_list.append(node_info)
 
@@ -317,7 +318,8 @@ class AutoAppServiceNode():
                         "agentIp": uat_ip,
                         "type": "oracle",
                         "port": int(port),
-                        "USER": uat_user_list  # 应用负责人
+                        "USER": uat_user_list,  # 应用负责人
+                        "ZCLOUD": u"测试环境"
                     }
                     node_info_list.append(node_info)
 
@@ -578,10 +580,10 @@ class AutoAppServiceNode():
             cluster_type = host_info.get('_deviceList_CLUSTER', [])[0]['type']  # 获取集群类型
             host_info.pop('_deviceList_CLUSTER')  # 删除集群信息
             if cluster_type == "1":
-                host_info['_environment'] = 'test'
+                host_info['_environment'] = u'测试环境'
                 uat_host_dict.update({host_ip: host_info})
             elif cluster_type == "2":
-                host_info['_environment'] = 'pro'
+                host_info['_environment'] = u'生产环境'
                 pro_host_dict.update({host_ip: host_info})
         logging.info(u'处理的应用名称:%s, 测试环境主机IP列表：%s' % (app_name, uat_host_dict.keys()))
         logging.info(u'处理的应用名称:%s, 生产环境主机IP列表：%s' % (app_name, pro_host_dict.keys()))
